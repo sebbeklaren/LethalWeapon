@@ -14,9 +14,15 @@ namespace LethalWeapon
 
         public Player(Texture2D texture, Vector2 position): base (texture, position)
         {
-
+            this.texture = texture;
+            this.position = position;
         }
 
-        
+        public override void Draw(SpriteBatch sb)
+        {
+            base.Draw(sb);
+        }
+
+
     }
 }
