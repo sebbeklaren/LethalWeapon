@@ -11,6 +11,7 @@ namespace LethalWeapon
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        int hej;
 
         public Game1()
         {
