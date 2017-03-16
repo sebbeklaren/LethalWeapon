@@ -7,10 +7,13 @@ namespace LethalWeapon
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
+    
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public int number;
 
         public Game1()
         {
