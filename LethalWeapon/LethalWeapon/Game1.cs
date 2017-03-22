@@ -10,6 +10,7 @@ namespace LethalWeapon
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        GameObject map;
       
 
         public Game1()
@@ -32,6 +33,7 @@ namespace LethalWeapon
            
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load <Texture2D>("Elderly_Dragon_Head_Gray"), new Vector2(100, 100));
+            map = new GameObject(Content.Load<Texture2D>("desert_map"), Vector2.Zero);
             
 
         }
@@ -58,6 +60,7 @@ namespace LethalWeapon
 
          
             spriteBatch.Begin();
+            map.Draw(spriteBatch);
             player.Draw(spriteBatch);
             spriteBatch.End();
             
