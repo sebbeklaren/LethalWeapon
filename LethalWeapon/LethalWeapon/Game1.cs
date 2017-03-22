@@ -21,7 +21,7 @@ namespace LethalWeapon
    
         protected override void Initialize()
         {
-           
+           //Hej
 
             base.Initialize();
         }
