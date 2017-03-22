@@ -49,7 +49,7 @@ namespace LethalWeapon
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-          
+            player.Update();
 
             base.Update(gameTime);
         }
