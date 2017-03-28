@@ -14,16 +14,18 @@ namespace LethalWeapon
     {
         protected Texture2D texture;
         protected Vector2 position;
+        protected Rectangle sourceRect;
 
-        public GameObject(Texture2D texture, Vector2 position)
+        public GameObject(Texture2D texture, Vector2 position, Rectangle sourceRect)
         {
             this.texture = texture;
             this.position = position;
+            this.sourceRect = sourceRect;
         }
 
         public virtual void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, Color.White);
+            sb.Draw(texture, position, sourceRect ,Color.White);
         }
     }
 }

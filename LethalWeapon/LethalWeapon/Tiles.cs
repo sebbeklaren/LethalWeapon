@@ -18,8 +18,8 @@ namespace LethalWeapon
             get { return wall; }
         }
 
-        public Tiles(Texture2D texture, Vector2 position, Rectangle source_rect, bool wall)
-            : base(texture, position)
+        public Tiles(Texture2D texture, Vector2 position, Rectangle sourceRect, bool wall)
+            : base(texture, position, sourceRect)
         {
             this.wall = wall;
         }

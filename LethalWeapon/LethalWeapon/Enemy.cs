@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +18,8 @@ namespace LethalWeapon
         protected bool isMoving;
         protected int distanceLimit;
 
-        public Enemy(Texture2D texture, Vector2 position)
-            : base(texture, position)
+        public Enemy(Texture2D texture, Vector2 position, Rectangle sourceRect)
+            : base(texture, position, sourceRect)
         {
             this.texture = texture;
             this.position = position;

@@ -13,7 +13,7 @@ namespace LethalWeapon
     {
         
 
-        public Player(Texture2D texture, Vector2 position): base (texture, position)
+        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect): base (texture, position, sourceRect)
         {
             this.texture = texture;
             this.position = position;
