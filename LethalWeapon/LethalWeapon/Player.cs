@@ -23,11 +23,11 @@ namespace LethalWeapon
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 position.Y -= 2;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 position.Y += 2;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 position.X -= 2;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 position.X += 2;
         }
 
