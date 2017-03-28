@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace LethalWeapon
 {
-    class GameObject
+    public class GameObject
     {
-        public Texture2D texture;
-        public Vector2 position;
+        protected Texture2D texture;
+        protected Vector2 position;
 
         public GameObject(Texture2D texture, Vector2 position)
         {
