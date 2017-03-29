@@ -10,7 +10,6 @@ namespace LethalWeapon
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
-        //GameObject map;
         Enemy enemy;
         LevelManager level;
         Rectangle sourceRect;
@@ -24,8 +23,6 @@ namespace LethalWeapon
    
         protected override void Initialize()
         {
-           //Hej
-
             base.Initialize();
         }
 
@@ -35,7 +32,6 @@ namespace LethalWeapon
            
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load <Texture2D>(@"Elderly_Dragon_Head_Gray"), new Vector2(100, 100), sourceRect);
-            //map = new GameObject(Content.Load<Texture2D>(@"desert_map"), Vector2.Zero);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             level = new LevelManager(Content);
             IsMouseVisible = true;
@@ -66,7 +62,6 @@ namespace LethalWeapon
          
             spriteBatch.Begin();
             level.Draw(spriteBatch);
-            //map.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
             

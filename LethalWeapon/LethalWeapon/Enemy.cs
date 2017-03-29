@@ -36,7 +36,7 @@ namespace LethalWeapon
 
         public override void Draw(SpriteBatch sb)
         {
-            base.Draw(sb);
+            sb.Draw(texture, position, Color.White);
         }
 
         private void Movement()
