@@ -11,7 +11,7 @@ namespace LethalWeapon
 {
     class Player : GameObject
     {
-        
+        float speed = 2.0f;
 
         public Player(Texture2D texture, Vector2 position, Rectangle sourceRect): base (texture, position, sourceRect)
         {
@@ -22,13 +22,13 @@ namespace LethalWeapon
         public void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                position.Y -= 2;
+                position.Y -= speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                position.Y += 2;
+                position.Y += speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                position.X -= 2;
+                position.X -= speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                position.X += 2;
+                position.X += speed;
         }
 
         public override void Draw(SpriteBatch sb)
