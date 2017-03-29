@@ -17,6 +17,10 @@ namespace LethalWeapon
         protected int direction;
         protected bool isMoving;
         protected int distanceLimit;
+        protected int aggroRange;
+        protected bool enemyIsNearPlayer;
+        protected bool hasCorrectStartingPosition;
+        protected Vector2 destination;
 
         public Enemy(Texture2D texture, Vector2 position, Rectangle sourceRect)
             : base(texture, position, sourceRect)
@@ -27,11 +31,22 @@ namespace LethalWeapon
             startingPosition = position;
             isMoving = false;
             distanceLimit = 50;
+            aggroRange = 150;
+            enemyIsNearPlayer = false;
+            hasCorrectStartingPosition = true;
         }
 
-        public void Update()
+        public void Update(Player player)
         {
             Movement();
+
+            IsPlayerNear(player);
+
+            if (enemyIsNearPlayer)
+                MoveTowardsPlayer(player); //Flyttar fienden närmare spelaren
+            else if(!hasCorrectStartingPosition)
+                MakeNewStartingPosition(); //Ändrar fiendens grundposition
+
         }
 
         public override void Draw(SpriteBatch sb)
@@ -68,6 +83,29 @@ namespace LethalWeapon
                 speed.X = 0;
                 speed.Y = 0;
             }
+        }
+
+        private void IsPlayerNear(Player player)
+        {
+            if (Vector2.Distance(player.Position, position) <= aggroRange)
+            {
+                enemyIsNearPlayer = true;
+                hasCorrectStartingPosition = false;
+            }
+            else
+                enemyIsNearPlayer = false;
+        }
+
+        private void MoveTowardsPlayer(Player player)
+        {
+            destination = player.Position - position;
+            position += Vector2.Normalize(destination);
+        }
+
+        private void MakeNewStartingPosition()
+        {
+            startingPosition = position;
+            hasCorrectStartingPosition = true;
         }
     }
 }

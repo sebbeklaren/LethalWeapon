@@ -13,6 +13,11 @@ namespace LethalWeapon
     {
         float speed = 2.0f;
 
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+
         public Player(Texture2D texture, Vector2 position, Rectangle sourceRect): base (texture, position, sourceRect)
         {
             this.texture = texture;

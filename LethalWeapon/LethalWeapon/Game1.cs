@@ -50,7 +50,7 @@ namespace LethalWeapon
                 Exit();
 
             player.Update();
-            enemy.Update();
+            enemy.Update(player);
 
             base.Update(gameTime);
         }
