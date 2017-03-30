@@ -11,6 +11,7 @@ namespace LethalWeapon
         SpriteBatch spriteBatch;
         Player player;
         Enemy enemy;
+        Weapon weapon;
         LevelManager level;
         Rectangle sourceRect;
 
@@ -33,6 +34,7 @@ namespace LethalWeapon
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load <Texture2D>(@"Elderly_Dragon_Head_Gray"), new Vector2(100, 100), sourceRect);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
+            weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
             level = new LevelManager(Content);
             IsMouseVisible = true;
 
@@ -51,7 +53,7 @@ namespace LethalWeapon
 
             player.Update();
             enemy.Update(player);
-
+            weapon.Update(player);
             base.Update(gameTime);
         }
 
@@ -62,9 +64,9 @@ namespace LethalWeapon
          
             spriteBatch.Begin();
             level.Draw(spriteBatch);
+            weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
-            player.Draw(spriteBatch);
-            
+            player.Draw(spriteBatch);         
             spriteBatch.End();
             
 

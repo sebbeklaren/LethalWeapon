@@ -12,7 +12,7 @@ namespace LethalWeapon
     class Player : GameObject
     {
         float speed = 2.0f;
-
+        public Rectangle playerHitbox;
         public Vector2 Position
         {
             get { return position; }
@@ -26,6 +26,7 @@ namespace LethalWeapon
 
         public void Update()
         {
+            playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 position.Y -= speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
