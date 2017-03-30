@@ -14,6 +14,7 @@ namespace LethalWeapon
         float speed = 2.0f;
         public Rectangle playerHitbox;
         public Vector2 Position
+
         {
             get { return position; }
         }

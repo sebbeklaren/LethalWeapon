@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace LethalWeapon
     {
         Rectangle weaponHitbox;
         bool weaponOnGround = true;
+        List<Weapon> bullets = new List<Weapon>();
         public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect): base (texture, position, sourceRect)
         {
             this.texture = texture;

@@ -14,6 +14,7 @@ namespace LethalWeapon
         Weapon weapon;
         LevelManager level;
         Rectangle sourceRect;
+        Texture2D bulletTexture;
 
         public Game1()
         {
@@ -36,6 +37,7 @@ namespace LethalWeapon
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
             level = new LevelManager(Content);
+            bulletTexture = Content.Load<Texture2D>("Bullet");
             IsMouseVisible = true;
 
         }
@@ -59,17 +61,13 @@ namespace LethalWeapon
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.LightGray);
-
-         
+            GraphicsDevice.Clear(Color.LightGray);        
             spriteBatch.Begin();
             level.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             player.Draw(spriteBatch);         
             spriteBatch.End();
-            
-
             base.Draw(gameTime);
         }
     }
