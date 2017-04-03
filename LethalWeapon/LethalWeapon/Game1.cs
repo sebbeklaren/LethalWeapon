@@ -83,7 +83,7 @@ namespace LethalWeapon
             {
                 case GameState.MainWorld:
                     
-                    Updateworldmap(gameTime);
+                    UpdateWorldMap(gameTime);
                     break;
 
             }
@@ -96,17 +96,17 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.MainWorld:
-                    Drawworldmap(gameTime);
+                    DrawWorldMap(gameTime);
                     break;
             }
             
             base.Draw(gameTime);
         }
-        public void Updateworldmap(GameTime gameTime)
+        public void UpdateWorldMap(GameTime gameTime)
         {
             state = GameState.MainWorld;
         }
-        public void Drawworldmap(GameTime gameTime)
+        public void DrawWorldMap(GameTime gameTime)
         {
             // spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetTransform());
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.GetTransform());
