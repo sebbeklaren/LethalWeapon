@@ -99,20 +99,11 @@ namespace LethalWeapon
         public void Drawworldmap(GameTime gameTime)
         {
             spriteBatch.Begin();
-
-            
-            enemy.Draw(spriteBatch);
             level.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
-<<<<<<< HEAD
-            player.Draw(spriteBatch);
-
-
-=======
-            enemy.Draw(spriteBatch);
-            player.Draw(spriteBatch);
+            player.Draw(spriteBatch);            
+            enemy.Draw(spriteBatch);            
             bullet.Draw(spriteBatch);
->>>>>>> origin/master
             spriteBatch.End();
         }
     }
