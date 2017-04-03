@@ -2,3 +2,4 @@ Tidsrapportering, https://docs.google.com/spreadsheets/d/1Kt4DZkGNQpcB7UB12MxBCF
 Gantt schema, https://docs.google.com/spreadsheets/d/18vbchJwrrLgsFsDHJBSolCryByhu0ULtcDsADGEcaVA/edit#gid=0
 Projektplan, https://docs.google.com/document/d/1VNz4syRyLEI0inQF0VMhFmEy5jWHOuO7wth4wAj6jbw/edit#
 Speldesigndokument, https://docs.google.com/document/d/1AwE0jZYvnGu7HVPmU6EcEs4p_4I5UNGh8gpLrBoLapw/edit#
+Kravdokument, https://docs.google.com/document/d/1K02Pct6SPTXRN0v_sOiYcidbSdHdq2s8uSdkJPDYe9k/edit
