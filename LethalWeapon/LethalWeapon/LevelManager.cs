@@ -22,7 +22,7 @@ namespace LethalWeapon
         {
             this.content = content;
             List<string> lvlStrings = new List<string>();
-            StreamReader streamReader = new StreamReader("Content/Map/map01.txt");
+            StreamReader streamReader = new StreamReader("Content/Map/map02.txt");
             texture = content.Load<Texture2D>(@"Tileset01");
             tileSize = 32;
             while(!streamReader.EndOfStream)
