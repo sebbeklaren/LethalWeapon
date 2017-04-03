@@ -12,10 +12,10 @@ namespace LethalWeapon
         Player player;
         Enemy enemy;
         Weapon weapon;
+        Bullet bullet;
         LevelManager level;
         Rectangle sourceRect;
-        Texture2D bulletTexture;
-
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -36,8 +36,8 @@ namespace LethalWeapon
             player = new Player(Content.Load <Texture2D>(@"Elderly_Dragon_Head_Gray"), new Vector2(100, 100), sourceRect);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
+            bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
             level = new LevelManager(Content);
-            bulletTexture = Content.Load<Texture2D>("Bullet");
             IsMouseVisible = true;
 
         }
@@ -66,7 +66,8 @@ namespace LethalWeapon
             level.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
-            player.Draw(spriteBatch);         
+            player.Draw(spriteBatch);
+            bullet.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
