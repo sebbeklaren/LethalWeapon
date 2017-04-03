@@ -91,6 +91,8 @@ namespace LethalWeapon
             {
                 enemyIsNearPlayer = true;
                 hasCorrectStartingPosition = false;
+                speed.X = 0;
+                speed.Y = 0;
             }
             else
                 enemyIsNearPlayer = false;
