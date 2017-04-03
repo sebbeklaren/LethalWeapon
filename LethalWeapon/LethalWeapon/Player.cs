@@ -53,7 +53,5 @@ namespace LethalWeapon
         {
             sb.Draw(texture, position, Color.White);
         }
-
-
     }
 }

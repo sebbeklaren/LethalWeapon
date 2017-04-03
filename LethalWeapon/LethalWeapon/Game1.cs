@@ -26,20 +26,21 @@ namespace LethalWeapon
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+<<<<<<< HEAD
+=======
 
 <<<<<<< HEAD
 
 =======
 >>>>>>> origin/master
+>>>>>>> origin/master
         }
-
    
         protected override void Initialize()
         {
             base.Initialize();
         }
 
-  
         protected override void LoadContent()
         {
             screenHeight = 32 * 24;
@@ -60,10 +61,7 @@ namespace LethalWeapon
             {
                 graphics.ToggleFullScreen();
             }
-
-
         }
-
 
         protected override void UnloadContent()
         {
