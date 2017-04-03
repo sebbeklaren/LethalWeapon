@@ -12,7 +12,6 @@ namespace LethalWeapon
     public class Tiles : GameObject
     {
         protected bool wall;
-
         public bool Wall
         {
             get { return wall; }
