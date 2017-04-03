@@ -15,11 +15,22 @@ namespace LethalWeapon
         Bullet bullet;
         LevelManager level;
         Rectangle sourceRect;
+<<<<<<< HEAD
         
+=======
+        Texture2D bulletTexture;
+        int screenHeight, screenWidth;
+
+>>>>>>> origin/master
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
         }
 
    
@@ -31,18 +42,29 @@ namespace LethalWeapon
   
         protected override void LoadContent()
         {
-           
+            screenHeight = 32 * 24;
+            screenWidth = 32 * 32;
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load <Texture2D>(@"Elderly_Dragon_Head_Gray"), new Vector2(100, 100), sourceRect);
+            player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
             level = new LevelManager(Content);
             IsMouseVisible = true;
+            graphics.PreferredBackBufferHeight = screenHeight;
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.ApplyChanges();
+
+            if (!graphics.IsFullScreen)
+            {
+                graphics.ToggleFullScreen();
+            }
+
 
         }
 
-       
+
         protected override void UnloadContent()
         {
 
@@ -61,7 +83,7 @@ namespace LethalWeapon
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.LightGray);        
+            GraphicsDevice.Clear(Color.Gray);        
             spriteBatch.Begin();
             level.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
