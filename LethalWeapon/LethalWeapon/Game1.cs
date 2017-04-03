@@ -26,14 +26,6 @@ namespace LethalWeapon
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
->>>>>>> origin/master
         }
    
         protected override void Initialize()
