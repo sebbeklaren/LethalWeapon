@@ -3,3 +3,4 @@ Gantt schema, https://docs.google.com/spreadsheets/d/18vbchJwrrLgsFsDHJBSolCryBy
 Projektplan, https://docs.google.com/document/d/1VNz4syRyLEI0inQF0VMhFmEy5jWHOuO7wth4wAj6jbw/edit#
 Speldesigndokument, https://docs.google.com/document/d/1AwE0jZYvnGu7HVPmU6EcEs4p_4I5UNGh8gpLrBoLapw/edit#
 Kravdokument, https://docs.google.com/document/d/1K02Pct6SPTXRN0v_sOiYcidbSdHdq2s8uSdkJPDYe9k/edit
+Sprint 2, att göra-dokument, https://docs.google.com/document/d/19QWY2tj2qh5J3a5xzOp2nyMKkUQR1ElTNCs3oooGd-s/edit
