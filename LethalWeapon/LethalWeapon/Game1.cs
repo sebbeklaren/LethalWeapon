@@ -16,6 +16,8 @@ namespace LethalWeapon
         LevelManager level;
         Rectangle sourceRect;
         Texture2D bulletTexture;
+        Camera camera;
+        Vector2 cameraOffset;
         int screenHeight, screenWidth;
 
         enum GameState {  MainWorld }
@@ -43,6 +45,9 @@ namespace LethalWeapon
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
             level = new LevelManager(Content);
+            Viewport view = GraphicsDevice.Viewport;
+            camera = new Camera(view);
+            cameraOffset = new Vector2(100, 100);
             IsMouseVisible = true;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.PreferredBackBufferWidth = screenWidth;
@@ -68,6 +73,11 @@ namespace LethalWeapon
             enemy.Update(player);
             weapon.Update(player);
             base.Update(gameTime);
+
+            //Kamera funktioner
+            camera.SetPosition(player.Position - cameraOffset);
+            camera.Zoom = 2.0f;
+            camera.Rotation = 0f;
 
             switch (state)
             {
@@ -98,7 +108,8 @@ namespace LethalWeapon
         }
         public void Drawworldmap(GameTime gameTime)
         {
-            spriteBatch.Begin();
+            // spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetTransform());
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.GetTransform());
             level.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             player.Draw(spriteBatch);            
