@@ -17,6 +17,9 @@ namespace LethalWeapon
         Texture2D bulletTexture;
         int screenHeight, screenWidth;
 
+        enum GameState {  MainWorld }
+        GameState state;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -70,18 +73,46 @@ namespace LethalWeapon
             enemy.Update(player);
             weapon.Update(player);
             base.Update(gameTime);
+
+            switch (state)
+            {
+                case GameState.MainWorld:
+                    
+                    Updateworldmap(gameTime);
+                    break;
+
+            }
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Gray);        
+            GraphicsDevice.Clear(Color.Gray);    
+
+            switch (state)
+            {
+                case GameState.MainWorld:
+                    Drawworldmap(gameTime);
+                    break;
+            }
+            
+            base.Draw(gameTime);
+        }
+        public void Updateworldmap(GameTime gameTime)
+        {
+            state = GameState.MainWorld;
+        }
+        public void Drawworldmap(GameTime gameTime)
+        {
             spriteBatch.Begin();
+
+            
+            enemy.Draw(spriteBatch);
             level.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
-            player.Draw(spriteBatch);         
+            player.Draw(spriteBatch);
+
+
             spriteBatch.End();
-            base.Draw(gameTime);
         }
     }
 }
