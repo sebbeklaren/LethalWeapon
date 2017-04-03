@@ -46,7 +46,6 @@ namespace LethalWeapon
                 MoveTowardsPlayer(player); //Flyttar fienden närmare spelaren
             else if(!hasCorrectStartingPosition)
                 MakeNewStartingPosition(); //Ändrar fiendens grundposition
-
         }
 
         public override void Draw(SpriteBatch sb)
@@ -91,6 +90,8 @@ namespace LethalWeapon
             {
                 enemyIsNearPlayer = true;
                 hasCorrectStartingPosition = false;
+                speed.X = 0;
+                speed.Y = 0;
             }
             else
                 enemyIsNearPlayer = false;

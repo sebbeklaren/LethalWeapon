@@ -13,16 +13,27 @@ namespace LethalWeapon
     {
         float speed = 2.0f;
         public Rectangle playerHitbox;
-        public Vector2 Position
 
+        //Stats for Player to read and display
+        public int PlayerMaxHealth { get; set; }
+        public int PlayerCurrentHealth { get; set; }
+        public int PlayerLevel { get; set; }
+        public int PlayerExperiencePoints { get; set; }
+
+        public Vector2 Position
         {
             get { return position; }
         }
+
 
         public Player(Texture2D texture, Vector2 position, Rectangle sourceRect): base (texture, position, sourceRect)
         {
             this.texture = texture;
             this.position = position;
+            PlayerMaxHealth = 100;
+            PlayerCurrentHealth = 100;
+            PlayerLevel = 1;
+            PlayerExperiencePoints = 0;
         }
 
         public void Update()
@@ -42,7 +53,5 @@ namespace LethalWeapon
         {
             sb.Draw(texture, position, Color.White);
         }
-
-
     }
 }

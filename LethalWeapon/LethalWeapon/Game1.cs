@@ -12,6 +12,7 @@ namespace LethalWeapon
         Player player;
         Enemy enemy;
         Weapon weapon;
+        Bullet bullet;
         LevelManager level;
         Rectangle sourceRect;
         Texture2D bulletTexture;
@@ -24,27 +25,24 @@ namespace LethalWeapon
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
         }
-
    
         protected override void Initialize()
         {
             base.Initialize();
         }
 
-  
         protected override void LoadContent()
         {
             screenHeight = 32 * 24;
             screenWidth = 32 * 32;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load <Texture2D>(@"Elderly_Dragon_Head_Gray"), new Vector2(100, 100), sourceRect);
+            player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
+            bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
             level = new LevelManager(Content);
-            bulletTexture = Content.Load<Texture2D>("Bullet");
             IsMouseVisible = true;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.PreferredBackBufferWidth = screenWidth;
@@ -54,10 +52,7 @@ namespace LethalWeapon
             {
                 graphics.ToggleFullScreen();
             }
-
-
         }
-
 
         protected override void UnloadContent()
         {
@@ -109,9 +104,15 @@ namespace LethalWeapon
             enemy.Draw(spriteBatch);
             level.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
+<<<<<<< HEAD
             player.Draw(spriteBatch);
 
 
+=======
+            enemy.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            bullet.Draw(spriteBatch);
+>>>>>>> origin/master
             spriteBatch.End();
         }
     }
