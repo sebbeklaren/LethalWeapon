@@ -20,6 +20,8 @@ namespace LethalWeapon
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+
         }
 
    
