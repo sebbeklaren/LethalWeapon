@@ -15,13 +15,9 @@ namespace LethalWeapon
         Bullet bullet;
         LevelManager level;
         Rectangle sourceRect;
-<<<<<<< HEAD
-        
-=======
         Texture2D bulletTexture;
         int screenHeight, screenWidth;
 
->>>>>>> origin/master
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
