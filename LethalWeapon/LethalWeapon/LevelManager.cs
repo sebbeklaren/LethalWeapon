@@ -49,6 +49,10 @@ namespace LethalWeapon
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 0, 32, 32), true);
                     }
+                    else if (lvlStrings[j][i] == 'D')
+                    {
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 0, 32, 32), true);
+                    }
                     else if (lvlStrings[j][i] == 'F')
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 32, 32, 32), true);
@@ -68,6 +72,18 @@ namespace LethalWeapon
                     else if (lvlStrings[j][i] == 'E')
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 0, 32, 32), true);
+                    }
+                    else if (lvlStrings[j][i] == 'M')
+                    {
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 96, 32, 32), true);
+                    }
+                    else if (lvlStrings[j][i] == 'N')
+                    {
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 128, 32, 32), true);
+                    }
+                    else if (lvlStrings[j][i] == 'P')
+                    {
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 128, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '1')
                     {
@@ -89,6 +105,10 @@ namespace LethalWeapon
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 32, 32, 32), true);
                     }
+                    else if (lvlStrings[j][i] == '7')
+                    {
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 96, 32, 32), true);
+                    }
                     else if (lvlStrings[j][i] == '8')
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 96, 32, 32), true);
@@ -107,7 +127,7 @@ namespace LethalWeapon
                     }
                     else if (lvlStrings[j][i] == 'X')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 0, 0, 0), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), true);
                     }
                 }
             }
@@ -124,6 +144,5 @@ namespace LethalWeapon
                 }
             }
         }
-
     }
 }
