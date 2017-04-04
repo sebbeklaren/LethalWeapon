@@ -112,9 +112,11 @@ namespace LethalWeapon
         }
         public void UpdateWorldMap(GameTime gameTime)
         {
-            state = GameState.RuinsLevel;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            if (Keyboard.GetState().IsKeyDown(Keys.O))
+            {
+                state = GameState.RuinsLevel;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
                 state = GameState.CityLevel;
             }
