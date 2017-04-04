@@ -17,15 +17,27 @@ namespace LethalWeapon
         ContentManager content;
         Tiles[,] tiles;
         int tileSize;
+        StreamReader streamReader;
+        List<string> lvlStrings;
+        public string loadedLevel;
 
-        public LevelManager(ContentManager content)
+        public LevelManager(ContentManager content, string loadedLevel)
         {
+            //loadedLevel = "Content/Map/map01.txt";
+            this.loadedLevel = loadedLevel;
+            ;
             this.content = content;
-            List<string> lvlStrings = new List<string>();
-            StreamReader streamReader = new StreamReader("Content/Map/map02.txt");
+            lvlStrings = new List<string>();
+            streamReader = new StreamReader(loadedLevel);
             texture = content.Load<Texture2D>(@"Tileset01");
             tileSize = 32;
-            while(!streamReader.EndOfStream)
+            TileBuilder();
+
+        }
+
+        public void TileBuilder()
+        {
+            while (!streamReader.EndOfStream)
             {
                 lvlStrings.Add(streamReader.ReadLine());
             }
@@ -33,9 +45,9 @@ namespace LethalWeapon
 
             tiles = new Tiles[lvlStrings[0].Length, lvlStrings.Count];
 
-            for(int i = 0; i < tiles.GetLength(0); i++)
+            for (int i = 0; i < tiles.GetLength(0); i++)
             {
-                for(int j = 0; j < tiles.GetLength(1); j++)
+                for (int j = 0; j < tiles.GetLength(1); j++)
                 {
                     if (lvlStrings[j][i] == 'A')
                     {
@@ -91,7 +103,7 @@ namespace LethalWeapon
                     }
                     else if (lvlStrings[j][i] == '2')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32,64, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 64, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '3')
                     {
@@ -132,10 +144,11 @@ namespace LethalWeapon
                 }
             }
         }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < tiles.GetLength(0); i++)
+            for (int i = 0;  i < tiles.GetLength(0); i++)
             {
                 for (int j = 0; j < tiles.GetLength(1); j++)
                 {

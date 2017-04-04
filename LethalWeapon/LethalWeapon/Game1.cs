@@ -19,8 +19,9 @@ namespace LethalWeapon
         Camera camera;
         Vector2 cameraOffset;
         int screenHeight, screenWidth;
+        string currentLevel;
 
-        enum GameState {  MainWorld }
+        enum GameState {  CityLevel, RuinsLevel }
         GameState state;
 
         public Game1()
@@ -37,14 +38,12 @@ namespace LethalWeapon
         protected override void LoadContent()
         {
             screenHeight = 32 * 24;
-            screenWidth = 32 * 32;
-
+            screenWidth = 32 * 32;            
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
-            level = new LevelManager(Content);
             Viewport view = GraphicsDevice.Viewport;
             camera = new Camera(view);
             cameraOffset = new Vector2(100, 100);
@@ -53,10 +52,10 @@ namespace LethalWeapon
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.ApplyChanges();
 
-            if (!graphics.IsFullScreen)
-            {
-                graphics.ToggleFullScreen();
-            }
+            //if (!graphics.IsFullScreen)
+            //{
+            //    graphics.ToggleFullScreen();
+            //}
         }
 
         protected override void UnloadContent()
@@ -81,11 +80,15 @@ namespace LethalWeapon
 
             switch (state)
             {
-                case GameState.MainWorld:
-                    
+                case GameState.CityLevel:
+                    CurrentLevel("Content/Map/map01.txt");
                     UpdateWorldMap(gameTime);
                     break;
 
+                case GameState.RuinsLevel:                    
+                    CurrentLevel("Content/Map/map02.txt");
+                    UpdateWorldMap(gameTime);
+                    break;
             }
         }
 
@@ -95,7 +98,12 @@ namespace LethalWeapon
 
             switch (state)
             {
-                case GameState.MainWorld:
+                case GameState.CityLevel:
+                    
+                    DrawWorldMap(gameTime);
+                    break;
+                case GameState.RuinsLevel:
+
                     DrawWorldMap(gameTime);
                     break;
             }
@@ -104,7 +112,13 @@ namespace LethalWeapon
         }
         public void UpdateWorldMap(GameTime gameTime)
         {
-            state = GameState.MainWorld;
+            state = GameState.RuinsLevel;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                state = GameState.CityLevel;
+            }
+
         }
         public void DrawWorldMap(GameTime gameTime)
         {
@@ -116,6 +130,13 @@ namespace LethalWeapon
             enemy.Draw(spriteBatch);            
             bullet.Draw(spriteBatch);
             spriteBatch.End();
+        }
+
+        public void CurrentLevel(string newLevel)
+        {
+            currentLevel = newLevel;
+
+            level = new LevelManager(Content, currentLevel);
         }
     }
 }
