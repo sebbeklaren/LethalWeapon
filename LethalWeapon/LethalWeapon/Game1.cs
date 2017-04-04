@@ -14,12 +14,14 @@ namespace LethalWeapon
         Weapon weapon;
         Bullet bullet;
         LevelManager level;
+        Gui gui;
         Rectangle sourceRect;
         Texture2D bulletTexture;
         Camera camera;
         Vector2 cameraOffset;
         int screenHeight, screenWidth;
         string currentLevel;
+        
 
         enum GameState {  CityLevel, RuinsLevel }
         GameState state;
@@ -44,6 +46,7 @@ namespace LethalWeapon
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
+            gui = new Gui(Content, 1, 1);
             Viewport view = GraphicsDevice.Viewport;
             camera = new Camera(view);
             cameraOffset = new Vector2(100, 100);
@@ -75,9 +78,10 @@ namespace LethalWeapon
 
             //Kamera funktioner
             camera.SetPosition(player.Position - cameraOffset);
+            
             camera.Zoom = 2.0f;
             camera.Rotation = 0f;
-
+            gui.Update(camera.GetPosition());
             switch (state)
             {
                 case GameState.CityLevel:
@@ -131,6 +135,7 @@ namespace LethalWeapon
             player.Draw(spriteBatch);            
             enemy.Draw(spriteBatch);            
             bullet.Draw(spriteBatch);
+            gui.Draw(spriteBatch);
             spriteBatch.End();
         }
 

@@ -13,7 +13,6 @@ namespace LethalWeapon
     class LevelManager
     {
         Texture2D texture;
-        Vector2 position;
         ContentManager content;
         Tiles[,] tiles;
         int tileSize;
@@ -22,17 +21,14 @@ namespace LethalWeapon
         public string loadedLevel;
 
         public LevelManager(ContentManager content, string loadedLevel)
-        {
-            //loadedLevel = "Content/Map/map01.txt";
-            this.loadedLevel = loadedLevel;
-            ;
+        {            
+            this.loadedLevel = loadedLevel;            
             this.content = content;
             lvlStrings = new List<string>();
             streamReader = new StreamReader(loadedLevel);
             texture = content.Load<Texture2D>(@"Tileset01");
             tileSize = 32;
             TileBuilder();
-
         }
 
         public void TileBuilder()
@@ -51,39 +47,39 @@ namespace LethalWeapon
                 {
                     if (lvlStrings[j][i] == 'A')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 0, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'B')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 0, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'C')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 0, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'D')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 0, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'F')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 32, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'H')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 32, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'K')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 32, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'J')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 32, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'E')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 0, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'M')
                     {
@@ -99,7 +95,7 @@ namespace LethalWeapon
                     }
                     else if (lvlStrings[j][i] == '1')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 64, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 64, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == '2')
                     {
@@ -139,12 +135,11 @@ namespace LethalWeapon
                     }
                     else if (lvlStrings[j][i] == 'X')
                     {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), true);
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), false);
                     }
                 }
             }
-        }
-        
+        }       
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -152,8 +147,7 @@ namespace LethalWeapon
             {
                 for (int j = 0; j < tiles.GetLength(1); j++)
                 {
-                    tiles[i, j].Draw(spriteBatch);
-                    
+                    tiles[i, j].Draw(spriteBatch);                    
                 }
             }
         }
