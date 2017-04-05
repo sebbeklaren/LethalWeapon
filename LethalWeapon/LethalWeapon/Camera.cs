@@ -24,7 +24,8 @@ namespace LethalWeapon
         private Matrix transform;
         private Vector2 position;
         private Viewport view;
-        protected float zoom;
+        protected float zoomX;
+        protected float zoomY;
         protected float rotation;
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace LethalWeapon
         {
             this.position = position;
             transform = Matrix.CreateTranslation(-position.X, -position.Y, 0) * Matrix.CreateRotationZ(Rotation) *
-                Matrix.CreateScale(Zoom, Zoom, 1) * Matrix.CreateTranslation(view.Width * 0.5f, view.Height * 0.5f, 0);
+                Matrix.CreateScale(ZoomX, ZoomY, 1) * Matrix.CreateTranslation(view.Width * 0.5f, view.Height * 0.5f, 0);
         }
 
         /// <summary>
@@ -54,10 +55,16 @@ namespace LethalWeapon
             return position;
         }
 
-        public float Zoom
+        public float ZoomX
         {
-            get { return zoom; }
-            set { zoom = value; if (zoom < 0.1f) zoom = 0.1f; } // Negative zoom will flip image
+            get { return zoomX; }
+            set { zoomX = value; if (zoomX < 0.1f) zoomX = 0.1f; } // Negative zoom will flip image
+        }
+
+        public float ZoomY
+        {
+            get { return zoomY; }
+            set { zoomY = value; if (zoomY < 0.1f) zoomY = 0.1f; } // Negative zoom will flip image
         }
 
         public float Rotation

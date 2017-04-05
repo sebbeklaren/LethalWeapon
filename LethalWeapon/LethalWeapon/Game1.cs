@@ -79,7 +79,8 @@ namespace LethalWeapon
             //Kamera funktioner
             camera.SetPosition(player.Position - cameraOffset);
             
-            camera.Zoom = 2.0f;
+            camera.ZoomX = 2.0f;
+            camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
             gui.Update(camera.GetPosition(), player);
             switch (state)
