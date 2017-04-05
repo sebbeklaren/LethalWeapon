@@ -15,8 +15,8 @@ namespace LethalWeapon
         public Rectangle playerHitbox;
 
         //Stats for Player to read and display
-        public int PlayerMaxHealth { get; set; }
-        public int PlayerCurrentHealth { get; set; }
+        public double PlayerMaxHealth { get; set; }
+        public double PlayerCurrentHealth { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
 
@@ -30,8 +30,8 @@ namespace LethalWeapon
         {
             this.texture = texture;
             this.position = position;
-            PlayerMaxHealth = 100;
-            PlayerCurrentHealth = 100;
+            PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
+            PlayerCurrentHealth = 75;
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
         }
