@@ -24,8 +24,7 @@ namespace LethalWeapon
             this.playerEnergy = playerEnergy;
             healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
             energyBarTexture = content.Load<Texture2D>(@"Gui/EnergyBar");
-            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
-            
+            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");            
         }
 
         public void Update(Vector2 cameraPosition, Player player)
