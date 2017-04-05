@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -13,38 +14,73 @@ namespace LethalWeapon
     class Weapon : GameObject
     {
         Rectangle weaponHitbox;
+        Texture2D bulletTexture;
         bool weaponOnGround = true;
-        Bullet b;
+        float bulletSpeed = 2f;
+        Vector2 bulletPosition;
+        int bulletDirection;
         public List<Bullet> bullets = new List<Bullet>();
-        public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect): base (texture, position, sourceRect)
+        public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content) : base (texture, position, sourceRect)
         {
             this.texture = texture;
             this.position = position;
-            b = new Bullet(texture, position);
+            bulletTexture = content.Load<Texture2D>("Bullet");          
         }
         public void Update(Player player)
         {
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            bulletPosition = player.Position;
             if (player.playerHitbox.Intersects(weaponHitbox))
             {
                 weaponOnGround = false;
             }
             if(Keyboard.GetState().IsKeyDown(Keys.W))
-            {         
+            {
+                bulletDirection = 1;
+                Bullet b = new Bullet(bulletTexture, bulletPosition);
                 bullets.Add(b);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
+                bulletDirection = 2;
+                Bullet b = new Bullet(bulletTexture, bulletPosition);
                 bullets.Add(b);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
+                bulletDirection = 3;
+                Bullet b = new Bullet(bulletTexture, bulletPosition);
                 bullets.Add(b);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
+                bulletDirection = 4;
+                Bullet b = new Bullet(bulletTexture, bulletPosition);
                 bullets.Add(b);
+            }
+            ShotDirection();
+        }
 
+        public void ShotDirection()
+        {
+            foreach (Bullet b in bullets)
+            {
+                if (bulletDirection == 1)
+                {
+                    bulletPosition.Y -= bulletSpeed;
+                }
+                if (bulletDirection == 2)
+                {
+                    bulletPosition.X -= bulletSpeed;
+                }
+                if (bulletDirection == 3)
+                {
+                    bulletPosition.X += bulletSpeed;
+                }
+                if (bulletDirection == 4)
+                {
+                    bulletPosition.Y += bulletSpeed;
+                }
             }
         }
 
@@ -53,6 +89,10 @@ namespace LethalWeapon
             if (weaponOnGround == true)
             {
                 sb.Draw(texture, position, Color.White);
+            }
+            foreach(Bullet b in bullets)
+            {
+                sb.Draw(bulletTexture, bulletPosition, Color.White);
             }
         }
     }

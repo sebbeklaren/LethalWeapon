@@ -44,7 +44,7 @@ namespace LethalWeapon
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
-            weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect);
+            weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
             gui = new Gui(Content, 1, 1);
             Viewport view = GraphicsDevice.Viewport;
@@ -55,10 +55,10 @@ namespace LethalWeapon
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.ApplyChanges();
 
-            //if (!graphics.IsFullScreen)
-            //{
-            //    graphics.ToggleFullScreen();
-            //}
+            if (!graphics.IsFullScreen)
+            {
+                graphics.ToggleFullScreen();
+            }
         }
 
         protected override void UnloadContent()
