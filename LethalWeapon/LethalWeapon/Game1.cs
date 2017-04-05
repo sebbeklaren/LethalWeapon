@@ -63,7 +63,7 @@ namespace LethalWeapon
 
         protected override void UnloadContent()
         {
-
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -141,7 +141,10 @@ namespace LethalWeapon
 
         public void CurrentLevel(string newLevel)
         {
+           // Content.Unload();
+
             currentLevel = newLevel;
+
 
             level = new LevelManager(Content, currentLevel);
         }

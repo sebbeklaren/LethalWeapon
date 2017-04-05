@@ -35,7 +35,7 @@ namespace LethalWeapon
             playerHealth = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
 
             healthRect = new Rectangle((int)healtPosition.X, (int)healtPosition.Y + healthBarOffset,
-                   /* player.PlayerCurrentHealth*/ (int)playerHealth, healtBarTexture.Height / 4);
+                    (int)playerHealth, healtBarTexture.Height / 4);
             energyRect = new Rectangle((int)healtPosition.X, (int)healtPosition.Y + energyBarOffset,
                     (int)playerEnergy, healtBarTexture.Height / 4);
         }
