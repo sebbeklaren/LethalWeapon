@@ -31,13 +31,14 @@ namespace LethalWeapon
 
         public void Update(Vector2 cameraPosition)
         {
-            playerHealth = 97;
+            playerHealth = 10; // för att testa så att det funkar
+            playerEnergy = 45;
             healtPosition = cameraPosition;
 
             healthRect = new Rectangle((int)healtPosition.X, (int)healtPosition.Y + healthBarOffset,
                     playerHealth, healtBarTexture.Height / 4);
             energyRect = new Rectangle((int)healtPosition.X, (int)healtPosition.Y + energyBarOffset,
-                    healtBarTexture.Width / 4, healtBarTexture.Height / 4);
+                    playerEnergy, healtBarTexture.Height / 4);
         }
         public void Draw(SpriteBatch sb)
         {
