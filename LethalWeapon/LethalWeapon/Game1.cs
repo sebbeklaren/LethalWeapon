@@ -20,9 +20,7 @@ namespace LethalWeapon
         Camera camera;
         Vector2 cameraOffset;
         int screenHeight, screenWidth;
-        string currentLevel;
-        
-
+        string currentLevel;   
         enum GameState {  CityLevel, RuinsLevel }
         GameState state;
 
@@ -42,23 +40,23 @@ namespace LethalWeapon
             screenHeight = 32 * 24;
             screenWidth = 32 * 32;            
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect);
+            player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect, Content);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
             gui = new Gui(Content, 1, 1);
             Viewport view = GraphicsDevice.Viewport;
             camera = new Camera(view);
-            cameraOffset = new Vector2(100, 100);
+            cameraOffset = new Vector2(50, 50);
             IsMouseVisible = true;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.ApplyChanges();
 
-            if (!graphics.IsFullScreen)
-            {
-                graphics.ToggleFullScreen();
-            }
+            //if (!graphics.IsFullScreen)
+            //{
+            //    graphics.ToggleFullScreen();
+            //}
         }
 
         protected override void UnloadContent()
@@ -70,7 +68,7 @@ namespace LethalWeapon
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            
             player.Update();
             enemy.Update(player);
             weapon.Update(player);
@@ -99,6 +97,7 @@ namespace LethalWeapon
 
         protected override void Draw(GameTime gameTime)
         {
+           
             GraphicsDevice.Clear(Color.Gray);    
 
             switch (state)
@@ -129,6 +128,8 @@ namespace LethalWeapon
         }
         public void DrawWorldMap(GameTime gameTime)
         {
+            
+
             // spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetTransform());
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.GetTransform());
             level.Draw(spriteBatch);
