@@ -1,7 +1,1 @@
-﻿Tidsrapportering, https://docs.google.com/spreadsheets/d/1Kt4DZkGNQpcB7UB12MxBCFrdz30BTRhAnWuPQ6T2jfE/edit#gid=0
-Gantt schema, https://docs.google.com/spreadsheets/d/18vbchJwrrLgsFsDHJBSolCryByhu0ULtcDsADGEcaVA/edit#gid=0
-Projektplan, https://docs.google.com/document/d/1VNz4syRyLEI0inQF0VMhFmEy5jWHOuO7wth4wAj6jbw/edit#
-Speldesigndokument, https://docs.google.com/document/d/1AwE0jZYvnGu7HVPmU6EcEs4p_4I5UNGh8gpLrBoLapw/edit#
-Kravdokument, https://docs.google.com/document/d/1K02Pct6SPTXRN0v_sOiYcidbSdHdq2s8uSdkJPDYe9k/edit
-Sprint 2, att göra-dokument, https://docs.google.com/document/d/19QWY2tj2qh5J3a5xzOp2nyMKkUQR1ElTNCs3oooGd-s/edit
-Designdokument, https://docs.google.com/document/d/14VQlwy1jHMOPvxzHcb7cBfyZivVQd3O5AKRKvlvUBK8/edit?usp=sharing
+﻿Map med alla dokument, https://drive.google.com/drive/folders/0B4vg1R8iiMcDLUR2NGZ1Zm50ZzA?usp=sharing
