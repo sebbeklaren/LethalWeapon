@@ -16,6 +16,7 @@ namespace LethalWeapon
         Rectangle weaponHitbox;
         Texture2D bulletTexture;
         bool weaponOnGround = true;
+        bool weaponPickedUp = false;
         float bulletSpeed = 2f;
         Vector2 bulletPosition;
         int bulletDirection;
@@ -33,8 +34,13 @@ namespace LethalWeapon
             if (player.playerHitbox.Intersects(weaponHitbox))
             {
                 weaponOnGround = false;
+                weaponPickedUp = true;
             }
-            if(Keyboard.GetState().IsKeyDown(Keys.W))
+            if (weaponOnGround == false && weaponPickedUp == true)
+            {
+                position = new Vector2(player.Position.X, player.Position.Y + 10);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 bulletDirection = 1;
                 Bullet b = new Bullet(bulletTexture, bulletPosition);
@@ -58,6 +64,7 @@ namespace LethalWeapon
                 Bullet b = new Bullet(bulletTexture, bulletPosition);
                 bullets.Add(b);
             }
+        
             ShotDirection();
         }
 
@@ -85,11 +92,9 @@ namespace LethalWeapon
         }
 
         public override void Draw(SpriteBatch sb)
-        {
-            if (weaponOnGround == true)
-            {
-                sb.Draw(texture, position, Color.White);
-            }
+        {   
+            sb.Draw(texture, position, Color.White);
+           
             foreach(Bullet b in bullets)
             {
                 sb.Draw(bulletTexture, bulletPosition, Color.White);

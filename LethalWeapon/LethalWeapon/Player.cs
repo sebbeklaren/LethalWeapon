@@ -12,6 +12,8 @@ namespace LethalWeapon
     class Player : GameObject
     {
         float speed = 2.0f;
+        float rotation = 1.0f;
+        float layerDepth = 1;
         public Rectangle playerHitbox;
 
         //Stats for Player to read and display

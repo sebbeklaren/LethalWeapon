@@ -44,7 +44,7 @@ namespace LethalWeapon
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
-            weapon = new Weapon(Content.Load<Texture2D>(@"Pistol"), new Vector2(100, 300), sourceRect, Content);
+            weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
             gui = new Gui(Content, 1, 1);
             Viewport view = GraphicsDevice.Viewport;
@@ -132,8 +132,8 @@ namespace LethalWeapon
             // spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetTransform());
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.GetTransform());
             level.Draw(spriteBatch);
+            player.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
-            player.Draw(spriteBatch);            
             enemy.Draw(spriteBatch);            
             bullet.Draw(spriteBatch);
             gui.Draw(spriteBatch);
