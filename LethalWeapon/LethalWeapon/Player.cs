@@ -14,12 +14,11 @@ namespace LethalWeapon
     {
         InputManager input = new InputManager();
         float speed = 2.0f;
-<<<<<<< HEAD
         float rotation = 1.0f;
         float layerDepth = 1;
-=======
+
         float aimSpeed = 5.0f;
->>>>>>> origin/master
+
         public Rectangle playerHitbox;
         Texture2D aimTexture;
         //Stats for Player to read and display
