@@ -15,8 +15,10 @@ namespace LethalWeapon
     {
         Rectangle weaponHitbox;
         //Behandling av utritning
-        public float weaponRotation, weaponScale;
-        Vector2 dPos, weaponOrigin;
+        public float weaponRotation;
+        public float weaponScale = 1;
+        Vector2 dPos; 
+        Vector2 weaponOrigin;
 
         Texture2D bulletTexture;
         bool weaponOnGround = true;
@@ -30,6 +32,7 @@ namespace LethalWeapon
             this.texture = texture;
             this.position = position;
             bulletTexture = content.Load<Texture2D>("Bullet");
+            weaponOrigin = new Vector2(texture.Bounds.Center.X, texture.Bounds.Center.Y);
         }
         public void Update(Player player)
         {
@@ -100,6 +103,7 @@ namespace LethalWeapon
         public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
+
            
             foreach(Bullet b in bullets)
             {
