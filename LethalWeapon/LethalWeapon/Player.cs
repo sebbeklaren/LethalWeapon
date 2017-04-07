@@ -14,12 +14,10 @@ namespace LethalWeapon
     {
         InputManager input = new InputManager();
         float speed = 2.0f;
-<<<<<<< HEAD
         float rotation = 1.0f;
-        float layerDepth = 1;
-=======
+        float layerDepth = 1f;
         float aimSpeed = 5.0f;
->>>>>>> origin/master
+
         public Rectangle playerHitbox;
         Texture2D aimTexture;
         //Stats for Player to read and display
@@ -29,6 +27,11 @@ namespace LethalWeapon
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
         Vector2 aimPosition;
+
+        public Vector2 AimPosition
+        {
+            get { return aimPosition; } 
+        }
         public Vector2 Position
         {
             get { return position; }
@@ -62,9 +65,6 @@ namespace LethalWeapon
             aimPosition += input.aimDirection * aimSpeed;
            
         }
-
-        
-
 
         public override void Draw(SpriteBatch sb)
         {

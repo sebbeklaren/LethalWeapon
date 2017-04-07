@@ -14,6 +14,10 @@ namespace LethalWeapon
     class Weapon : GameObject
     {
         Rectangle weaponHitbox;
+        //Behandling av utritning
+        public float weaponRotation, weaponScale;
+        Vector2 dPos, weaponOrigin;
+
         Texture2D bulletTexture;
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
@@ -25,7 +29,7 @@ namespace LethalWeapon
         {
             this.texture = texture;
             this.position = position;
-            bulletTexture = content.Load<Texture2D>("Bullet");          
+            bulletTexture = content.Load<Texture2D>("Bullet");
         }
         public void Update(Player player)
         {
@@ -38,7 +42,9 @@ namespace LethalWeapon
             }
             if (weaponOnGround == false && weaponPickedUp == true)
             {
+                dPos = position - player.AimPosition;
                 position = new Vector2(player.Position.X, player.Position.Y + 10);
+                weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
@@ -92,8 +98,8 @@ namespace LethalWeapon
         }
 
         public override void Draw(SpriteBatch sb)
-        {   
-            sb.Draw(texture, position, Color.White);
+        {
+            sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
            
             foreach(Bullet b in bullets)
             {
