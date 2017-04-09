@@ -32,7 +32,7 @@ namespace LethalWeapon
             this.texture = texture;
             this.position = position;
             bulletTexture = content.Load<Texture2D>("Bullet");
-            weaponOrigin = new Vector2(texture.Bounds.Center.X, texture.Bounds.Center.Y);
+            weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
         public void Update(Player player)
         {
@@ -45,8 +45,11 @@ namespace LethalWeapon
             }
             if (weaponOnGround == false && weaponPickedUp == true)
             {
-                dPos = position - player.AimPosition;
-                position = new Vector2(player.Position.X, player.Position.Y + 10);
+                int weaponOffsetX = 20;
+                int weaponOffsetY = 30;
+
+                dPos = player.AimPosition - position;
+                position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.W))

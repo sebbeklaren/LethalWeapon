@@ -62,8 +62,8 @@ namespace LethalWeapon
 
             input.Update();
             position += input.position * speed;
+            Vector2 distance = input.aimDirection - position;
             aimPosition += input.aimDirection * aimSpeed;
-           
         }
 
         public override void Draw(SpriteBatch sb)

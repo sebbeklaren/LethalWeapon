@@ -20,7 +20,7 @@ namespace LethalWeapon
 
         public void Update()
         {           
-            GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
+            GamePadState gamePad = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
             if (gamePad.IsConnected)
             {
                 position = gamePad.ThumbSticks.Left;
