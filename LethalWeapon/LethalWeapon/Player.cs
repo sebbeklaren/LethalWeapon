@@ -27,6 +27,8 @@ namespace LethalWeapon
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
         Vector2 aimPosition;
+        GameWindow window;
+        GraphicsDevice graphics;
 
         public Vector2 AimPosition
         {
@@ -37,8 +39,9 @@ namespace LethalWeapon
             get { return position; }
         }
 
-        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content): base (texture, position, sourceRect)
-        {            
+        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, GraphicsDevice graphics): base (texture, position, sourceRect)
+        {
+            this.graphics = graphics;
             this.texture = texture;
             this.position = position;
             PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
@@ -61,9 +64,30 @@ namespace LethalWeapon
                 position.X += speed;
 
             input.Update();
-            position += input.position * speed;
-            Vector2 distance = input.aimDirection - position;
-            aimPosition += input.aimDirection * aimSpeed;
+            position += input.position * speed;            
+            aimPosition += input.aimDirection * aimSpeed;            
+           
+            double maxAimDistYBot= 170;
+            double maxAimDistYTop = 185;
+            double maxAimDistXLeft = 235;
+            double maxAimDistXRight = 250;
+
+            if (aimPosition.X < position.X - maxAimDistXLeft)
+            {
+                aimPosition.X = position.X - (float)maxAimDistXLeft;
+            }
+            if (aimPosition.Y < position.Y - maxAimDistYTop)
+            {
+                aimPosition.Y = position.Y - (float)maxAimDistYTop;
+            }
+            if (aimPosition.X > position.X + maxAimDistXRight)
+            {
+                aimPosition.X = position.X + (float)maxAimDistXRight;
+            }
+            if (aimPosition.Y > position.Y + maxAimDistYBot)
+            {
+                aimPosition.Y = position.Y + (float)maxAimDistYBot;
+            }
         }
 
         public override void Draw(SpriteBatch sb)
