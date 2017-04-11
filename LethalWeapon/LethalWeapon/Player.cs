@@ -17,7 +17,6 @@ namespace LethalWeapon
         float rotation = 1.0f;
         float layerDepth = 1f;
         float aimSpeed = 5.0f;
-
         public Rectangle playerHitbox;
         Texture2D aimTexture;
         //Stats for Player to read and display
@@ -27,8 +26,6 @@ namespace LethalWeapon
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
         Vector2 aimPosition;
-        GameWindow window;
-        GraphicsDevice graphics;
 
         public Vector2 AimPosition
         {
@@ -39,9 +36,8 @@ namespace LethalWeapon
             get { return position; }
         }
 
-        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, GraphicsDevice graphics): base (texture, position, sourceRect)
-        {
-            this.graphics = graphics;
+        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content): base (texture, position, sourceRect)
+        {            
             this.texture = texture;
             this.position = position;
             PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
