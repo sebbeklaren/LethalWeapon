@@ -8,7 +8,6 @@ namespace LethalWeapon
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        GraphicsDevice graphicsDevice;
         SpriteBatch spriteBatch;
         Player player;
         Enemy enemy;
@@ -41,7 +40,7 @@ namespace LethalWeapon
             screenHeight = 32 * 24;
             screenWidth = 32 * 32;            
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect, Content, graphicsDevice);
+            player = new Player(Content.Load <Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect, Content);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
