@@ -26,6 +26,7 @@ namespace LethalWeapon
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
         Vector2 aimPosition;
+        bool moving;
 
         public Vector2 AimPosition
         {
@@ -50,14 +51,16 @@ namespace LethalWeapon
         public void Update()
         {
             playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                position.Y -= speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                position.Y += speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                position.X -= speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                position.X += speed;
+            
+                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    position.Y -= speed;
+                if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    position.Y += speed;
+                if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    position.X -= speed;
+                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    position.X += speed;
+            
 
             input.Update();
             position += input.position * speed;
@@ -91,5 +94,7 @@ namespace LethalWeapon
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, Color.White);
         }
+
+
     }
 }
