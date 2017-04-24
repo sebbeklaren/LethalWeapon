@@ -14,6 +14,8 @@ namespace LethalWeapon
         public Vector2 position, aimDirection;
         public float rotation;
         bool fire;
+        MouseState mousePosOld, mousePosNew;
+                
         public InputManager()
         {
         }
@@ -21,6 +23,11 @@ namespace LethalWeapon
         public void Update()
         {           
             GamePadState gamePad = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+            mousePosOld = mousePosNew;
+            mousePosNew = Mouse.GetState();
+
+            aimDirection.X = mousePosNew.X;
+            aimDirection.Y = mousePosNew.Y;
             if (gamePad.IsConnected)
             {
                 position = gamePad.ThumbSticks.Left;

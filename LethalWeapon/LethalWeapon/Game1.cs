@@ -48,7 +48,7 @@ namespace LethalWeapon
             Viewport view = GraphicsDevice.Viewport;
             camera = new Camera(view);
             cameraOffset = new Vector2(35, 65);
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.ApplyChanges();

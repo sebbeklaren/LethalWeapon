@@ -16,7 +16,7 @@ namespace LethalWeapon
         float speed = 2.0f;
         float rotation = 1.0f;
         float layerDepth = 1f;
-        float aimSpeed = 5.0f;
+        float aimSpeed = 0.1f;
         public Rectangle playerHitbox;
         Texture2D aimTexture;
         //Stats for Player to read and display
@@ -60,7 +60,7 @@ namespace LethalWeapon
                 position.X += speed;
 
             input.Update();
-            position += input.position * speed;            
+            position += input.position * speed;
             aimPosition += input.aimDirection * aimSpeed;            
            
             double maxAimDistYBot= 170;
