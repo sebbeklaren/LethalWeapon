@@ -10,18 +10,18 @@ namespace LethalWeapon
 {
     class Gui
     {
-        Texture2D healtBarTexture, energyBarTexture, borderTexture;        
-        Vector2 healtPosition, energyPosition, borderPosition;
+        protected Texture2D healtBarTexture, energyBarTexture, borderTexture;        
+        Vector2 healthPosition, energyPosition, borderPosition;
         Rectangle healthSourceRect, energySourceRect;
-        Rectangle healthRect, energyRect;
-        double playerHealth, playerEnergy;
-        int healthBarOffset = 230; // sätta rätt position för hp och energi
-        int energyBarOffset = 250;
+        protected Rectangle healthRect, energyRect;
+        protected double health, energy;
+        protected int healthBarOffset = 230; // sätta rätt position för hp och energi
+        protected int energyBarOffset = 250;
 
-        public Gui(ContentManager content, int playerHealth, int playerEnergy)
+        public Gui(ContentManager content, int health, int energy)
         {
-            this.playerHealth = playerHealth;
-            this.playerEnergy = playerEnergy;
+            this.health = health;
+            this.energy = energy;
             healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
             energyBarTexture = content.Load<Texture2D>(@"Gui/EnergyBar");
             borderTexture = content.Load<Texture2D>(@"Gui/barBorder");            
@@ -29,15 +29,15 @@ namespace LethalWeapon
 
         public void Update(Vector2 cameraPosition, Player player)
         {
-            //playerHealth = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna
-            playerEnergy = 45;
-            healtPosition = cameraPosition;
-            playerHealth = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
+            //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna
+            energy = 45;
+            healthPosition = cameraPosition;
+            health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
 
-            healthRect = new Rectangle((int)healtPosition.X, (int)healtPosition.Y + healthBarOffset,
-                    (int)playerHealth, healtBarTexture.Height / 4);
-            energyRect = new Rectangle((int)healtPosition.X, (int)healtPosition.Y + energyBarOffset,
-                    (int)playerEnergy, healtBarTexture.Height / 4);
+            healthRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
+                    (int)health, healtBarTexture.Height / 4);
+            energyRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
+                    (int)energy, healtBarTexture.Height / 4);
         }
 
         public void Draw(SpriteBatch sb)
@@ -46,9 +46,9 @@ namespace LethalWeapon
             sb.Draw(healtBarTexture, healthRect, Color.White);
             sb.Draw(energyBarTexture, energyRect, Color.White);
 
-            sb.Draw(borderTexture, new Rectangle((int)healtPosition.X, (int)healtPosition.Y + healthBarOffset,
+            sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / 4), Color.White);
-            sb.Draw(borderTexture, new Rectangle((int)healtPosition.X, (int)healtPosition.Y + energyBarOffset,
+            sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
                     healtBarTexture.Width / 4, healtBarTexture.Height / 4), Color.White);
         }
     }
