@@ -16,14 +16,10 @@ namespace LethalWeapon
         float speed = 2.0f;
         float rotation = 1.0f;
         float layerDepth = 1f;
-<<<<<<< HEAD
         float aimSpeed = 0.1f;
-=======
-        float aimSpeed = 5.0f;
-
->>>>>>> parent of e5dfa5d... Rensat upp lite i koden
         public Rectangle playerHitbox;
         Texture2D aimTexture;
+
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerCurrentHealth { get; set; }
@@ -31,12 +27,12 @@ namespace LethalWeapon
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
         Vector2 aimPosition;
-<<<<<<< HEAD
+
         bool moving;
-=======
+
         GameWindow window;
         GraphicsDevice graphics;
->>>>>>> parent of e5dfa5d... Rensat upp lite i koden
+
 
         public Vector2 AimPosition
         {
@@ -47,7 +43,7 @@ namespace LethalWeapon
             get { return position; }
         }
 
-        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, GraphicsDevice graphics): base (texture, position, sourceRect)
+        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content): base (texture, position, sourceRect)
         {
             this.graphics = graphics;
             this.texture = texture;
