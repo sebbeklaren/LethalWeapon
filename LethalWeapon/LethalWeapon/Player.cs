@@ -28,12 +28,6 @@ namespace LethalWeapon
         //ContentManager content;
         Vector2 aimPosition;
 
-        bool moving;
-
-        GameWindow window;
-        GraphicsDevice graphics;
-
-
         public Vector2 AimPosition
         {
             get { return aimPosition; } 
@@ -45,7 +39,7 @@ namespace LethalWeapon
 
         public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content): base (texture, position, sourceRect)
         {
-            this.graphics = graphics;
+            
             this.texture = texture;
             this.position = position;
             PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
@@ -71,8 +65,8 @@ namespace LethalWeapon
 
             input.Update();
             position += input.position * speed;
-            aimPosition = input.aimDirection;// * aimSpeed;            
-           
+            aimPosition = input.aimDirection;// * aimSpeed;
+
             double maxAimDistYBot= 170;
             double maxAimDistYTop = 185;
             double maxAimDistXLeft = 235;
@@ -101,7 +95,5 @@ namespace LethalWeapon
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, Color.White);
         }
-
-
     }
 }

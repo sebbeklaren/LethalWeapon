@@ -23,11 +23,13 @@ namespace LethalWeapon
         public void Update()
         {           
             GamePadState gamePad = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+
             mousePosOld = mousePosNew;
             mousePosNew = Mouse.GetState();
 
             aimDirection.X = mousePosNew.X;
             aimDirection.Y = mousePosNew.Y;
+
             if (gamePad.IsConnected)
             {
                 position = gamePad.ThumbSticks.Left;
@@ -45,6 +47,10 @@ namespace LethalWeapon
                     fire = false;
                 }
                 GamePad.SetVibration(PlayerIndex.One, gamePad.Triggers.Right, gamePad.Triggers.Right);
+            }
+            else
+            {
+
             }
         }       
     }
