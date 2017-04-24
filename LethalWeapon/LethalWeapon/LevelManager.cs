@@ -19,6 +19,7 @@ namespace LethalWeapon
         StreamReader streamReader;
         List<string> lvlStrings;
         public string loadedLevel;
+        //Rectangle =
 
         public LevelManager(ContentManager content, string loadedLevel)
         {            

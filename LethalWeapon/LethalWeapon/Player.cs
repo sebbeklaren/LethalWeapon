@@ -61,7 +61,7 @@ namespace LethalWeapon
 
             input.Update();
             position += input.position * speed;
-            aimPosition += input.aimDirection * aimSpeed;            
+            aimPosition = input.aimDirection;// * aimSpeed;            
            
             double maxAimDistYBot= 170;
             double maxAimDistYTop = 185;
