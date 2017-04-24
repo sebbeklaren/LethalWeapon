@@ -52,15 +52,54 @@ namespace LethalWeapon
                 position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
+                bulletDirection = 1;
                 Bullet b = new Bullet(bulletTexture, bulletPosition);
-                b.bulletStartingPosition = player.Position;
                 bullets.Add(b);
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                bulletDirection = 2;
+                Bullet b = new Bullet(bulletTexture, bulletPosition);
+                bullets.Add(b);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                bulletDirection = 3;
+                Bullet b = new Bullet(bulletTexture, bulletPosition);
+                bullets.Add(b);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                bulletDirection = 4;
+                Bullet b = new Bullet(bulletTexture, bulletPosition);
+                bullets.Add(b);
+            }
+        
+            ShotDirection();
+        }
+
+        public void ShotDirection()
+        {
             foreach (Bullet b in bullets)
             {
-                b.Update(player);
+                if (bulletDirection == 1)
+                {
+                    bulletPosition.Y -= bulletSpeed;
+                }
+                if (bulletDirection == 2)
+                {
+                    bulletPosition.X -= bulletSpeed;
+                }
+                if (bulletDirection == 3)
+                {
+                    bulletPosition.X += bulletSpeed;
+                }
+                if (bulletDirection == 4)
+                {
+                    bulletPosition.Y += bulletSpeed;
+                }
             }
         }
 
@@ -71,7 +110,7 @@ namespace LethalWeapon
            
             foreach(Bullet b in bullets)
             {
-                b.Draw(sb);
+                sb.Draw(bulletTexture, bulletPosition, Color.White);
             }
         }
     }
