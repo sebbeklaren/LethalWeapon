@@ -49,7 +49,7 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
-            player.Update();
+            player.Update(gameTime);
             enemy.Update(player);
             weapon.Update(player);
             camera.SetPosition(player.Position - cameraOffset);

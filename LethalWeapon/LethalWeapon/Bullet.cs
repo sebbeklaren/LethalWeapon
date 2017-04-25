@@ -14,14 +14,14 @@ namespace LethalWeapon
     {
         public Texture2D texture;
         public Vector2 position;
-        public float speed;
+        public Vector2 speed;
         public Vector2 bulletStartingPosition;
         public Vector2 bulletDestination;
         public bool shotFired = false;
         public Bullet(Texture2D texture)
         {
             this.texture = texture;
-            speed = 1;
+            speed = new Vector2(1, 1);
         }
 
         public void Update(Player player)

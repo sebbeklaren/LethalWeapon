@@ -17,6 +17,7 @@ namespace LethalWeapon
         float rotation = 1.0f;
         float layerDepth = 1f;
         float aimSpeed = 0.1f;
+        double dodgeTimer = 3;
         public Rectangle playerHitbox;
         Texture2D aimTexture;
 
@@ -27,7 +28,7 @@ namespace LethalWeapon
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
         Vector2 aimPosition;
-
+        Vector2 dodgeSpeed;
         public Vector2 AimPosition
         {
             get { return aimPosition; } 
@@ -46,10 +47,11 @@ namespace LethalWeapon
             PlayerCurrentHealth = 75;
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
+            dodgeSpeed = new Vector2(10, 10);
             aimTexture = content.Load<Texture2D>(@"crosshair");
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             
@@ -61,9 +63,17 @@ namespace LethalWeapon
                     position.X -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     position.X += speed;
-            
+                if (Keyboard.GetState().IsKeyDown(Keys.RightShift))
+                    {
+                        dodgeTimer = 0;
+                        dodgeTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                    }
 
-            input.Update();
+                while(dodgeTimer <= 2)
+            {
+                position += dodgeSpeed;
+            }
+                input.Update();
             position += input.position * speed;
             aimPosition = input.aimDirection;// * aimSpeed;
 
