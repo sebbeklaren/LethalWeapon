@@ -23,9 +23,6 @@ namespace LethalWeapon
         Texture2D bulletTexture;
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
-        float bulletSpeed = 2f;
-        Vector2 bulletPosition;
-        int bulletDirection;
         public List<Bullet> bullets = new List<Bullet>();
         public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content) : base (texture, position, sourceRect)
         {
@@ -37,7 +34,6 @@ namespace LethalWeapon
         public void Update(Player player, Enemy enemy)
         {
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            bulletPosition = player.Position;
             if (player.playerHitbox.Intersects(weaponHitbox))
             {
                 weaponOnGround = false;
