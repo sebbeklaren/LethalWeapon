@@ -60,7 +60,7 @@ namespace LethalWeapon
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
-            gui.Update(camera.GetPosition(), player);
+            gui.Update(camera.GetPosition(), player, gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
