@@ -12,11 +12,11 @@ namespace LethalWeapon
 {
     class Player : GameObject
     {
-        InputManager input = new InputManager();
+        public InputManager input = new InputManager();
         float speed = 2.0f;
         float rotation = 1.0f;
         float layerDepth = 1f;
-        float aimSpeed = 0.1f;
+        float aimSpeed = 5.0f;
         double dodgeTimer;
         bool isDodging = false;
         public Rectangle playerHitbox;
@@ -82,7 +82,7 @@ namespace LethalWeapon
             }
             input.Update();
             position += input.position * speed;
-            aimPosition = input.aimDirection;// * aimSpeed;
+            aimPosition += input.aimDirection * aimSpeed;
 
             double maxAimDistYBot= 170;
             double maxAimDistYTop = 185;
