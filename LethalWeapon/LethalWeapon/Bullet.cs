@@ -16,8 +16,9 @@ namespace LethalWeapon
         public Vector2 position;
         public float speed;
         public Vector2 bulletStartingPosition;
-        int bulletDirection;
-        public Bullet(Texture2D texture, Vector2 position)
+        public Vector2 bulletDestination;
+        public bool shotFired = false;
+        public Bullet(Texture2D texture)
         {
             this.texture = texture;
             speed = 1;
@@ -25,46 +26,18 @@ namespace LethalWeapon
 
         public void Update(Player player)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (shotFired == false)
             {
-                bulletDirection = 1;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                bulletDirection = 2;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                bulletDirection = 3;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                bulletDirection = 4;
-            }
-
-            ShotDirection();
-        }
-        public void ShotDirection()
-        {
-            if (bulletDirection == 1)
-            {
-                bulletStartingPosition.Y -= speed;
                 position = bulletStartingPosition;
             }
-            if (bulletDirection == 2)
+            if (position == player.Position)
             {
-                bulletStartingPosition.X -= speed;
-                position = bulletStartingPosition;
+                shotFired = true;
+                bulletDestination = player.AimPosition - player.Position;
             }
-            if (bulletDirection == 3)
+            if (shotFired == true)
             {
-                bulletStartingPosition.X += speed;
-                position = bulletStartingPosition;
-            }
-            if (bulletDirection == 4)
-            {
-                bulletStartingPosition.Y += speed;
-                position = bulletStartingPosition;
+                position += Vector2.Normalize(bulletDestination);
             }
         }
         public void Draw(SpriteBatch sb)

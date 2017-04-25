@@ -34,7 +34,7 @@ namespace LethalWeapon
             player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect, Content);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
-            bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"), new Vector2(0, 0));
+            bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
             gui = new Gui(Content, 1, 1);
 
             screenHeight = 32 * 24;
@@ -67,7 +67,6 @@ namespace LethalWeapon
             player.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
-            bullet.Draw(spriteBatch);
             gui.Draw(spriteBatch);
 
         }

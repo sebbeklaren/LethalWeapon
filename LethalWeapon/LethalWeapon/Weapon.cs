@@ -52,9 +52,9 @@ namespace LethalWeapon
                 position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                Bullet b = new Bullet(bulletTexture, bulletPosition);
+                Bullet b = new Bullet(bulletTexture);
                 b.bulletStartingPosition = player.Position;
                 bullets.Add(b);
             }
@@ -66,9 +66,7 @@ namespace LethalWeapon
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
-
-           
+            sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);         
             foreach(Bullet b in bullets)
             {
                 b.Draw(sb);
