@@ -33,12 +33,12 @@ namespace LethalWeapon
         protected Vector2 destination;
         protected bool isAlive;
 
-        public int EnemyCurrentHealth
+        public double EnemyCurrentHealth
         {
             get; set;
         }
 
-        public int EnemyMaxHealth
+        public double EnemyMaxHealth
         {
             get; set;
         }

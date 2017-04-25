@@ -26,7 +26,7 @@ namespace LethalWeapon
             healthPosition.X = enemy.Position.X;
             healthPosition.Y = enemy.Position.Y - healthYPositionOffset;
 
-            health = (enemy.EnemyCurrentHealth / enemy.EnemyMaxHealth) * 100;
+            health = (float)(enemy.EnemyCurrentHealth / enemy.EnemyMaxHealth) * 100;
 
             healthRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y, (int)(health / 4), healtBarTexture.Height / 20);
         }

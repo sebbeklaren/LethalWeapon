@@ -34,7 +34,7 @@ namespace LethalWeapon
             this.graphicsDevice = graphicsDevice;
             player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect, Content);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
-            enemyHealthBar = new Bar(Content, enemy.EnemyMaxHealth, 0);
+            enemyHealthBar = new Bar(Content, (int)enemy.EnemyMaxHealth, 0);
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
             gui = new Gui(Content, 1, 1);
