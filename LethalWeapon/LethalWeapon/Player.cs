@@ -21,10 +21,13 @@ namespace LethalWeapon
         bool isDodging = false;
         public Rectangle playerHitbox;
         Texture2D aimTexture;
-
+        KeyboardState current;
+        KeyboardState last;
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
+        public double PlayerMaxEnergi { get; set; }
         public double PlayerCurrentHealth { get; set; }
+        public double PlayerCurrentEnergi { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
@@ -45,7 +48,9 @@ namespace LethalWeapon
             this.texture = texture;
             this.position = position;
             PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
-            PlayerCurrentHealth = 75;
+            PlayerMaxEnergi = 100;
+            PlayerCurrentHealth = 100;
+            PlayerCurrentEnergi = 100;
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
@@ -54,6 +59,8 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
+            last = current;
+            current = Keyboard.GetState();
             playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
@@ -64,9 +71,10 @@ namespace LethalWeapon
                     position.X -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     position.X += speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                if (current.IsKeyDown(Keys.LeftShift) && last.IsKeyUp(Keys.LeftShift) && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
+                        PlayerCurrentEnergi -= 20;
                     }
 
             if (isDodging == true)
