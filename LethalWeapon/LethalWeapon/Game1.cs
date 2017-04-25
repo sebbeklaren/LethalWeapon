@@ -18,7 +18,7 @@ namespace LethalWeapon
         SpriteBatch spriteBatch;
         LevelManager level;
         InputManager input;
-        string currentLevel;
+        //string currentLevel;
         GamePlayManager gamePlayManager;
         enum GameState {  CityLevel, RuinsLevel }
         GameState state;
@@ -57,21 +57,22 @@ namespace LethalWeapon
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            gamePlayManager.Update(gameTime);
+            
             base.Update(gameTime);
 
             switch (state)
             {
                 case GameState.CityLevel:
-                    CurrentLevel("Content/Map/map01.txt");
+                    gamePlayManager.CurrentLevel("Content/Map/map01.txt");
                     UpdateWorldMap(gameTime);
                     break;
 
-                case GameState.RuinsLevel:                    
-                    CurrentLevel("Content/Map/map02.txt");
+                case GameState.RuinsLevel:
+                    gamePlayManager.CurrentLevel("Content/Map/map02.txt");
                     UpdateWorldMap(gameTime);
                     break;
             }
+            gamePlayManager.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -109,15 +110,15 @@ namespace LethalWeapon
         public void DrawWorldMap(GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
-            level.Draw(spriteBatch);
+          //  level.Draw(spriteBatch);
             gamePlayManager.Draw(spriteBatch);
             spriteBatch.End();
         }
 
-        public void CurrentLevel(string newLevel)
-        {           
-            currentLevel = newLevel;
-            level = new LevelManager(Content, currentLevel);
-        }
+        //public void CurrentLevel(string newLevel)
+        //{           
+        //    currentLevel = newLevel;
+        //    level = new LevelManager(Content, currentLevel);
+        //}
     }
 }

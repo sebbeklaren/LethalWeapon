@@ -12,15 +12,17 @@ namespace LethalWeapon
     public class Tiles : GameObject
     {
         protected bool wall;
+        public Rectangle hitBox;
         public bool Wall
         {
             get { return wall; }
         }
 
-        public Tiles(Texture2D texture, Vector2 position, Rectangle sourceRect, bool wall)
+        public Tiles(Texture2D texture, Vector2 position, Rectangle sourceRect, Rectangle hitBox, bool wall)
             : base(texture, position, sourceRect)
         {
             this.wall = wall;
+            this.hitBox = hitBox;
         }
     }
 }
