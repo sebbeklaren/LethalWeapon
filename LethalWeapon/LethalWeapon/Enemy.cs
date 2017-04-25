@@ -16,6 +16,11 @@ namespace LethalWeapon
             get { return hitBox; }
         }
 
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+
         protected Vector2 startingPosition;
         protected Vector2 speed;
         protected static Random random = new Random();
@@ -63,7 +68,7 @@ namespace LethalWeapon
 
             if (enemyIsNearPlayer)
                 MoveTowardsPlayer(player); //Flyttar fienden närmare spelaren
-            else if(!hasCorrectStartingPosition)
+            else if (!hasCorrectStartingPosition)
                 MakeNewStartingPosition(); //Ändrar fiendens grundposition
 
             hitBox.X = (int)position.X;
@@ -74,13 +79,13 @@ namespace LethalWeapon
 
         public override void Draw(SpriteBatch sb)
         {
-            if(isAlive)
+            if (isAlive)
                 sb.Draw(texture, position, Color.White);
         }
 
         private void Movement()
         {
-            if(!isMoving)
+            if (!isMoving)
             {
                 direction = random.Next(1, 5);
                 if (direction == 1)
@@ -101,7 +106,7 @@ namespace LethalWeapon
 
             position += speed;
 
-            if(position == startingPosition)
+            if (position == startingPosition)
             {
                 isMoving = false;
                 speed.X = 0;

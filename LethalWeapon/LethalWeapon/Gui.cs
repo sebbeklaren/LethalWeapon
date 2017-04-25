@@ -11,7 +11,7 @@ namespace LethalWeapon
     class Gui
     {
         protected Texture2D healtBarTexture, energyBarTexture, borderTexture;        
-        Vector2 healthPosition, energyPosition, borderPosition;
+        protected Vector2 healthPosition, energyPosition, borderPosition;
         Rectangle healthSourceRect, energySourceRect;
         protected Rectangle healthRect, energyRect;
         protected double health, energy;
@@ -40,7 +40,7 @@ namespace LethalWeapon
                     (int)energy, healtBarTexture.Height / 4);
         }
 
-        public void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb)
         {
             int borderOffset = 3;
             sb.Draw(healtBarTexture, healthRect, Color.White);
