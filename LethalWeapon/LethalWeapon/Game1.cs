@@ -42,10 +42,10 @@ namespace LethalWeapon
             graphics.ApplyChanges();
             input = new InputManager();
 
-            if (!graphics.IsFullScreen)
-            {
-                graphics.ToggleFullScreen();
-            }
+            //if (!graphics.IsFullScreen)
+            //{
+            //    graphics.ToggleFullScreen();
+            //}
         }
 
         protected override void UnloadContent()

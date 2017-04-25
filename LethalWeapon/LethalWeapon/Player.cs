@@ -18,7 +18,9 @@ namespace LethalWeapon
         float layerDepth = 1f;
         float aimSpeed = 0.1f;
         double dodgeTimer;
+        double hitTimer;
         bool isDodging = false;
+        bool playerIsHit = false;
         public Rectangle playerHitbox;
         Texture2D aimTexture;
         KeyboardState current;
@@ -57,7 +59,7 @@ namespace LethalWeapon
             aimTexture = content.Load<Texture2D>(@"crosshair");
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Enemy enemy)
         {
             last = current;
             current = Keyboard.GetState();
@@ -76,17 +78,31 @@ namespace LethalWeapon
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
                     }
+            if (playerHitbox.Intersects(enemy.HitBox) && isDodging == false && playerIsHit == false)
+            {
+                PlayerCurrentHealth -= 20;
+                playerIsHit = true;
+            }
 
             if (isDodging == true)
             {
                 dodgeTimer += gameTime.ElapsedGameTime.Milliseconds;
                 speed = 5;
             }
+            if (playerIsHit == true)
+            {
+                hitTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            }
             if (dodgeTimer > 300)
             {
                 speed = 2;
                 isDodging = false;
                 dodgeTimer = 0;
+            }
+            if(hitTimer >= 1)
+            {
+                playerIsHit = false;
+                hitTimer = 0;
             }
             input.Update();
             position += input.position * speed;
