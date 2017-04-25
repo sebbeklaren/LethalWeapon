@@ -51,7 +51,7 @@ namespace LethalWeapon
         {
             player.Update(gameTime);
             enemy.Update(player);
-            weapon.Update(player);
+            weapon.Update(player, enemy);
             camera.SetPosition(player.Position - cameraOffset);
 
             camera.ZoomX = 1.7f;

@@ -11,6 +11,11 @@ namespace LethalWeapon
     class Enemy : GameObject
     {
         protected Rectangle hitBox;
+        public Rectangle HitBox
+        {
+            get { return hitBox; }
+        }
+
         protected Vector2 startingPosition;
         protected Vector2 speed;
         protected static Random random = new Random();
@@ -21,6 +26,17 @@ namespace LethalWeapon
         protected bool enemyIsNearPlayer;
         protected bool hasCorrectStartingPosition;
         protected Vector2 destination;
+        protected bool isAlive;
+
+        public int EnemyCurrentHealth
+        {
+            get; set;
+        }
+
+        public int EnemyMaxHealth
+        {
+            get; set;
+        }
 
         public Enemy(Texture2D texture, Vector2 position, Rectangle sourceRect)
             : base(texture, position, sourceRect)
@@ -34,6 +50,9 @@ namespace LethalWeapon
             aggroRange = 150;
             enemyIsNearPlayer = false;
             hasCorrectStartingPosition = true;
+            isAlive = true;
+            EnemyMaxHealth = 10000;
+            EnemyCurrentHealth = EnemyMaxHealth;
         }
 
         public void Update(Player player)
@@ -46,11 +65,17 @@ namespace LethalWeapon
                 MoveTowardsPlayer(player); //Flyttar fienden närmare spelaren
             else if(!hasCorrectStartingPosition)
                 MakeNewStartingPosition(); //Ändrar fiendens grundposition
+
+            hitBox.X = (int)position.X;
+            hitBox.Y = (int)position.Y;
+
+            HasDied();
         }
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, Color.White);
+            if(isAlive)
+                sb.Draw(texture, position, Color.White);
         }
 
         private void Movement()
@@ -107,6 +132,17 @@ namespace LethalWeapon
         {
             startingPosition = position;
             hasCorrectStartingPosition = true;
+        }
+
+        public void TakeDamage()
+        {
+            EnemyCurrentHealth -= 50;
+        }
+
+        protected void HasDied()
+        {
+            if (EnemyCurrentHealth <= 0)
+                isAlive = false;
         }
     }
 }

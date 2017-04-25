@@ -34,7 +34,7 @@ namespace LethalWeapon
             bulletTexture = content.Load<Texture2D>("Bullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
-        public void Update(Player player)
+        public void Update(Player player, Enemy enemy)
         {
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             bulletPosition = player.Position;
@@ -61,6 +61,8 @@ namespace LethalWeapon
             foreach (Bullet b in bullets)
             {
                 b.Update(player);
+                if (enemy.HitBox.Intersects(b.HitBox))
+                    enemy.TakeDamage();
             }
         }
 
