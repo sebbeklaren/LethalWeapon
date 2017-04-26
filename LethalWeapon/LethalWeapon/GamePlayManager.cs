@@ -24,10 +24,9 @@ namespace LethalWeapon
         string currentLevel;
         public Camera camera;
         Vector2 cameraOffset;
-        int screenHeight, screenWidth;
+        public int screenHeight, screenWidth;
         GraphicsDevice graphicsDevice;
         GraphicsDeviceManager graphics;
-
 
         public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice)
         {
@@ -56,7 +55,7 @@ namespace LethalWeapon
             player.Update(gameTime, enemy);
             enemy.Update(player);
             enemyHealthBar.UpdateBar(enemy);
-            weapon.Update(player, enemy, bullet);
+            weapon.Update(player, enemy, bullet, gui);
             camera.SetPosition(player.Position - cameraOffset);
             //level.Update(player);
             camera.ZoomX = 1.7f;

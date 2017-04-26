@@ -29,7 +29,7 @@ namespace LethalWeapon
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
         public double PlayerCurrentHealth { get; set; }
-        public double PlayerCurrentEnergi { get; set; }
+        public double PlayerCurrentEnergy { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
         protected float regenTimer;
@@ -55,7 +55,7 @@ namespace LethalWeapon
             PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
             PlayerMaxEnergi = 100;
             PlayerCurrentHealth = 100;
-            PlayerCurrentEnergi = 100;
+            PlayerCurrentEnergy = 0;
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
@@ -77,10 +77,10 @@ namespace LethalWeapon
                     position.X -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     position.X += speed;
-                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) && PlayerCurrentEnergi >= 20)
+                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) && PlayerCurrentEnergy >= 20)
                     {
                         isDodging = true;
-                        PlayerCurrentEnergi -= 20;
+                        PlayerCurrentEnergy -= 20;
                     }
             if (playerHitbox.Intersects(enemy.HitBox) && isDodging == false && playerIsHit == false)
             {
@@ -138,7 +138,7 @@ namespace LethalWeapon
 
         public void energiRegen(GameTime gameTime)
         {
-            if (PlayerCurrentEnergi <= 100 && canRegen == false)
+            if (PlayerCurrentEnergy <= 100 && canRegen == false)
             {
                 regenTimer = 1;
                 canRegen = true;
@@ -148,7 +148,7 @@ namespace LethalWeapon
             {
                 if (regenTimer == 1)
                 {
-                    PlayerCurrentEnergi = PlayerCurrentEnergi + regen;
+                    PlayerCurrentEnergy = PlayerCurrentEnergy + regen;
                 }
                 regenTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (regenTimer <= 0)
@@ -157,9 +157,9 @@ namespace LethalWeapon
                 }
             }
 
-            if (PlayerCurrentEnergi >= 100)
+            if (PlayerCurrentEnergy >= 100)
             {
-                PlayerCurrentEnergi = 100;
+                PlayerCurrentEnergy = 100;
                 canRegen = false;
             }
         }
