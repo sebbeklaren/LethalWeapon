@@ -190,6 +190,7 @@ namespace LethalWeapon
 
         private void CheckBounds()
         {
+
             if(position.Y <= 0)
             {
                 position.Y =  1;

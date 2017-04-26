@@ -14,7 +14,7 @@ namespace LethalWeapon
  
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         InputManager input;        
         GamePlayManager gamePlayManager;

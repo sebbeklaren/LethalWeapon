@@ -63,7 +63,8 @@ namespace LethalWeapon
             camera.Rotation = 0f;
             gui.Update(camera.GetPosition(), player, gameTime);
             int inputCameraMultiplier = 10;   
-            camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X  * inputCameraMultiplier, (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
+            camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X  * inputCameraMultiplier, 
+                                           (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
             
         }
 

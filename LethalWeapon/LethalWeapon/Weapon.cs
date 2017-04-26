@@ -13,7 +13,7 @@ namespace LethalWeapon
 {
     class Weapon : GameObject
     {
-        Rectangle weaponHitbox;
+        Rectangle weaponHitbox, activeWeapon;
         //Behandling av utritning
         public float weaponRotation;
         public float weaponScale = 1;
@@ -26,6 +26,7 @@ namespace LethalWeapon
         bool shotRemoved = false;
         public List<Bullet> bullets = new List<Bullet>();
         public List<Bullet> shouldBeDeleted = new List<Bullet>();
+
         public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content) : base (texture, position, sourceRect)
         {
             this.texture = texture;
@@ -33,9 +34,10 @@ namespace LethalWeapon
             bulletTexture = content.Load<Texture2D>("Bullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
-        public void Update(Player player, Enemy enemy, Bullet bullet)
+        public void Update(Player player, Enemy enemy, Bullet bullet, Gui gui)
         {
             input.Update();
+            activeWeapon = gui.ActiveWeaponRect;
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (player.playerHitbox.Intersects(weaponHitbox))
             {
@@ -75,10 +77,16 @@ namespace LethalWeapon
 
         public override void Draw(SpriteBatch sb)
         {
+
             sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);         
             foreach(Bullet b in bullets)
             {
                 b.Draw(sb);
+            }
+
+            if (weaponOnGround == false && weaponPickedUp == true)
+            {
+                sb.Draw(texture, new Vector2(activeWeapon.X + 20, activeWeapon.Y + 20), null, Color.White, 0f, weaponOrigin, 1.5f, SpriteEffects.None, 1f);
             }
         }
     }
