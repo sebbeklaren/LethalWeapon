@@ -40,7 +40,7 @@ namespace LethalWeapon
             healthPosition = cameraPosition;
             activeWeaponPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
-            energy = (player.PlayerCurrentEnergy / player.PlayerMaxEnergi) * 100;
+            energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * 100;
             healthRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     (int)health, healtBarTexture.Height / 4);
             energyRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,

@@ -57,7 +57,7 @@ namespace LethalWeapon
             player.Update(gameTime, enemy);
             enemy.Update(player);
             enemyHealthBar.UpdateBar(enemy);
-            weapon.Update(player, enemy, bullet);
+            weapon.Update(player, enemy, bullet, gui);
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
