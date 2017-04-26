@@ -18,13 +18,18 @@ namespace LethalWeapon
         float layerDepth = 1f;
         float aimSpeed = 5.0f;
         double dodgeTimer;
+        double hitTimer;
         bool isDodging = false;
+        bool playerIsHit = false;
         public Rectangle playerHitbox;
         Texture2D aimTexture;
-
+        KeyboardState current;
+        KeyboardState last;
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
+        public double PlayerMaxEnergi { get; set; }
         public double PlayerCurrentHealth { get; set; }
+        public double PlayerCurrentEnergi { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
         //ContentManager content;
@@ -45,16 +50,21 @@ namespace LethalWeapon
             this.texture = texture;
             this.position = position;
             PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
-            PlayerCurrentHealth = 75;
+            PlayerMaxEnergi = 100;
+            PlayerCurrentHealth = 100;
+            PlayerCurrentEnergi = 100;
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
             aimTexture = content.Load<Texture2D>(@"crosshair");
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Enemy enemy)
         {
-            playerHitbox = new Rectangle((int)position.X - (texture.Width / 2), (int)position.Y - (texture.Height /2), 32, 32);
+
+            last = current;
+            current = Keyboard.GetState();
+            playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                     position.Y -= speed;
@@ -64,21 +74,36 @@ namespace LethalWeapon
                     position.X -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     position.X += speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                if (current.IsKeyDown(Keys.LeftShift) && last.IsKeyUp(Keys.LeftShift) && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
+                        PlayerCurrentEnergi -= 20;
                     }
+            if (playerHitbox.Intersects(enemy.HitBox) && isDodging == false && playerIsHit == false)
+            {
+                PlayerCurrentHealth -= 20;
+                playerIsHit = true;
+            }
 
             if (isDodging == true)
             {
                 dodgeTimer += gameTime.ElapsedGameTime.Milliseconds;
                 speed = 5;
             }
+            if (playerIsHit == true)
+            {
+                hitTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            }
             if (dodgeTimer > 300)
             {
                 speed = 2;
                 isDodging = false;
                 dodgeTimer = 0;
+            }
+            if(hitTimer >= 1)
+            {
+                playerIsHit = false;
+                hitTimer = 0;
             }
             input.Update();
             position += input.position * speed;
@@ -111,6 +136,10 @@ namespace LethalWeapon
         {
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, Color.White);
+            if(playerIsHit == true)
+            {
+                sb.Draw(texture, position, Color.Red);
+            }
         }
     }
 }

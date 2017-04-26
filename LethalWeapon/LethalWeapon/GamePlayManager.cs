@@ -53,7 +53,7 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
-            player.Update(gameTime);
+            player.Update(gameTime, enemy);
             enemy.Update(player);
             enemyHealthBar.UpdateBar(enemy);
             weapon.Update(player, enemy);

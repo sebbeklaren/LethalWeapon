@@ -35,6 +35,8 @@ namespace LethalWeapon
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
             //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna
+<<<<<<< HEAD
+=======
      
 
             if (energy <= 100 && canRegen == false)
@@ -66,9 +68,10 @@ namespace LethalWeapon
 
 
 
+>>>>>>> origin/master
             healthPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
-
+            energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * 100;
             healthRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     (int)health, healtBarTexture.Height / 4);
             energyRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
