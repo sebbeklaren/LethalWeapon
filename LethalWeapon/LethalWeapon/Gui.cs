@@ -10,7 +10,7 @@ namespace LethalWeapon
 {
     class Gui
     {
-        protected Texture2D healtBarTexture, energyBarTexture, borderTexture;        
+        protected Texture2D healtBarTexture, energyBarTexture, borderTexture;
         protected Vector2 healthPosition, energyPosition, borderPosition;
         Rectangle healthSourceRect, energySourceRect;
         protected Rectangle healthRect, energyRect;
@@ -25,13 +25,13 @@ namespace LethalWeapon
             healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
             energyBarTexture = content.Load<Texture2D>(@"Gui/EnergyBar");
             borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
+            energy = 0;
         }
 
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
             //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna   
 
-            //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna
             healthPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
             energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * 100;
