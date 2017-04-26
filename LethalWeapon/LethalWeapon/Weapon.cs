@@ -23,7 +23,9 @@ namespace LethalWeapon
         Texture2D bulletTexture;
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
+        bool shotRemoved = false;
         public List<Bullet> bullets = new List<Bullet>();
+        public List<Bullet> shouldBeDeleted = new List<Bullet>();
         public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content) : base (texture, position, sourceRect)
         {
             this.texture = texture;
@@ -31,7 +33,7 @@ namespace LethalWeapon
             bulletTexture = content.Load<Texture2D>("Bullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
-        public void Update(Player player, Enemy enemy)
+        public void Update(Player player, Enemy enemy, Bullet bullet)
         {
             input.Update();
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
@@ -55,11 +57,19 @@ namespace LethalWeapon
                 b.bulletStartingPosition = player.Position;
                 bullets.Add(b);
             }
-            foreach (Bullet b in bullets)
+            foreach (Bullet b in bullets.ToList())
             {
-                b.Update(player);
+                b.Update(player, enemy);
                 if (enemy.HitBox.Intersects(b.HitBox))
+                {
                     enemy.TakeDamage();
+                    shotRemoved = true;
+                }
+                if (shotRemoved == true)
+                {
+                    bullets.Remove(b);
+                    shotRemoved = false;
+                }
             }
         }
 

@@ -30,7 +30,7 @@ namespace LethalWeapon
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
-        public void Update(Player player)
+        public void Update(Player player, Enemy enemy)
         {
             if (shotFired == false)
             {
