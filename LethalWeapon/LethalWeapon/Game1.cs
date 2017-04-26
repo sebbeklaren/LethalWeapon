@@ -16,12 +16,10 @@ namespace LethalWeapon
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        LevelManager level;
-        InputManager input;
-        string currentLevel;
+        InputManager input;        
         GamePlayManager gamePlayManager;
         enum GameState {  CityLevel, RuinsLevel }
-        GameState state;
+        GameState state;    
 
         public Game1()
         {
@@ -41,7 +39,7 @@ namespace LethalWeapon
             gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice);
             graphics.ApplyChanges();
             input = new InputManager();
-
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt");
             //if (!graphics.IsFullScreen)
             //{
             //    graphics.ToggleFullScreen();
@@ -57,21 +55,22 @@ namespace LethalWeapon
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            gamePlayManager.Update(gameTime);
+            
             base.Update(gameTime);
 
             switch (state)
             {
                 case GameState.CityLevel:
-                    CurrentLevel("Content/Map/map01.txt");
-                    UpdateWorldMap(gameTime);
+                   // gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+                    UpdateWorldMap(gameTime);   
                     break;
 
                 case GameState.RuinsLevel:                    
-                    CurrentLevel("Content/Map/map02.txt");
+                    gamePlayManager.CurrentLevel("Content/Map/map02.txt");
                     UpdateWorldMap(gameTime);
                     break;
             }
+            gamePlayManager.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -109,15 +108,15 @@ namespace LethalWeapon
         public void DrawWorldMap(GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
-            level.Draw(spriteBatch);
+            
             gamePlayManager.Draw(spriteBatch);
             spriteBatch.End();
         }
 
-        public void CurrentLevel(string newLevel)
-        {           
-            currentLevel = newLevel;
-            level = new LevelManager(Content, currentLevel);
-        }
+        //public void CurrentLevel(string newLevel)
+        //{           
+        //    currentLevel = newLevel;
+        //    level = new LevelManager(Content, currentLevel);
+        //}
     }
 }

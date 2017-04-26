@@ -16,6 +16,10 @@ namespace LethalWeapon
         {
             get { return wall; }
         }
+        public Rectangle SourceRect
+        {
+            get { return sourceRect; }
+        }
 
         public Tiles(Texture2D texture, Vector2 position, Rectangle sourceRect, bool wall)
             : base(texture, position, sourceRect)

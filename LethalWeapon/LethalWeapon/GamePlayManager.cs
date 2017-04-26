@@ -20,6 +20,8 @@ namespace LethalWeapon
         Bullet bullet;
         ContentManager Content;
         Rectangle sourceRect;
+        LevelManager level;
+        string currentLevel;
         public Camera camera;
         Vector2 cameraOffset;
         int screenHeight, screenWidth;
@@ -32,7 +34,7 @@ namespace LethalWeapon
             this.Content = Content;
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
-            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect, Content);
+            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(32, 32), sourceRect, Content);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             enemyHealthBar = new Bar(Content, (int)enemy.EnemyMaxHealth, 0);
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
@@ -56,24 +58,30 @@ namespace LethalWeapon
             enemyHealthBar.UpdateBar(enemy);
             weapon.Update(player, enemy);
             camera.SetPosition(player.Position - cameraOffset);
-
+            //level.Update(player);
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
             gui.Update(camera.GetPosition(), player, gameTime);
+
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.GetTransform());
-            //level.Draw(spriteBatch);
+            level.Draw(spriteBatch);
             player.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             enemyHealthBar.Draw(spriteBatch);
             gui.Draw(spriteBatch);
-
+            
         }
-
+        public void CurrentLevel(string newLevel)
+        {
+            currentLevel = newLevel;
+            level = new LevelManager(Content, currentLevel);
+        }
     }
 }
