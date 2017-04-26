@@ -58,11 +58,6 @@ namespace LethalWeapon
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             gamePlayManager.Update(gameTime);
-
-            input.Update();
-
-            Console.WriteLine(input.position);
-
             base.Update(gameTime);
 
             switch (state)
@@ -98,6 +93,7 @@ namespace LethalWeapon
             
             base.Draw(gameTime);
         }
+
         public void UpdateWorldMap(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.O))
@@ -108,12 +104,10 @@ namespace LethalWeapon
             {
                 state = GameState.CityLevel;
             }
-
         }
+
         public void DrawWorldMap(GameTime gameTime)
         {
-            
-
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
             level.Draw(spriteBatch);
             gamePlayManager.Draw(spriteBatch);
@@ -121,12 +115,8 @@ namespace LethalWeapon
         }
 
         public void CurrentLevel(string newLevel)
-        {
-           // Content.Unload();
-
+        {           
             currentLevel = newLevel;
-
-
             level = new LevelManager(Content, currentLevel);
         }
     }

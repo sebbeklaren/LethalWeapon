@@ -13,7 +13,7 @@ namespace LethalWeapon
     {
         public Vector2 position, aimDirection;
         public float rotation;
-        bool fire;
+        public bool fire;
         MouseState mousePosOld, mousePosNew;
                 
         public InputManager()

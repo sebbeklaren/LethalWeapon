@@ -14,6 +14,7 @@ namespace LethalWeapon
     {
         Player player;
         Enemy enemy;
+        Bar enemyHealthBar;
         Weapon weapon;
         Gui gui;
         Bullet bullet;
@@ -33,6 +34,7 @@ namespace LethalWeapon
             this.graphicsDevice = graphicsDevice;
             player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(100, 100), sourceRect, Content);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
+            enemyHealthBar = new Bar(Content, (int)enemy.EnemyMaxHealth, 0);
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
             gui = new Gui(Content, 1, 1);
@@ -51,13 +53,14 @@ namespace LethalWeapon
         {
             player.Update(gameTime, enemy);
             enemy.Update(player);
+            enemyHealthBar.UpdateBar(enemy);
             weapon.Update(player, enemy);
             camera.SetPosition(player.Position - cameraOffset);
 
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
-            gui.Update(camera.GetPosition(), player);
+            gui.Update(camera.GetPosition(), player, gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -67,6 +70,7 @@ namespace LethalWeapon
             player.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
+            enemyHealthBar.Draw(spriteBatch);
             gui.Draw(spriteBatch);
 
         }

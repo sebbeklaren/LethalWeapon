@@ -19,7 +19,7 @@ namespace LethalWeapon
         public float weaponScale = 1;
         Vector2 dPos; 
         Vector2 weaponOrigin;
-
+        InputManager input = new InputManager();
         Texture2D bulletTexture;
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
@@ -33,6 +33,7 @@ namespace LethalWeapon
         }
         public void Update(Player player, Enemy enemy)
         {
+            input.Update();
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (player.playerHitbox.Intersects(weaponHitbox))
             {
@@ -48,7 +49,7 @@ namespace LethalWeapon
                 position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) || input.fire)
             {
                 Bullet b = new Bullet(bulletTexture);
                 b.bulletStartingPosition = player.Position;

@@ -11,12 +11,16 @@ namespace LethalWeapon
     class Gui
     {
         protected Texture2D healtBarTexture, energyBarTexture, borderTexture;        
-        Vector2 healthPosition, energyPosition, borderPosition;
+        protected Vector2 healthPosition, energyPosition, borderPosition;
         Rectangle healthSourceRect, energySourceRect;
         protected Rectangle healthRect, energyRect;
         protected double health, energy;
         protected int healthBarOffset = 230; // sätta rätt position för hp och energi
         protected int energyBarOffset = 250;
+        private GameTime gameTime;
+        protected float regenTimer;
+        protected int regen = 10;
+        protected bool canRegen = false;
 
         public Gui(ContentManager content, int health, int energy)
         {
@@ -24,12 +28,47 @@ namespace LethalWeapon
             this.energy = energy;
             healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
             energyBarTexture = content.Load<Texture2D>(@"Gui/EnergyBar");
-            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");            
+            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
+            energy = 0;
         }
 
-        public void Update(Vector2 cameraPosition, Player player)
+        public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
             //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna
+<<<<<<< HEAD
+=======
+     
+
+            if (energy <= 100 && canRegen == false)
+            {
+                regenTimer = 1;
+                canRegen = true;
+            }
+
+            if (canRegen == true)
+            {
+               if(regenTimer == 1)
+                {
+                    energy = energy + regen;
+                }
+                regenTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (regenTimer <= 0)
+                {
+                    canRegen = false;
+                }
+            }
+
+            if (energy >= 100)
+            {
+                energy = 100;
+                canRegen = false;
+            }
+
+
+
+
+
+>>>>>>> origin/master
             healthPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
             energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * 100;
@@ -39,7 +78,7 @@ namespace LethalWeapon
                     (int)energy, healtBarTexture.Height / 4);
         }
 
-        public void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb)
         {
             int borderOffset = 3;
             sb.Draw(healtBarTexture, healthRect, Color.White);
