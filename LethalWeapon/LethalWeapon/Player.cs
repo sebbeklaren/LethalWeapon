@@ -64,6 +64,7 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
+
             last = current;
             current = Keyboard.GetState();
             playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
@@ -110,7 +111,7 @@ namespace LethalWeapon
             energiRegen(gameTime);
             input.Update();
             position += input.position * speed;
-            aimPosition += input.aimDirection * aimSpeed;
+            aimPosition = input.aimDirection; // * aimSpeed;
 
             double maxAimDistYBot= 170;
             double maxAimDistYTop = 185;

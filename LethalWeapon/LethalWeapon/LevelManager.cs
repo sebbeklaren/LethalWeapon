@@ -12,14 +12,15 @@ namespace LethalWeapon
 {
     class LevelManager
     {
-        Texture2D texture;
+        Texture2D texture, wallTest;
         ContentManager content;
-        Tiles[,] tiles;
+        public Tiles[,] tiles;
         int tileSize;
         StreamReader streamReader;
         List<string> lvlStrings;
         public string loadedLevel;
-        //Rectangle =
+        Rectangle tempRect; 
+        public List<Rectangle> hitBoxWall = new List<Rectangle>();
 
         public LevelManager(ContentManager content, string loadedLevel)
         {            
@@ -28,8 +29,11 @@ namespace LethalWeapon
             lvlStrings = new List<string>();
             streamReader = new StreamReader(loadedLevel);
             texture = content.Load<Texture2D>(@"Tileset01");
+            wallTest = content.Load <Texture2D>( @"Bullet");
             tileSize = 32;
             TileBuilder();
+            GetPosition();
+            CreatehitBox();
         }
 
         public void TileBuilder()
@@ -139,8 +143,37 @@ namespace LethalWeapon
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), false);
                     }
                 }
+             }
+        }
+
+        private void CreatehitBox()
+        {
+            for (int i = 0; i < tiles.GetLength(0); i++)
+            {
+                for (int j = 0; j < tiles.GetLength(1); j++)
+                {
+                    if (!tiles[i, j].Wall)
+                    {
+                        tempRect = new Rectangle(tiles[i, j].SourceRect.X, tiles[i, j].SourceRect.Y, 32, 32);
+                        hitBoxWall.Add(tempRect);
+                    }
+                }
             }
-        }       
+        }
+
+        private void GetPosition()
+        {
+            foreach (Rectangle wall in hitBoxWall)
+            {
+                Console.Write(" Position X: " + wall.X + ", Position Y: " + wall.Y);
+            }
+        }
+
+
+        public void Update(Player player)
+        {
+
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -150,6 +183,10 @@ namespace LethalWeapon
                 {
                     tiles[i, j].Draw(spriteBatch);                    
                 }
+            }
+            foreach(Rectangle wall in hitBoxWall)
+            {
+                spriteBatch.Draw(wallTest, wall, Color.White);
             }
         }
     }

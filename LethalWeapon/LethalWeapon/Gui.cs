@@ -30,8 +30,45 @@ namespace LethalWeapon
 
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
+<<<<<<< HEAD
             //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna   
 
+=======
+            //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna
+
+     
+
+            if (energy <= 100 && canRegen == false)
+            {
+                regenTimer = 1;
+                canRegen = true;
+            }
+
+            if (canRegen == true)
+            {
+               if(regenTimer == 1)
+                {
+                    energy = energy + regen;
+                }
+                regenTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (regenTimer <= 0)
+                {
+                    canRegen = false;
+                }
+            }
+
+            if (energy >= 100)
+            {
+                energy = 100;
+                canRegen = false;
+            }
+
+
+
+
+
+
+>>>>>>> origin/master
             healthPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
             energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * 100;
