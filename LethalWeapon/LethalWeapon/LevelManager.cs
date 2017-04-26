@@ -33,7 +33,7 @@ namespace LethalWeapon
             tileSize = 32;
             TileBuilder();
             CreatehitBox();
-            GetPosition();
+           
             
         }
 
@@ -156,36 +156,12 @@ namespace LethalWeapon
                 {
                     if (tiles[i, j].Wall == true)
                     {
-                        Console.WriteLine(tiles[i,j].SourceRect);
-                       // int tempX = (int)tiles[i, j].Position.X;
-                       // int tempY = (int)tiles[i, j].Position.Y;
                         tempRect = new Rectangle((int)tiles[i, j].Position.X, (int)tiles[i, j].Position.Y, 32, 32);
                         hitBoxWall.Add(tempRect);
                     }
                 }
             }
         }
-
-        private void GetPosition()
-        {
-            //foreach (Rectangle wall in hitBoxWall)
-            //{
-            //    Console.Write(" Position X: " + wall.X + ", Position Y: " + wall.Y);
-            //}
-            
-            for (int i = 0; i < tiles.GetLength(0); i++)
-            {
-                for (int j = 0; j < tiles.GetLength(1); j++)
-                {
-                    if (tiles[i, j].Wall)
-                    {
-                       // Console.WriteLine(" Position X: " + tiles[i, j].SourceRect.X + ", Position Y: " + tiles[i, j].SourceRect.Y);
-                    }
-                }
-            }
-
-        }
-
 
         public void Update(Player player)
         {
@@ -201,6 +177,8 @@ namespace LethalWeapon
                     tiles[i, j].Draw(spriteBatch);                    
                 }
             }
+
+            //temporärt för att ha koll på hitboxar
             foreach(Rectangle wall in hitBoxWall)
             {
                 spriteBatch.Draw(wallTest, new Vector2(wall.X, wall.Y), wall, Color.White);

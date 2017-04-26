@@ -14,6 +14,7 @@ namespace LethalWeapon
         public Vector2 position, aimDirection;
         public float rotation;
         public bool fire;
+        public bool isConnected;
         MouseState mousePosOld, mousePosNew;
                 
         public InputManager()
@@ -32,6 +33,7 @@ namespace LethalWeapon
 
             if (gamePad.IsConnected)
             {
+                isConnected = true;
                 position = gamePad.ThumbSticks.Left;
                 position.Y *= -1;
 
@@ -50,7 +52,7 @@ namespace LethalWeapon
             }
             else
             {
-
+                isConnected = false;
             }
         }       
     }
