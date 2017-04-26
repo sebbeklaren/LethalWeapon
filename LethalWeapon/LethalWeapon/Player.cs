@@ -135,6 +135,10 @@ namespace LethalWeapon
         {
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, Color.White);
+            if(playerIsHit == true)
+            {
+                sb.Draw(texture, position, Color.Red);
+            }
         }
     }
 }
