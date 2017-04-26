@@ -17,10 +17,6 @@ namespace LethalWeapon
         protected double health, energy;
         protected int healthBarOffset = 230; // sätta rätt position för hp och energi
         protected int energyBarOffset = 250;
-        private GameTime gameTime;
-        protected float regenTimer;
-        protected int regen = 10;
-        protected bool canRegen = false;
 
         public Gui(ContentManager content, int health, int energy)
         {
@@ -35,31 +31,6 @@ namespace LethalWeapon
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
             //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna   
-
-            if (energy <= 100 && canRegen == false)
-            {
-                regenTimer = 1;
-                canRegen = true;
-            }
-
-            if (canRegen == true)
-            {
-               if(regenTimer == 1)
-                {
-                    energy = energy + regen;
-                }
-                regenTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (regenTimer <= 0)
-                {
-                    canRegen = false;
-                }
-            }
-
-            if (energy >= 100)
-            {
-                energy = 100;
-                canRegen = false;
-            }
 
             healthPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;

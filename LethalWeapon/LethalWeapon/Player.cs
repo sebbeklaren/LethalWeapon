@@ -32,6 +32,9 @@ namespace LethalWeapon
         public double PlayerCurrentEnergi { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
+        protected float regenTimer;
+        protected int regen = 10;
+        protected bool canRegen = false;
         //ContentManager content;
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
@@ -73,7 +76,7 @@ namespace LethalWeapon
                     position.X -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     position.X += speed;
-                if (current.IsKeyDown(Keys.LeftShift) && last.IsKeyUp(Keys.LeftShift) && PlayerCurrentEnergi >= 20)
+                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
@@ -104,6 +107,7 @@ namespace LethalWeapon
                 playerIsHit = false;
                 hitTimer = 0;
             }
+            energiRegen(gameTime);
             input.Update();
             position += input.position * speed;
             aimPosition += input.aimDirection * aimSpeed;
@@ -131,6 +135,33 @@ namespace LethalWeapon
             }
         }
 
+        public void energiRegen(GameTime gameTime)
+        {
+            if (PlayerCurrentEnergi <= 100 && canRegen == false)
+            {
+                regenTimer = 1;
+                canRegen = true;
+            }
+
+            if (canRegen == true)
+            {
+                if (regenTimer == 1)
+                {
+                    PlayerCurrentEnergi = PlayerCurrentEnergi + regen;
+                }
+                regenTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (regenTimer <= 0)
+                {
+                    canRegen = false;
+                }
+            }
+
+            if (PlayerCurrentEnergi >= 100)
+            {
+                PlayerCurrentEnergi = 100;
+                canRegen = false;
+            }
+        }
         public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, Color.White);
