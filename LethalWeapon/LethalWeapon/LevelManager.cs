@@ -163,11 +163,6 @@ namespace LethalWeapon
             }
         }
 
-        public void Update(Player player)
-        {
-
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0;  i < tiles.GetLength(0); i++)
@@ -178,8 +173,8 @@ namespace LethalWeapon
                 }
             }
 
-            //temporärt för att ha koll på hitboxar
-            foreach(Rectangle wall in hitBoxWall)
+           // temporärt för att ha koll på hitboxar
+            foreach (Rectangle wall in hitBoxWall)
             {
                 spriteBatch.Draw(wallTest, new Vector2(wall.X, wall.Y), wall, Color.White);
             }

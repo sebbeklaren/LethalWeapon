@@ -40,6 +40,8 @@ namespace LethalWeapon
         //ContentManager content;
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
+        List<Rectangle> tempList = new List<Rectangle>();
+
         public Vector2 AimPosition
         {
             get { return aimPosition; } 
@@ -64,7 +66,7 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = content.Load<Texture2D>(@"crosshair");
+            aimTexture = content.Load<Texture2D>(@"crosshair");            
         }
 
         public void Update(GameTime gameTime, Enemy enemy)
@@ -190,7 +192,6 @@ namespace LethalWeapon
 
         private void CheckBounds()
         {
-
             if(position.Y <= 0)
             {
                 position.Y =  1;
@@ -218,6 +219,40 @@ namespace LethalWeapon
             else
             {
                 canMove = true;
+            }
+        }
+        public void CheckCollision(LevelManager level)
+        {
+            tempList = level.hitBoxWall;
+
+            foreach (Rectangle wall in level.hitBoxWall)
+            {
+                if (playerHitbox.Bottom >= wall.Top && playerHitbox.Bottom <= wall.Top && playerHitbox.Right >= wall.Left  &&
+                    playerHitbox.Left <= wall.Right)
+                {
+                    position.Y = wall.Y - texture.Height;
+                    canMove = false;
+                    Console.Write("träff");
+                }
+
+                //else if (playerHitbox.Top <= wall.Bottom)
+                //{
+                //    position.Y = wall.Top;
+                //}
+
+                //if (playerHitbox.Left <= wall.Right)
+                //{
+                //    position.X = wall.Right;
+                //}
+
+                //if (playerHitbox.Right >= wall.Left)
+                //{
+                //    position.X = wall.Left;
+                //}
+                else
+                {
+                    canMove = true;
+                }
             }
         }
     }

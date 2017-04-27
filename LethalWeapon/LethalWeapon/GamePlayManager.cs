@@ -36,7 +36,7 @@ namespace LethalWeapon
             this.Content = Content;
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
-            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(300, 300), sourceRect, Content, screenWidth, screenHeight);
+            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(300, 500), sourceRect, Content, screenWidth, screenHeight);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             enemyHealthBar = new Bar(Content, (int)enemy.EnemyMaxHealth, 0);
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
@@ -54,6 +54,7 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
+            player.CheckCollision(level);
             player.Update(gameTime, enemy);
             enemy.Update(player);
             enemyHealthBar.UpdateBar(enemy);
@@ -72,7 +73,7 @@ namespace LethalWeapon
         {
         
             level.Draw(spriteBatch);
-            player.Draw(spriteBatch);
+            player.Draw(spriteBatch);            
             weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             enemyHealthBar.Draw(spriteBatch);
@@ -84,5 +85,8 @@ namespace LethalWeapon
             currentLevel = newLevel;
             level = new LevelManager(Content, currentLevel);
         }
+
+
+
     }
 }
