@@ -13,7 +13,7 @@ namespace LethalWeapon
 {
     class Weapon : GameObject
     {
-        Rectangle weaponHitbox, activeWeapon;
+        Rectangle weaponHitbox;
         //Behandling av utritning
         public float weaponRotation;
         public float weaponScale = 1;
@@ -37,12 +37,12 @@ namespace LethalWeapon
         public void Update(Player player, Enemy enemy, Bullet bullet, Gui gui)
         {
             input.Update();
-            activeWeapon = gui.ActiveWeaponRect;
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (player.playerHitbox.Intersects(weaponHitbox))
             {
                 weaponOnGround = false;
                 weaponPickedUp = true;
+                gui.WeaponIsPickedUp = true;
             }
             if (weaponOnGround == false && weaponPickedUp == true)
             {
@@ -78,15 +78,10 @@ namespace LethalWeapon
         public override void Draw(SpriteBatch sb)
         {
 
-            sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);         
-            foreach(Bullet b in bullets)
+            sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
+            foreach (Bullet b in bullets)
             {
                 b.Draw(sb);
-            }
-
-            if (weaponOnGround == false && weaponPickedUp == true)
-            {
-                sb.Draw(texture, new Vector2(activeWeapon.X + 20, activeWeapon.Y + 20), null, Color.White, 0f, weaponOrigin, 1.5f, SpriteEffects.None, 1f);
             }
         }
     }

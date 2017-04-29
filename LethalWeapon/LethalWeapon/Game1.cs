@@ -20,7 +20,6 @@ namespace LethalWeapon
         GamePlayManager gamePlayManager;
         enum GameState {  CityLevel, RuinsLevel }
         GameState state;    
-        // nlfjnaslkfaslkasnf
 
         public Game1()
         {
