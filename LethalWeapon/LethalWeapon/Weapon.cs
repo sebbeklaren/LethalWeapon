@@ -25,8 +25,6 @@ namespace LethalWeapon
         bool weaponPickedUp = false;
         bool shotRemoved = false;
         bool canShot = true;
-        GameTime gameTime;
-        int shotSpeed;
         double shotTimer;
         public List<Bullet> bullets = new List<Bullet>();
         public List<Bullet> shouldBeDeleted = new List<Bullet>();
@@ -74,7 +72,7 @@ namespace LethalWeapon
             foreach (Bullet b in bullets.ToList())
             {
                 b.Update(player, enemy);
-                if (enemy.HitBox.Intersects(b.HitBox) || b.position.X <= b.bulletStartingPosition.X + 500 && b.position.Y <= b.bulletStartingPosition.Y + 500)
+                if (enemy.HitBox.Intersects(b.HitBox))
                 {
                     enemy.TakeDamage();
                     shotRemoved = true;
