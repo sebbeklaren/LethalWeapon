@@ -186,9 +186,9 @@ namespace LethalWeapon
         {
             sb.Draw(tempText, position, playerHitbox, Color.Red);
             sb.Draw(texture, position, Color.White);
-            sb.Draw(aimTexture, aimPosition, Color.White);
-            
-            if(playerIsHit == true)
+            //sb.Draw(aimTexture, aimPosition, Color.White);
+            sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
+            if (playerIsHit == true)
             {
                 sb.Draw(texture, position, Color.Red);
             }
