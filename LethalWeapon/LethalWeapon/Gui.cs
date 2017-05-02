@@ -15,7 +15,7 @@ namespace LethalWeapon
         Rectangle healthSourceRect, energySourceRect;
         protected Rectangle healthRect, energyRect, activeWeaponBorderRect;
         protected double health, energy;
-        protected int healthBarOffset = 230; // sätta rätt position för hp och energi
+        protected int healthBarOffset = 230; // sätta rätt position för hp och energi 
         protected int energyBarOffset = 250;
         protected int activeWeaponBorderOffsetX = 200;
         protected int activeWeaponBorderOffsetY = 100;
