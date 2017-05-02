@@ -129,7 +129,7 @@ namespace LethalWeapon
 
             if (state == GameState.CityLevel)
             {
-                spriteBatch.Draw()
+                //spriteBatch.Draw()
             }
 
             else if (state == GameState.RuinsLevel)
