@@ -238,15 +238,35 @@ namespace LethalWeapon
                 {
                     position.Y = wall.Y - texture.Height;
                     canMove = false;
-                    Console.Write("träff");
+                    Console.Write("Bottom träff");
                 }
-                if (playerHitbox.Top <= wall.Bottom - 22 && playerHitbox.Top >= wall.Bottom - 22 && playerHitbox.Right >= wall.Left &&
+                else if (playerHitbox.Top <= wall.Bottom - hitOffset && playerHitbox.Top >= wall.Bottom - hitOffset && playerHitbox.Right >= wall.Left &&
                     playerHitbox.Left <= wall.Right)
                 {
 
                     position.Y = wall.Bottom + texture.Height - 44;
                     canMove = false;
-                    Console.Write("träff");
+                    Console.Write("Top träff");
+                }
+
+               /* if (player.Bottom > platform.Top && player.Bottom < platform.Bottom) // Object is above
+                    player.Rect.Pos += new Vector2(0, platform.Top - player.Bottom);
+                else if (player.Top < platform.Bottom && player.Top > platform.Top) // Object below
+                    player.Rect.Pos += new Vector2(0, platform.Bottom - player.Top);
+                if (player.Left < platform.Right && player.Left > platform.Left) // Object to the left
+                    player.Rect.Pos += new Vector2(platform.Right - player.Left, 0);
+                else if (player.Right > platform.Left && player.Right < platform.Right) // Object to the right
+                    player.Rect.Pos += new Vector2(platform.Left - player.Right, 0);
+                    */
+                //right
+                //player.Left < platform.Right && player.Left > platform.Left
+                if (playerHitbox.Left <= wall.Right  && playerHitbox.Left >= wall.Left /* && playerHitbox.Right >= wall.Left - 11 &&
+                    playerHitbox.Left <= wall.Right - 11*/)
+                {
+
+                    position.X = wall.Left - texture.Width - 16;
+                    canMove = false;
+                    Console.Write("Höger träff");
                 }
                 //else if (playerHitbox.Top <= wall.Bottom)
                 //{
