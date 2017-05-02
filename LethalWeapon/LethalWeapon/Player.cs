@@ -41,6 +41,7 @@ namespace LethalWeapon
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
         List<Rectangle> tempList = new List<Rectangle>();
+        Texture2D tempText;
 
         public Vector2 AimPosition
         {
@@ -66,7 +67,8 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = content.Load<Texture2D>(@"crosshair");            
+            aimTexture = content.Load<Texture2D>(@"crosshair"); 
+            tempText = content.Load<Texture2D>(@"Bullet");
         }
 
         public void Update(GameTime gameTime, Enemy enemy)
@@ -182,8 +184,10 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
+            sb.Draw(tempText, position, playerHitbox, Color.Red);
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, Color.White);
+            
             if(playerIsHit == true)
             {
                 sb.Draw(texture, position, Color.Red);
@@ -227,14 +231,23 @@ namespace LethalWeapon
 
             foreach (Rectangle wall in level.hitBoxWall)
             {
-                if (playerHitbox.Bottom >= wall.Top && playerHitbox.Bottom <= wall.Top && playerHitbox.Right >= wall.Left  &&
+                int hitOffset = 22;
+                //kolla träff botten av spelaren och top av vägg
+                if (playerHitbox.Bottom >= wall.Top - hitOffset && playerHitbox.Bottom <= wall.Top - hitOffset && playerHitbox.Right >= wall.Left  &&
                     playerHitbox.Left <= wall.Right)
                 {
                     position.Y = wall.Y - texture.Height;
                     canMove = false;
                     Console.Write("träff");
                 }
+                if (playerHitbox.Top <= wall.Bottom - 22 && playerHitbox.Top >= wall.Bottom - 22 && playerHitbox.Right >= wall.Left &&
+                    playerHitbox.Left <= wall.Right)
+                {
 
+                    position.Y = wall.Bottom + texture.Height - 44;
+                    canMove = false;
+                    Console.Write("träff");
+                }
                 //else if (playerHitbox.Top <= wall.Bottom)
                 //{
                 //    position.Y = wall.Top;
