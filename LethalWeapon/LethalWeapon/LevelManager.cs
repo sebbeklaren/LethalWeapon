@@ -32,8 +32,9 @@ namespace LethalWeapon
             wallTest = content.Load <Texture2D>( @"Bullet");
             tileSize = 32;
             TileBuilder();
-            GetPosition();
             CreatehitBox();
+           
+            
         }
 
         public void TileBuilder()
@@ -86,6 +87,14 @@ namespace LethalWeapon
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 0, 32, 32), false);
                     }
+                    else if (lvlStrings[j][i] == 'X')
+                    {
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), false);
+                    }
+                    else if (lvlStrings[j][i] == '1')
+                    {
+                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 64, 32, 32), false);
+                    }
                     else if (lvlStrings[j][i] == 'M')
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 96, 32, 32), true);
@@ -97,10 +106,6 @@ namespace LethalWeapon
                     else if (lvlStrings[j][i] == 'P')
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 128, 32, 32), true);
-                    }
-                    else if (lvlStrings[j][i] == '1')
-                    {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 64, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == '2')
                     {
@@ -138,10 +143,7 @@ namespace LethalWeapon
                     {
                         tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 64, 32, 32), true);
                     }
-                    else if (lvlStrings[j][i] == 'X')
-                    {
-                        tiles[i, j] = new Tiles(texture, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), false);
-                    }
+
                 }
              }
         }
@@ -152,27 +154,13 @@ namespace LethalWeapon
             {
                 for (int j = 0; j < tiles.GetLength(1); j++)
                 {
-                    if (!tiles[i, j].Wall)
+                    if (tiles[i, j].Wall == true)
                     {
-                        tempRect = new Rectangle(tiles[i, j].SourceRect.X, tiles[i, j].SourceRect.Y, 32, 32);
+                        tempRect = new Rectangle((int)tiles[i, j].Position.X, (int)tiles[i, j].Position.Y, 32, 32);
                         hitBoxWall.Add(tempRect);
                     }
                 }
             }
-        }
-
-        private void GetPosition()
-        {
-            foreach (Rectangle wall in hitBoxWall)
-            {
-                Console.Write(" Position X: " + wall.X + ", Position Y: " + wall.Y);
-            }
-        }
-
-
-        public void Update(Player player)
-        {
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -184,9 +172,11 @@ namespace LethalWeapon
                     tiles[i, j].Draw(spriteBatch);                    
                 }
             }
-            foreach(Rectangle wall in hitBoxWall)
+
+           // temporärt för att ha koll på hitboxar
+            foreach (Rectangle wall in hitBoxWall)
             {
-                spriteBatch.Draw(wallTest, wall, Color.White);
+                spriteBatch.Draw(wallTest, new Vector2(wall.X, wall.Y), wall, Color.White);
             }
         }
     }

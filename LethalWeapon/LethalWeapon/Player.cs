@@ -21,6 +21,7 @@ namespace LethalWeapon
         double hitTimer;
         bool isDodging = false;
         bool playerIsHit = false;
+        bool canMove = true;
         public Rectangle playerHitbox;
         Texture2D aimTexture;
         KeyboardState current;
@@ -35,9 +36,12 @@ namespace LethalWeapon
         protected float regenTimer;
         protected int regen = 10;
         protected bool canRegen = false;
+        int screenWidth, screenHeight;
         //ContentManager content;
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
+        List<Rectangle> tempList = new List<Rectangle>();
+
         public Vector2 AimPosition
         {
             get { return aimPosition; } 
@@ -47,11 +51,14 @@ namespace LethalWeapon
             get { return position; }
         }
 
-        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content): base (texture, position, sourceRect)
+        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, int screenWidth, int screenHeight): 
+            base (texture, position, sourceRect)
         {
             
             this.texture = texture;
             this.position = position;
+            this.screenHeight = screenHeight;
+            this.screenWidth = screenWidth;
             PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
             PlayerMaxEnergi = 100;
             PlayerCurrentHealth = 100;
@@ -59,16 +66,20 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = content.Load<Texture2D>(@"crosshair");
+            aimTexture = content.Load<Texture2D>(@"crosshair");            
         }
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
-
+            CheckBounds();
             last = current;
             current = Keyboard.GetState();
-            playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            
+            playerHitbox = new Rectangle((int)position.X - (texture.Width /2), (int)position.Y - (texture.Height /2), texture.Width, texture.Height);
+            if (canMove)
+            {
+                input.Update();
+                position += input.position * speed;
+
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                     position.Y -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -77,6 +88,7 @@ namespace LethalWeapon
                     position.X -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     position.X += speed;
+            }
                 if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
@@ -109,10 +121,15 @@ namespace LethalWeapon
                 hitTimer = 0;
             }
             energiRegen(gameTime);
-            input.Update();
-            position += input.position * speed;
-            aimPosition = input.aimDirection; // * aimSpeed;
 
+            if (!input.isConnected)
+            {
+                aimPosition = input.aimDirection;
+            }
+            else
+            {
+                aimPosition += input.aimDirection * aimSpeed;
+            }
             double maxAimDistYBot= 170;
             double maxAimDistYTop = 185;
             double maxAimDistXLeft = 235;
@@ -170,6 +187,72 @@ namespace LethalWeapon
             if(playerIsHit == true)
             {
                 sb.Draw(texture, position, Color.Red);
+            }
+        }
+
+        private void CheckBounds()
+        {
+            if(position.Y <= 0)
+            {
+                position.Y =  1;
+                canMove = false;
+            }
+            else if(position.Y >= screenHeight - 45)
+            {
+                position.Y = screenHeight - 46;
+                canMove = false;
+            }
+            else
+            {
+                canMove = true;
+            }
+            if(position.X <= 0)
+            {
+                position.X = 1;
+                canMove = false;
+            }
+            else if(position.X >= screenWidth - 32)
+            {
+                position.X = screenWidth - 33;
+                canMove = false;
+            }
+            else
+            {
+                canMove = true;
+            }
+        }
+        public void CheckCollision(LevelManager level)
+        {
+            tempList = level.hitBoxWall;
+
+            foreach (Rectangle wall in level.hitBoxWall)
+            {
+                if (playerHitbox.Bottom >= wall.Top && playerHitbox.Bottom <= wall.Top && playerHitbox.Right >= wall.Left  &&
+                    playerHitbox.Left <= wall.Right)
+                {
+                    position.Y = wall.Y - texture.Height;
+                    canMove = false;
+                    Console.Write("träff");
+                }
+
+                //else if (playerHitbox.Top <= wall.Bottom)
+                //{
+                //    position.Y = wall.Top;
+                //}
+
+                //if (playerHitbox.Left <= wall.Right)
+                //{
+                //    position.X = wall.Right;
+                //}
+
+                //if (playerHitbox.Right >= wall.Left)
+                //{
+                //    position.X = wall.Left;
+                //}
+                else
+                {
+                    canMove = true;
+                }
             }
         }
     }

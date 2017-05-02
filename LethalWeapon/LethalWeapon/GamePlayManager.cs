@@ -27,22 +27,23 @@ namespace LethalWeapon
         int screenHeight, screenWidth;
         GraphicsDevice graphicsDevice;
         GraphicsDeviceManager graphics;
-
+ 
 
         public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice)
         {
+            screenHeight = 32 * 24;
+            screenWidth = 32 * 32;
             this.Content = Content;
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
-            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(32, 32), sourceRect, Content);
+            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(300, 500), sourceRect, Content, screenWidth, screenHeight);
             enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
             enemyHealthBar = new Bar(Content, (int)enemy.EnemyMaxHealth, 0);
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
             gui = new Gui(Content, 1, 1);
 
-            screenHeight = 32 * 24;
-            screenWidth = 32 * 32;
+ 
 
             Viewport view = graphicsDevice.Viewport;
             camera = new Camera(view);
@@ -53,25 +54,26 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
+            player.CheckCollision(level);
             player.Update(gameTime, enemy);
             enemy.Update(player);
             enemyHealthBar.UpdateBar(enemy);
-            weapon.Update(player, enemy, bullet);
-            camera.SetPosition(player.Position - cameraOffset);
-            //level.Update(player);
+            weapon.Update(player, enemy, bullet, gui);
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
             gui.Update(camera.GetPosition(), player, gameTime);
-
+            int inputCameraMultiplier = 10;   
+            camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X  * inputCameraMultiplier, 
+                                           (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
             
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.GetTransform());
+        
             level.Draw(spriteBatch);
-            player.Draw(spriteBatch);
+            player.Draw(spriteBatch);            
             weapon.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             enemyHealthBar.Draw(spriteBatch);
@@ -83,5 +85,8 @@ namespace LethalWeapon
             currentLevel = newLevel;
             level = new LevelManager(Content, currentLevel);
         }
+
+
+
     }
 }
