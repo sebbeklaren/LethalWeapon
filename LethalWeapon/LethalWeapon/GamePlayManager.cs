@@ -68,9 +68,7 @@ namespace LethalWeapon
                 enemyList[i].Update(player);
                 enemyHealthBarList[i].UpdateBar(enemyList[i]);
             }
-            tempEnemy.Update(player);
-            tempEnemyHealthBar.UpdateBar(tempEnemy);
-            weapon.Update(player, tempEnemy, bullet, gui);
+            weapon.Update(player, enemyList, bullet, gui);
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
@@ -92,8 +90,6 @@ namespace LethalWeapon
                 enemyList[i].Draw(spriteBatch);
                 enemyHealthBarList[i].Draw(spriteBatch);
             }
-            tempEnemy.Draw(spriteBatch);
-            tempEnemyHealthBar.Draw(spriteBatch);
             gui.Draw(spriteBatch);
             
         }

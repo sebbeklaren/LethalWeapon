@@ -34,7 +34,7 @@ namespace LethalWeapon
             bulletTexture = content.Load<Texture2D>("Bullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
-        public void Update(Player player, Enemy enemy, Bullet bullet, Gui gui)
+        public void Update(Player player, List<Enemy> enemyList, Bullet bullet, Gui gui)
         {
             input.Update();
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
@@ -61,11 +61,14 @@ namespace LethalWeapon
             }
             foreach (Bullet b in bullets.ToList())
             {
-                b.Update(player, enemy);
-                if (enemy.HitBox.Intersects(b.HitBox))
+                foreach (Enemy e in enemyList)
                 {
-                    enemy.TakeDamage();
-                    shotRemoved = true;
+                    b.Update(player, e);
+                    if (e.HitBox.Intersects(b.HitBox))
+                    {
+                        e.TakeDamage();
+                        shotRemoved = true;
+                    }
                 }
                 if (shotRemoved == true)
                 {
