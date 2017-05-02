@@ -10,13 +10,8 @@ namespace LethalWeapon
 {
     class Gui
     {
-<<<<<<< HEAD
-        protected Texture2D healtBarTexture, energyBarTexture, borderTexture;        
-        protected Vector2 healthPosition, energyPosition, borderPosition;
-=======
         protected Texture2D healtBarTexture, energyBarTexture, borderTexture, activeWeaponBorderTex, activeWeaponTex;
         protected Vector2 healthPosition, energyPosition, borderPosition, activeWeaponBorderPosition;
->>>>>>> origin/master
         Rectangle healthSourceRect, energySourceRect;
         protected Rectangle healthRect, energyRect, activeWeaponBorderRect;
         protected double health, energy;
