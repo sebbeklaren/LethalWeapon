@@ -26,6 +26,7 @@ namespace LethalWeapon
         Texture2D aimTexture;
         KeyboardState current;
         KeyboardState last;
+       
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
@@ -33,6 +34,7 @@ namespace LethalWeapon
         public double PlayerCurrentEnergi { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
+
         protected float regenTimer;
         protected int regen = 10;
         protected bool canRegen = false;
@@ -76,7 +78,7 @@ namespace LethalWeapon
             CheckBounds();
             last = current;
             current = Keyboard.GetState();
-            playerHitbox = new Rectangle((int)position.X - (texture.Width /2), (int)position.Y - (texture.Height /2), texture.Width, texture.Height);
+            playerHitbox = new Rectangle((int)position.X, (int)position.Y - (texture.Height /2), texture.Width, texture.Height);
             if (canMove)
             {
                 input.Update();
