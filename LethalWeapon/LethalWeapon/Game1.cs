@@ -18,7 +18,7 @@ namespace LethalWeapon
         SpriteBatch spriteBatch;
         InputManager input;        
         GamePlayManager gamePlayManager;
-        enum GameState {  CityLevel, RuinsLevel }
+        enum GameState {  CityLevel, RuinsLevel, MainMenu }
         GameState state;    
 
         public Game1()
@@ -61,13 +61,17 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.CityLevel:
-                   // gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+                   gamePlayManager.CurrentLevel("Content/Map/map01.txt");
                     UpdateWorldMap(gameTime);   
                     break;
 
                 case GameState.RuinsLevel:                    
                     gamePlayManager.CurrentLevel("Content/Map/map02.txt");
                     UpdateWorldMap(gameTime);
+                    break;
+                case GameState.MainMenu:
+                    // Test för mainmenu, världen ska vara en variabel
+                    gamePlayManager.CurrentLevel("Content/Map/map01.txt");
                     break;
             }
             gamePlayManager.Update(gameTime);
@@ -88,6 +92,12 @@ namespace LethalWeapon
 
                     DrawWorldMap(gameTime);
                     break;
+
+                case GameState.MainMenu:
+
+                    DrawWorldMap(gameTime);
+                    break;
+
             }
             
             base.Draw(gameTime);
@@ -107,9 +117,27 @@ namespace LethalWeapon
 
         public void DrawWorldMap(GameTime gameTime)
         {
+            
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
             
             gamePlayManager.Draw(spriteBatch);
+
+            if (state == GameState.MainMenu)
+            {
+
+            }
+
+            if (state == GameState.CityLevel)
+            {
+                spriteBatch.Draw()
+            }
+
+            else if (state == GameState.RuinsLevel)
+            {
+                
+            }
+
+            
             spriteBatch.End();
         }
 
