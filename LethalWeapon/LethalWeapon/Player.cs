@@ -82,12 +82,11 @@ namespace LethalWeapon
             
             last = current;
             current = Keyboard.GetState();
-<<<<<<< HEAD
-            playerHitbox = new Rectangle((int)position.X, (int)position.Y - (texture.Height /2), texture.Width, texture.Height);
-=======
+
+            //playerHitbox = new Rectangle((int)position.X, (int)position.Y - (texture.Height /2), texture.Width, texture.Height);
+
             playerHitbox = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
             checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
->>>>>>> 16f27e98d40373c3d5d78bf3dcd5b4a93c8ef36e
             if (canMove)
             {
                 input.Update();
