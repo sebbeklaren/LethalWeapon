@@ -24,6 +24,8 @@ namespace LethalWeapon
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
         bool shotRemoved = false;
+        bool canShot = true;
+        double shotTimer;
         public List<Bullet> bullets = new List<Bullet>();
         public List<Bullet> shouldBeDeleted = new List<Bullet>();
 
@@ -34,9 +36,13 @@ namespace LethalWeapon
             bulletTexture = content.Load<Texture2D>("Bullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
-        public void Update(Player player, Enemy enemy, Bullet bullet, Gui gui)
+
+        public void Update(Player player, List<Enemy> enemyList, Bullet bullet, Gui gui, GameTime gameTime)
+
         {
             input.Update();
+            shotIntervall();
+            shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (player.playerHitbox.Intersects(weaponHitbox))
             {
@@ -53,19 +59,28 @@ namespace LethalWeapon
                 position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) || input.fire)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= 500 || input.fire && canShot == true)
             {
+                while (shotTimer >= 500)
+                {
+                    canShot = true;
+                    shotTimer = 0;
+                }
                 Bullet b = new Bullet(bulletTexture);
                 b.bulletStartingPosition = player.Position;
                 bullets.Add(b);
+                canShot = false;
             }
             foreach (Bullet b in bullets.ToList())
             {
-                b.Update(player, enemy);
-                if (enemy.HitBox.Intersects(b.HitBox))
+                foreach (Enemy e in enemyList)
                 {
-                    enemy.TakeDamage();
-                    shotRemoved = true;
+                    b.Update(player, e);
+                    if (e.HitBox.Intersects(b.HitBox))
+                    {
+                        e.TakeDamage();
+                        shotRemoved = true;
+                    }
                 }
                 if (shotRemoved == true)
                 {
@@ -73,6 +88,11 @@ namespace LethalWeapon
                     shotRemoved = false;
                 }
             }
+        }
+
+        public void shotIntervall()
+        {
+
         }
 
         public override void Draw(SpriteBatch sb)
