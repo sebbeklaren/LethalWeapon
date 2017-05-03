@@ -143,12 +143,12 @@ namespace LethalWeapon
 
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
 
-                gamePlayManager.DrawCityLevel(spriteBatch);
+            
             }
 
             if (state == GameState.MainMenu)
             {
-
+                
             }
 
             else if (state == GameState.CityLevel)
