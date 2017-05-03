@@ -61,7 +61,7 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
-<<<<<<< HEAD
+
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 if (player.checkRec.Intersects(wall))
@@ -69,11 +69,15 @@ namespace LethalWeapon
                 player.CheckCollision(level);
                     }
             }
-            player.Update(gameTime, enemy);
-            enemy.Update(player);
-            enemyHealthBar.UpdateBar(enemy);
-            weapon.Update(player, enemy, bullet, gui);
-=======
+            player.Update(gameTime, tempEnemy);
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Update(player);
+                enemyHealthBarList[i].UpdateBar(enemyList[i]);
+            }
+            weapon.Update(player, enemyList, bullet, gui, gameTime);
+           
+
             player.CheckCollision(level);
 
             player.Update(gameTime, tempEnemy);
@@ -84,7 +88,7 @@ namespace LethalWeapon
             }
             weapon.Update(player, enemyList, bullet, gui, gameTime);
 
->>>>>>> origin/master
+
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
