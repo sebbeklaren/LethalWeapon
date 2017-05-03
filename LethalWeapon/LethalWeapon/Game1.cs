@@ -19,12 +19,9 @@ namespace LethalWeapon
         InputManager input;
         MainMenu mainMenu;
         GamePlayManager gamePlayManager;
-<<<<<<< HEAD
+
         bool gameOn;
-        enum GameState {  CityLevel, RuinsLevel, MainMenu }
-=======
         enum GameState {  CityLevel, RuinsLevel, MainMenu, OverWorld }
->>>>>>> origin/master
         GameState state;    
         
 
@@ -98,31 +95,20 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.CityLevel:
-<<<<<<< HEAD
-                    DrawWorldMap(gameTime);
-=======
-                    
                     DrawCurrentState(gameTime);
->>>>>>> origin/master
                     break;
 
-<<<<<<< HEAD
+
                 case GameState.RuinsLevel:
-                    DrawWorldMap(gameTime);
+                    DrawCurrentState(gameTime);
                     break;
 
                 case GameState.MainMenu:
                     gameOn = false;
-                    DrawWorldMap(gameTime);
-=======
                     DrawCurrentState(gameTime);
                     break;
 
-                case GameState.MainMenu:
-
-                    DrawCurrentState(gameTime);
->>>>>>> origin/master
-                    break;
+               
             }
 
 
@@ -139,29 +125,27 @@ namespace LethalWeapon
             {
                 state = GameState.CityLevel;
             }
-<<<<<<< HEAD
+
           
-=======
+
             else if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
                 state = GameState.OverWorld;
             }
->>>>>>> origin/master
+
         }
 
         public void DrawCurrentState(GameTime gameTime)
         {
-<<<<<<< HEAD
+
             if (gameOn == true)
             {
 
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
 
-                gamePlayManager.Draw(spriteBatch);
+                gamePlayManager.DrawCityLevel(spriteBatch);
             }
 
-=======
->>>>>>> origin/master
             if (state == GameState.MainMenu)
             {
 
@@ -169,13 +153,13 @@ namespace LethalWeapon
 
             else if (state == GameState.CityLevel)
             {
-                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
+                
                 gamePlayManager.DrawCityLevel(spriteBatch);
             }
 
             else if (state == GameState.RuinsLevel)
             {
-                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
+               
                 gamePlayManager.DrawRuinsLevel(spriteBatch);
             }
 
