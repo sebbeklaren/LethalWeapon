@@ -193,7 +193,7 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(tempText, position, playerHitbox, Color.Red);
+            sb.Draw(tempText, position, playerHitbox, /*new Vector2(position.X - 16, position.Y - 24), checkRec,*/ Color.Red);
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
@@ -240,22 +240,35 @@ namespace LethalWeapon
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 int hitOffset = 10;
-                
-                if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && playerHitbox.Right >= wall.Left  &&
-                    playerHitbox.Left <= wall.Right)
+                //check från sidorna
+                if (playerHitbox.Top >= wall.Bottom  && playerHitbox.Bottom >= wall.Top  && 
+                    playerHitbox.Left >= wall.Right && playerHitbox.Left <= wall.Right +2)
+                {
+                    position.X = wall.Right + texture.Width - 20;
+                    canMove = false;
+                    Console.Write("Höger träff");
+                }
+                else if(playerHitbox.Top >= wall.Bottom - 20 && playerHitbox.Bottom >= wall.Top - 20 && 
+                    playerHitbox.Right <= wall.Left  && playerHitbox.Right >= wall.Left - 6)
+                {
+                    position.X = wall.Left - texture.Width - 10;
+                    canMove = false;
+                    Console.Write("Vänster träff");
+                }
+                //check uppe och nere
+                if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && 
+                    playerHitbox.Right >= wall.Left  && playerHitbox.Left <= wall.Right)
                 {
                     position.Y = wall.Top - texture.Height - 6;
-                    canMove = false;
-                    Console.Write("Bottom träff");
+                    canMove = false;                    
                 }
-                else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && playerHitbox.Right >= wall.Left &&
-                    playerHitbox.Left <= wall.Right)
+                else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && 
+                    playerHitbox.Right >= wall.Left && playerHitbox.Left <= wall.Right)
                 {
-
                     position.Y = wall.Bottom + texture.Height - 47;
-                    canMove = false;
-                    Console.Write("Top träff");
+                    canMove = false;                   
                 }
+ 
 
                /* if (player.Bottom > platform.Top && player.Bottom < platform.Bottom) // Object is above
                     player.Rect.Pos += new Vector2(0, platform.Top - player.Bottom);
@@ -268,28 +281,7 @@ namespace LethalWeapon
                     */
                 //right
                 //player.Left < platform.Right && player.Left > platform.Left
-              /*  if (playerHitbox.Left <= wall.Right  && playerHitbox.Left >= wall.Left  && playerHitbox.Right >= wall.Left - 11 &&
-                    playerHitbox.Left <= wall.Right - 11)
-                {
-
-                    position.X = wall.Left;
-                    canMove = false;
-                //    Console.Write("Höger träff");
-                }*/
-                //else if (playerHitbox.Top <= wall.Bottom)
-                //{
-                //    position.Y = wall.Top;
-                //}
-
-                //if (playerHitbox.Left <= wall.Right)
-                //{
-                //    position.X = wall.Right;
-                //}
-
-                //if (playerHitbox.Right >= wall.Left)
-                //{
-                //    position.X = wall.Left;
-                //}
+              
                 else
                 {
                     canMove = true;

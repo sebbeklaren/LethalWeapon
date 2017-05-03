@@ -65,9 +65,9 @@ namespace LethalWeapon
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 if (player.checkRec.Intersects(wall))
-                { 
-                player.CheckCollision(level);
-                    }
+                {                 
+                    player.CheckCollision(level);
+                }
             }
             player.Update(gameTime, tempEnemy);
             for (int i = 0; i < enemyList.Count; i++)
@@ -76,9 +76,6 @@ namespace LethalWeapon
                 enemyHealthBarList[i].UpdateBar(enemyList[i]);
             }
             weapon.Update(player, enemyList, bullet, gui, gameTime);
-           
-
-            player.CheckCollision(level);
 
             player.Update(gameTime, tempEnemy);
             for(int i = 0; i < enemyList.Count; i++)
