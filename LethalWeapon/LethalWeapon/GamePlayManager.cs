@@ -13,8 +13,10 @@ namespace LethalWeapon
     class GamePlayManager
     {
         Player player;
-        Enemy enemy;
-        Bar enemyHealthBar;
+        List<Enemy> enemyList = new List<Enemy>();
+        Enemy tempEnemy;
+        List<Bar> enemyHealthBarList = new List<Bar>();
+        Bar tempEnemyHealthBar;
         Weapon weapon;
         Gui gui;
         Bullet bullet;
@@ -37,8 +39,13 @@ namespace LethalWeapon
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
             player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(300, 530), sourceRect, Content, screenWidth, screenHeight);
-            enemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240), sourceRect);
-            enemyHealthBar = new Bar(Content, (int)enemy.EnemyMaxHealth, 0);
+            for (int i = 0; i < 3; i++)
+            {
+                tempEnemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240 + 50 * i), sourceRect);
+                enemyList.Add(tempEnemy);
+                tempEnemyHealthBar = new Bar(Content, (int)tempEnemy.EnemyMaxHealth, 0);
+                enemyHealthBarList.Add(tempEnemyHealthBar);
+            }
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
             gui = new Gui(Content, 1, 1);
@@ -54,11 +61,34 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
+
+            foreach (Rectangle wall in level.hitBoxWall)
+            {
+                if (player.checkRec.Intersects(wall))
+                { 
+                player.CheckCollision(level);
+                    }
+            }
+            player.Update(gameTime, tempEnemy);
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Update(player);
+                enemyHealthBarList[i].UpdateBar(enemyList[i]);
+            }
+            weapon.Update(player, enemyList, bullet, gui, gameTime);
+           
+
             player.CheckCollision(level);
-            player.Update(gameTime, enemy);
-            enemy.Update(player);
-            enemyHealthBar.UpdateBar(enemy);
-            weapon.Update(player, enemy, bullet, gui, gameTime);
+
+            player.Update(gameTime, tempEnemy);
+            for(int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Update(player);
+                enemyHealthBarList[i].UpdateBar(enemyList[i]);
+            }
+            weapon.Update(player, enemyList, bullet, gui, gameTime);
+
+
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
@@ -75,8 +105,11 @@ namespace LethalWeapon
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);            
             weapon.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
-            enemyHealthBar.Draw(spriteBatch);
+            for(int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Draw(spriteBatch);
+                enemyHealthBarList[i].Draw(spriteBatch);
+            }
             gui.Draw(spriteBatch);
             
         }
