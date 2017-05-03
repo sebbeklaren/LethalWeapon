@@ -239,7 +239,7 @@ namespace LethalWeapon
 
             foreach (Rectangle wall in level.hitBoxWall)
             {
-                int hitOffset = 22;
+                int hitOffset = 10;
                 
                 if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && playerHitbox.Right >= wall.Left  &&
                     playerHitbox.Left <= wall.Right)
@@ -252,7 +252,7 @@ namespace LethalWeapon
                     playerHitbox.Left <= wall.Right)
                 {
 
-                    position.Y = wall.Bottom + texture.Height - 44;
+                    position.Y = wall.Bottom + texture.Height - 47;
                     canMove = false;
                     Console.Write("Top träff");
                 }
