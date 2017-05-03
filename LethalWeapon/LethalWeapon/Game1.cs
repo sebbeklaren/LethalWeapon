@@ -19,8 +19,12 @@ namespace LethalWeapon
         InputManager input;
         MainMenu mainMenu;
         GamePlayManager gamePlayManager;
+<<<<<<< HEAD
         bool gameOn;
         enum GameState {  CityLevel, RuinsLevel, MainMenu }
+=======
+        enum GameState {  CityLevel, RuinsLevel, MainMenu, OverWorld }
+>>>>>>> origin/master
         GameState state;    
         
 
@@ -38,7 +42,6 @@ namespace LethalWeapon
 
         protected override void LoadContent()
         {
-          
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice);
            // mainMenu = new MainMenu()
@@ -67,6 +70,7 @@ namespace LethalWeapon
             {
                 case GameState.CityLevel:
                    gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+                    
                     UpdateWorldMap(gameTime);   
                     break;
 
@@ -74,9 +78,14 @@ namespace LethalWeapon
                     gamePlayManager.CurrentLevel("Content/Map/map02.txt");
                     UpdateWorldMap(gameTime);
                     break;
+
                 case GameState.MainMenu:
                     // Test för mainmenu, världen ska vara en variabel
                     UpdateWorldMap(gameTime);
+                    break;
+
+                case GameState.OverWorld:
+                    gamePlayManager.CurrentLevel("Content/Map/nullmap.txt");
                     break;
             }
             gamePlayManager.Update(gameTime);
@@ -84,15 +93,20 @@ namespace LethalWeapon
 
         protected override void Draw(GameTime gameTime)
         {
-           
             GraphicsDevice.Clear(Color.Gray);
 
             switch (state)
             {
                 case GameState.CityLevel:
+<<<<<<< HEAD
                     DrawWorldMap(gameTime);
+=======
+                    
+                    DrawCurrentState(gameTime);
+>>>>>>> origin/master
                     break;
 
+<<<<<<< HEAD
                 case GameState.RuinsLevel:
                     DrawWorldMap(gameTime);
                     break;
@@ -100,10 +114,18 @@ namespace LethalWeapon
                 case GameState.MainMenu:
                     gameOn = false;
                     DrawWorldMap(gameTime);
+=======
+                    DrawCurrentState(gameTime);
                     break;
 
+                case GameState.MainMenu:
+
+                    DrawCurrentState(gameTime);
+>>>>>>> origin/master
+                    break;
             }
-            
+
+
             base.Draw(gameTime);
         }
 
@@ -117,11 +139,19 @@ namespace LethalWeapon
             {
                 state = GameState.CityLevel;
             }
+<<<<<<< HEAD
           
+=======
+            else if (Keyboard.GetState().IsKeyDown(Keys.I))
+            {
+                state = GameState.OverWorld;
+            }
+>>>>>>> origin/master
         }
 
-        public void DrawWorldMap(GameTime gameTime)
+        public void DrawCurrentState(GameTime gameTime)
         {
+<<<<<<< HEAD
             if (gameOn == true)
             {
 
@@ -130,6 +160,8 @@ namespace LethalWeapon
                 gamePlayManager.Draw(spriteBatch);
             }
 
+=======
+>>>>>>> origin/master
             if (state == GameState.MainMenu)
             {
 
@@ -137,15 +169,23 @@ namespace LethalWeapon
 
             else if (state == GameState.CityLevel)
             {
-                //spriteBatch.Draw()
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
+                gamePlayManager.DrawCityLevel(spriteBatch);
             }
 
             else if (state == GameState.RuinsLevel)
             {
-                
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
+                gamePlayManager.DrawRuinsLevel(spriteBatch);
             }
 
-            
+            else if (state == GameState.OverWorld)
+            {
+                spriteBatch.Begin();
+                gamePlayManager.DrawOverWorld(spriteBatch);
+            }
+
+
             spriteBatch.End();
         }
 

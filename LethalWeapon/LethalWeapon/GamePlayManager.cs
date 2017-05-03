@@ -14,6 +14,7 @@ namespace LethalWeapon
     {
         Player player;
         List<Enemy> enemyList = new List<Enemy>();
+        Texture2D overWorldTex;
         Enemy tempEnemy;
         List<Bar> enemyHealthBarList = new List<Bar>();
         Bar tempEnemyHealthBar;
@@ -49,8 +50,7 @@ namespace LethalWeapon
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
             gui = new Gui(Content, 1, 1);
-
- 
+            overWorldTex = Content.Load<Texture2D>(@"overworldmap");
 
             Viewport view = graphicsDevice.Viewport;
             camera = new Camera(view);
@@ -65,9 +65,9 @@ namespace LethalWeapon
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 if (player.checkRec.Intersects(wall))
-                { 
-                player.CheckCollision(level);
-                    }
+                {                 
+                    player.CheckCollision(level);
+                }
             }
             player.Update(gameTime, tempEnemy);
             for (int i = 0; i < enemyList.Count; i++)
@@ -76,9 +76,6 @@ namespace LethalWeapon
                 enemyHealthBarList[i].UpdateBar(enemyList[i]);
             }
             weapon.Update(player, enemyList, bullet, gui, gameTime);
-           
-
-            player.CheckCollision(level);
 
             player.Update(gameTime, tempEnemy);
             for(int i = 0; i < enemyList.Count; i++)
@@ -95,13 +92,11 @@ namespace LethalWeapon
             gui.Update(camera.GetPosition(), player, gameTime);
             int inputCameraMultiplier = 10;   
             camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X  * inputCameraMultiplier, 
-                                           (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
-            
+                                           (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));       
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-        
+        public void DrawCityLevel(SpriteBatch spriteBatch)
+        {        
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);            
             weapon.Draw(spriteBatch);
@@ -111,15 +106,26 @@ namespace LethalWeapon
                 enemyHealthBarList[i].Draw(spriteBatch);
             }
             gui.Draw(spriteBatch);
-            
         }
+
+        public void DrawRuinsLevel(SpriteBatch spriteBatch)
+        {
+            level.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            weapon.Draw(spriteBatch);
+            gui.Draw(spriteBatch);
+        }
+
+        public void DrawOverWorld(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(overWorldTex, Vector2.Zero, Color.White);
+            player.Draw(spriteBatch);
+        }
+
         public void CurrentLevel(string newLevel)
         {
             currentLevel = newLevel;
             level = new LevelManager(Content, currentLevel);
         }
-
-
-
     }
 }
