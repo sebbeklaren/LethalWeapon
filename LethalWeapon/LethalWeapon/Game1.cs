@@ -16,10 +16,17 @@ namespace LethalWeapon
     {
         public GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        InputManager input;        
+        InputManager input;
+        MainMenu mainMenu;
         GamePlayManager gamePlayManager;
+<<<<<<< HEAD
+        bool gameOn;
+        enum GameState {  CityLevel, RuinsLevel, MainMenu }
+=======
         enum GameState {  CityLevel, RuinsLevel, MainMenu, OverWorld }
+>>>>>>> origin/master
         GameState state;    
+        
 
         public Game1()
         {
@@ -29,6 +36,7 @@ namespace LethalWeapon
    
         protected override void Initialize()
         {
+            gameOn = true;
             base.Initialize();
         }
 
@@ -36,6 +44,7 @@ namespace LethalWeapon
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice);
+           // mainMenu = new MainMenu()
             graphics.ApplyChanges();
             input = new InputManager();
             gamePlayManager.CurrentLevel("Content/Map/map01.txt");
@@ -56,7 +65,7 @@ namespace LethalWeapon
                 Exit();
             
             base.Update(gameTime);
-
+            
             switch (state)
             {
                 case GameState.CityLevel:
@@ -72,7 +81,7 @@ namespace LethalWeapon
 
                 case GameState.MainMenu:
                     // Test för mainmenu, världen ska vara en variabel
-                    gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+                    UpdateWorldMap(gameTime);
                     break;
 
                 case GameState.OverWorld:
@@ -89,17 +98,30 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.CityLevel:
+<<<<<<< HEAD
+                    DrawWorldMap(gameTime);
+=======
                     
                     DrawCurrentState(gameTime);
+>>>>>>> origin/master
                     break;
-                case GameState.RuinsLevel:
 
+<<<<<<< HEAD
+                case GameState.RuinsLevel:
+                    DrawWorldMap(gameTime);
+                    break;
+
+                case GameState.MainMenu:
+                    gameOn = false;
+                    DrawWorldMap(gameTime);
+=======
                     DrawCurrentState(gameTime);
                     break;
 
                 case GameState.MainMenu:
 
                     DrawCurrentState(gameTime);
+>>>>>>> origin/master
                     break;
             }
 
@@ -117,14 +139,29 @@ namespace LethalWeapon
             {
                 state = GameState.CityLevel;
             }
+<<<<<<< HEAD
+          
+=======
             else if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
                 state = GameState.OverWorld;
             }
+>>>>>>> origin/master
         }
 
         public void DrawCurrentState(GameTime gameTime)
         {
+<<<<<<< HEAD
+            if (gameOn == true)
+            {
+
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
+
+                gamePlayManager.Draw(spriteBatch);
+            }
+
+=======
+>>>>>>> origin/master
             if (state == GameState.MainMenu)
             {
 

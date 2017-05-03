@@ -48,6 +48,7 @@
     <Compile Include="Gui.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="LevelManager.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
