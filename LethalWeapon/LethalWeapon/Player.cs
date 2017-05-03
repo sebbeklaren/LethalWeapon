@@ -44,6 +44,8 @@ namespace LethalWeapon
         Vector2 dodgeSpeed;
         List<Rectangle> tempList = new List<Rectangle>();
         Texture2D tempText;
+        LevelManager Level;
+        public Rectangle checkRec;
 
         public Vector2 AimPosition
         {
@@ -71,14 +73,21 @@ namespace LethalWeapon
             dodgeSpeed = new Vector2(3, 3);
             aimTexture = content.Load<Texture2D>(@"crosshair"); 
             tempText = content.Load<Texture2D>(@"Bullet");
+            
         }
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
             CheckBounds();
+            
             last = current;
             current = Keyboard.GetState();
+<<<<<<< HEAD
             playerHitbox = new Rectangle((int)position.X, (int)position.Y - (texture.Height /2), texture.Width, texture.Height);
+=======
+            playerHitbox = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
+            checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
+>>>>>>> 16f27e98d40373c3d5d78bf3dcd5b4a93c8ef36e
             if (canMove)
             {
                 input.Update();
@@ -233,22 +242,42 @@ namespace LethalWeapon
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 int hitOffset = 22;
-                //kolla träff botten av spelaren och top av vägg
-                if (playerHitbox.Bottom >= wall.Top - hitOffset && playerHitbox.Bottom <= wall.Top - hitOffset && playerHitbox.Right >= wall.Left  &&
+                
+                if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && playerHitbox.Right >= wall.Left  &&
                     playerHitbox.Left <= wall.Right)
                 {
-                    position.Y = wall.Y - texture.Height;
+                    position.Y = wall.Top - texture.Height - 6;
                     canMove = false;
-                    Console.Write("träff");
+                    Console.Write("Bottom träff");
                 }
-                if (playerHitbox.Top <= wall.Bottom - 22 && playerHitbox.Top >= wall.Bottom - 22 && playerHitbox.Right >= wall.Left &&
+                else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && playerHitbox.Right >= wall.Left &&
                     playerHitbox.Left <= wall.Right)
                 {
 
                     position.Y = wall.Bottom + texture.Height - 44;
                     canMove = false;
-                    Console.Write("träff");
+                    Console.Write("Top träff");
                 }
+
+               /* if (player.Bottom > platform.Top && player.Bottom < platform.Bottom) // Object is above
+                    player.Rect.Pos += new Vector2(0, platform.Top - player.Bottom);
+                else if (player.Top < platform.Bottom && player.Top > platform.Top) // Object below
+                    player.Rect.Pos += new Vector2(0, platform.Bottom - player.Top);
+                if (player.Left < platform.Right && player.Left > platform.Left) // Object to the left
+                    player.Rect.Pos += new Vector2(platform.Right - player.Left, 0);
+                else if (player.Right > platform.Left && player.Right < platform.Right) // Object to the right
+                    player.Rect.Pos += new Vector2(platform.Left - player.Right, 0);
+                    */
+                //right
+                //player.Left < platform.Right && player.Left > platform.Left
+              /*  if (playerHitbox.Left <= wall.Right  && playerHitbox.Left >= wall.Left  && playerHitbox.Right >= wall.Left - 11 &&
+                    playerHitbox.Left <= wall.Right - 11)
+                {
+
+                    position.X = wall.Left;
+                    canMove = false;
+                //    Console.Write("Höger träff");
+                }*/
                 //else if (playerHitbox.Top <= wall.Bottom)
                 //{
                 //    position.Y = wall.Top;
