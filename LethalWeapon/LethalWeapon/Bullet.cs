@@ -19,14 +19,14 @@ namespace LethalWeapon
         {
             get { return hitBox; }
         }
-        public int speed;
+        public float speed;
         public Vector2 bulletStartingPosition;
         public Vector2 bulletDestination;
         public bool shotFired = false;
         public Bullet(Texture2D texture)
         {
             this.texture = texture;
-            speed = 4;
+            speed = 1.5f;
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
@@ -36,7 +36,7 @@ namespace LethalWeapon
             {
                 position = bulletStartingPosition;
             }
-            if (position == player.Position)
+            if (position == player.Position + new Vector2(16, 24))
             {
                 shotFired = true;
                 bulletDestination = player.AimPosition - player.Position;

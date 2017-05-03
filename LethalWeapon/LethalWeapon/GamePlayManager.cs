@@ -75,7 +75,7 @@ namespace LethalWeapon
                 enemyList[i].Update(player);
                 enemyHealthBarList[i].UpdateBar(enemyList[i]);
             }
-            weapon.Update(player, enemyList, bullet, gui, gameTime);
+            weapon.Update(player, enemyList, bullet, gui, gameTime, level);
            
 
             player.CheckCollision(level);
@@ -86,7 +86,7 @@ namespace LethalWeapon
                 enemyList[i].Update(player);
                 enemyHealthBarList[i].UpdateBar(enemyList[i]);
             }
-            weapon.Update(player, enemyList, bullet, gui, gameTime);
+            weapon.Update(player, enemyList, bullet, gui, gameTime, level);
 
 
             camera.ZoomX = 1.7f;
