@@ -42,6 +42,8 @@ namespace LethalWeapon
         Vector2 dodgeSpeed;
         List<Rectangle> tempList = new List<Rectangle>();
         Texture2D tempText;
+        LevelManager Level;
+        public Rectangle checkRec;
 
         public Vector2 AimPosition
         {
@@ -69,14 +71,17 @@ namespace LethalWeapon
             dodgeSpeed = new Vector2(3, 3);
             aimTexture = content.Load<Texture2D>(@"crosshair"); 
             tempText = content.Load<Texture2D>(@"Bullet");
+            
         }
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
             CheckBounds();
+            
             last = current;
             current = Keyboard.GetState();
-            playerHitbox = new Rectangle((int)position.X - (texture.Width /2), (int)position.Y - (texture.Height /2), texture.Width, texture.Height);
+            playerHitbox = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
+            checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
             if (canMove)
             {
                 input.Update();
@@ -232,15 +237,15 @@ namespace LethalWeapon
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 int hitOffset = 22;
-                //kolla träff botten av spelaren och top av vägg
-                if (playerHitbox.Bottom >= wall.Top - hitOffset && playerHitbox.Bottom <= wall.Top - hitOffset && playerHitbox.Right >= wall.Left  &&
+                
+                if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && playerHitbox.Right >= wall.Left  &&
                     playerHitbox.Left <= wall.Right)
                 {
-                    position.Y = wall.Y - texture.Height;
+                    position.Y = wall.Top - texture.Height - 6;
                     canMove = false;
                     Console.Write("Bottom träff");
                 }
-                else if (playerHitbox.Top <= wall.Bottom - hitOffset && playerHitbox.Top >= wall.Bottom - hitOffset && playerHitbox.Right >= wall.Left &&
+                else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && playerHitbox.Right >= wall.Left &&
                     playerHitbox.Left <= wall.Right)
                 {
 
@@ -260,14 +265,14 @@ namespace LethalWeapon
                     */
                 //right
                 //player.Left < platform.Right && player.Left > platform.Left
-                if (playerHitbox.Left <= wall.Right  && playerHitbox.Left >= wall.Left /* && playerHitbox.Right >= wall.Left - 11 &&
-                    playerHitbox.Left <= wall.Right - 11*/)
+              /*  if (playerHitbox.Left <= wall.Right  && playerHitbox.Left >= wall.Left  && playerHitbox.Right >= wall.Left - 11 &&
+                    playerHitbox.Left <= wall.Right - 11)
                 {
 
-                    position.X = wall.Left - texture.Width - 16;
+                    position.X = wall.Left;
                     canMove = false;
-                    Console.Write("Höger träff");
-                }
+                //    Console.Write("Höger träff");
+                }*/
                 //else if (playerHitbox.Top <= wall.Bottom)
                 //{
                 //    position.Y = wall.Top;

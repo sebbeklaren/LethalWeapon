@@ -54,7 +54,13 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
-            player.CheckCollision(level);
+            foreach (Rectangle wall in level.hitBoxWall)
+            {
+                if (player.checkRec.Intersects(wall))
+                { 
+                player.CheckCollision(level);
+                    }
+            }
             player.Update(gameTime, enemy);
             enemy.Update(player);
             enemyHealthBar.UpdateBar(enemy);

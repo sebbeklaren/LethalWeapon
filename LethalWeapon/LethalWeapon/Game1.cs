@@ -61,17 +61,17 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.CityLevel:
-                   gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+                   //gamePlayManager.CurrentLevel("Content/Map/map01.txt");
                     UpdateWorldMap(gameTime);   
                     break;
 
                 case GameState.RuinsLevel:                    
-                    gamePlayManager.CurrentLevel("Content/Map/map02.txt");
+                    //gamePlayManager.CurrentLevel("Content/Map/map02.txt");
                     UpdateWorldMap(gameTime);
                     break;
                 case GameState.MainMenu:
                     // Test för mainmenu, världen ska vara en variabel
-                    gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+                   // gamePlayManager.CurrentLevel("Content/Map/map01.txt");
                     break;
             }
             gamePlayManager.Update(gameTime);
@@ -129,7 +129,7 @@ namespace LethalWeapon
 
             if (state == GameState.CityLevel)
             {
-                spriteBatch.Draw()
+           //     spriteBatch.Draw()
             }
 
             else if (state == GameState.RuinsLevel)
