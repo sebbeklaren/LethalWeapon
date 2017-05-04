@@ -196,7 +196,7 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(tempText, position, playerHitbox, /*new Vector2(position.X - 16, position.Y - 24), checkRec,*/ Color.Red);
+            //sb.Draw(tempText, position, playerHitbox, /*new Vector2(position.X - 16, position.Y - 24), checkRec,*/ Color.Red);
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
