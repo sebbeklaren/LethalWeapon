@@ -39,7 +39,7 @@ namespace LethalWeapon
             this.Content = Content;
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
-            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(300, 530), sourceRect, Content, screenWidth, screenHeight);
+            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(500, 400), sourceRect, Content, screenWidth, screenHeight);
             for (int i = 0; i < 3; i++)
             {
                 tempEnemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240 + 50 * i), sourceRect);
@@ -91,12 +91,31 @@ namespace LethalWeapon
             camera.Rotation = 0f;
             gui.Update(camera.GetPosition(), player, gameTime);
             int inputCameraMultiplier = 10;
+
+
             if (player.Position.X < 270)
             {
                 camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
                                (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
-            }           
-            else if(player.Position.Y > 565)
+                if (player.Position.Y > 565)
+                {
+                    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                                   505 - player.input.position.Y * inputCameraMultiplier));
+                }
+
+            }    
+            else if (player.Position.X > 684)
+            {
+                camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
+                                            (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
+                if (player.Position.Y > 565)
+                {
+                    camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
+                                   505 - player.input.position.Y * inputCameraMultiplier));
+                }
+
+            }
+            else if (player.Position.Y > 565)
             {
                 camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
                                505 - player.input.position.Y * inputCameraMultiplier));

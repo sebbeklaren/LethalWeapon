@@ -244,20 +244,20 @@ namespace LethalWeapon
             {
                 int hitOffset = 10;
                 //check från sidorna
-                if (playerHitbox.Top >= wall.Bottom  && playerHitbox.Bottom >= wall.Top  && 
-                    playerHitbox.Left >= wall.Right && playerHitbox.Left <= wall.Right +2)
-                {
-                    position.X = wall.Right + texture.Width - 20;
-                    canMove = false;
-                    Console.Write("Höger träff");
-                }
-                else if(playerHitbox.Top >= wall.Bottom - 20 && playerHitbox.Bottom >= wall.Top - 20 && 
-                    playerHitbox.Right <= wall.Left  && playerHitbox.Right >= wall.Left - 6)
-                {
-                    position.X = wall.Left - texture.Width - 10;
-                    canMove = false;
-                    Console.Write("Vänster träff");
-                }
+                //if (playerHitbox.Top >= wall.Bottom  && playerHitbox.Bottom >= wall.Top  && 
+                //    playerHitbox.Left >= wall.Right && playerHitbox.Left <= wall.Right +2)
+                //{
+                //    position.X = wall.Right + texture.Width - 20;
+                //    canMove = false;
+                //    Console.Write("Höger träff");
+                //}
+                //else if(playerHitbox.Top >= wall.Bottom - 20 && playerHitbox.Bottom >= wall.Top - 20 && 
+                //    playerHitbox.Right <= wall.Left  && playerHitbox.Right >= wall.Left - 6)
+                //{
+                //    position.X = wall.Left - texture.Width - 10;
+                //    canMove = false;
+                //    Console.Write("Vänster träff");
+                //}
                 //check uppe och nere
                 if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && 
                     playerHitbox.Right >= wall.Left  && playerHitbox.Left <= wall.Right)
