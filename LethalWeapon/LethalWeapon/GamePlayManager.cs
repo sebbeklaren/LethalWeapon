@@ -96,14 +96,18 @@ namespace LethalWeapon
             if (player.Position.X < 270)
             {
                 camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
-                               (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
+                                              (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
                 if (player.Position.Y > 565)
                 {
                     camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
-                                   505 - player.input.position.Y * inputCameraMultiplier));
+                                                    505 - player.input.position.Y * inputCameraMultiplier));
                 }
-
-            }    
+                else if (player.Position.Y < 180)
+                {
+                    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                                                   120 - player.input.position.Y * inputCameraMultiplier));
+                }
+                }    
             else if (player.Position.X > 684)
             {
                 camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
@@ -111,33 +115,30 @@ namespace LethalWeapon
                 if (player.Position.Y > 565)
                 {
                     camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
-                                   505 - player.input.position.Y * inputCameraMultiplier));
+                                                  505 - player.input.position.Y * inputCameraMultiplier));
                 }
-
             }
             else if (player.Position.Y > 565)
             {
                 camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
-                               505 - player.input.position.Y * inputCameraMultiplier));
-               
+                                               505 - player.input.position.Y * inputCameraMultiplier));               
             }
             else if (player.Position.Y < 180)
             {
                 camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
-                                          120 - player.input.position.Y * inputCameraMultiplier));
-                if (player.Position.X < 270)
-                {
-                    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
-                                   120 - player.input.position.Y * inputCameraMultiplier));
-                }
+                                               120 - player.input.position.Y * inputCameraMultiplier));
+                //if (player.Position.X < 270)
+                //{
+                //    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                //                                  120 - player.input.position.Y * inputCameraMultiplier));
+                //}
 
                 }
-                else
+            else
             {
                 camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
                                                (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
-            }  
-            
+            }              
         }
 
         public void DrawCityLevel(SpriteBatch spriteBatch)
