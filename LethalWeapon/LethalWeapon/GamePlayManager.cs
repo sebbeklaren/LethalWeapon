@@ -161,12 +161,6 @@ namespace LethalWeapon
             gui.Draw(spriteBatch);
         }
 
-        public void DrawOverWorld(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(overWorldTex, Vector2.Zero, Color.White);
-            player.Draw(spriteBatch);
-        }
-
         public void CurrentLevel(string newLevel)
         {
             currentLevel = newLevel;

@@ -19,6 +19,7 @@ namespace LethalWeapon
         InputManager input;
         MainMenu mainMenu;
         GamePlayManager gamePlayManager;
+        OverWorld overWorld;
 
         bool gameOn;
         enum GameState {  CityLevel, RuinsLevel, MainMenu, OverWorld }
@@ -41,6 +42,7 @@ namespace LethalWeapon
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice);
+            overWorld = new OverWorld(Content);
            // mainMenu = new MainMenu()
             graphics.ApplyChanges();
             input = new InputManager();
@@ -56,6 +58,18 @@ namespace LethalWeapon
             
         }
 
+        protected void LoadOverWorld()
+        {
+            state = GameState.OverWorld;
+            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt");
+        }
+
+        protected void LoadCityLevel()
+        {
+            state = GameState.CityLevel;
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+        }
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -66,23 +80,21 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.CityLevel:
-                   gamePlayManager.CurrentLevel("Content/Map/map01.txt");
-                    
-                    UpdateWorldMap(gameTime);   
+                    UpdateWorldMap();   
                     break;
 
                 case GameState.RuinsLevel:                    
-                    gamePlayManager.CurrentLevel("Content/Map/map02.txt");
-                    UpdateWorldMap(gameTime);
+                //    gamePlayManager.CurrentLevel("Content/Map/map02.txt");
+                    UpdateWorldMap();
                     break;
 
                 case GameState.MainMenu:
                     // Test för mainmenu, världen ska vara en variabel
-                    UpdateWorldMap(gameTime);
+                    UpdateWorldMap();
                     break;
 
                 case GameState.OverWorld:
-                    gamePlayManager.CurrentLevel("Content/Map/nullmap.txt");
+                    UpdateWorldMap();
                     break;
             }
             gamePlayManager.Update(gameTime);
@@ -98,8 +110,11 @@ namespace LethalWeapon
                     DrawCurrentState(gameTime);
                     break;
 
-
                 case GameState.RuinsLevel:
+                    DrawCurrentState(gameTime);
+                    break;
+
+                case GameState.OverWorld:
                     DrawCurrentState(gameTime);
                     break;
 
@@ -107,30 +122,28 @@ namespace LethalWeapon
                     gameOn = false;
                     DrawCurrentState(gameTime);
                     break;
-
-               
             }
-
 
             base.Draw(gameTime);
         }
 
-        public void UpdateWorldMap(GameTime gameTime)
+        public void UpdateWorldMap()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.O))
             {
                 state = GameState.RuinsLevel;
+                gameOn = true;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
-                state = GameState.CityLevel;
+                LoadCityLevel();
+                gameOn = true;
             }
-
-          
 
             else if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
-                state = GameState.OverWorld;
+                LoadOverWorld();
+                gameOn = false;
             }
 
         }
@@ -140,7 +153,6 @@ namespace LethalWeapon
 
             if (gameOn == true)
             {
-
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
             }
 
@@ -157,14 +169,13 @@ namespace LethalWeapon
 
             else if (state == GameState.RuinsLevel)
             {
-               
                 gamePlayManager.DrawRuinsLevel(spriteBatch);
             }
 
             else if (state == GameState.OverWorld)
             {
                 spriteBatch.Begin();
-                gamePlayManager.DrawOverWorld(spriteBatch);
+                overWorld.DrawOverWorld(spriteBatch);
             }
 
 

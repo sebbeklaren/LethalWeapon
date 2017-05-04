@@ -21,7 +21,6 @@ namespace LethalWeapon
         public string loadedLevel;
         Rectangle tempRect; 
         public List<Rectangle> hitBoxWall = new List<Rectangle>();
-        public bool isAMap { get; set; } //Kanske sätta hela TileBuilder i en if sats?
 
         public LevelManager(ContentManager content, string loadedLevel)
         {            
