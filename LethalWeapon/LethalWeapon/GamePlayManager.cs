@@ -90,9 +90,23 @@ namespace LethalWeapon
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
             gui.Update(camera.GetPosition(), player, gameTime);
-            int inputCameraMultiplier = 10;   
-            camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X  * inputCameraMultiplier, 
-                                           (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));       
+            int inputCameraMultiplier = 10;
+            if (player.Position.X < 270)
+            {
+                camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                               (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
+            }           
+            else if(player.Position.Y > 565)
+            {
+                camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
+                               505 - player.input.position.Y * inputCameraMultiplier));
+            }
+            else
+            {
+                camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
+                                               (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
+            }  
+            
         }
 
         public void DrawCityLevel(SpriteBatch spriteBatch)
