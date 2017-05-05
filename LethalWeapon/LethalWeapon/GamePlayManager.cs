@@ -48,7 +48,7 @@ namespace LethalWeapon
                 enemyHealthBarList.Add(tempEnemyHealthBar);
             }
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
-            bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
+            bullet = new Bullet(Content.Load<Texture2D>(@"PistolBullet"));
             gui = new Gui(Content, 1, 1);
             overWorldTex = Content.Load<Texture2D>(@"overworldmap");
 
