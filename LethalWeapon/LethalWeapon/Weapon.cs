@@ -44,7 +44,7 @@ namespace LethalWeapon
             shotIntervall();
             shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            if (player.playerHitbox.Intersects(weaponHitbox))
+            if (player.playerHitboxHorisontal.Intersects(weaponHitbox))
             {
                 weaponOnGround = false;
                 weaponPickedUp = true;

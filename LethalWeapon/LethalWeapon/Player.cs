@@ -21,12 +21,13 @@ namespace LethalWeapon
         double hitTimer;
         bool isDodging = false;
         bool playerIsHit = false;
-        bool canMove = true;
-        public Rectangle playerHitbox;
+        public bool canMove = true;
+        public Rectangle playerHitboxHorisontal, playerHitboxHorizontal;
         Texture2D aimTexture;
         KeyboardState current;
         KeyboardState last;
-       
+        public Vector2 position;
+        public Texture2D texture;
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
@@ -42,7 +43,7 @@ namespace LethalWeapon
         //ContentManager content;
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
-        List<Rectangle> tempList = new List<Rectangle>();
+        
         Texture2D tempText;
         LevelManager Level;
         public Rectangle checkRec;
@@ -54,6 +55,7 @@ namespace LethalWeapon
         public Vector2 Position
         {
             get { return position; }
+           // set { position = value; }
         }
 
         public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, int screenWidth, int screenHeight): 
@@ -83,7 +85,8 @@ namespace LethalWeapon
             last = current;
             current = Keyboard.GetState();
 
-            playerHitbox = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
+            playerHitboxHorisontal = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
+            playerHitboxHorizontal = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
             checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
 
             //playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
@@ -108,7 +111,7 @@ namespace LethalWeapon
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
                     }
-            if (playerHitbox.Intersects(enemy.HitBox) && isDodging == false && playerIsHit == false)
+            if (playerHitboxHorisontal.Intersects(enemy.HitBox) && isDodging == false && playerIsHit == false)
             {
                 PlayerCurrentHealth -= 20;
                 playerIsHit = true;
@@ -196,7 +199,7 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
-            //sb.Draw(tempText, position, playerHitbox, /*new Vector2(position.X - 16, position.Y - 24), checkRec,*/ Color.Red);
+            sb.Draw(tempText,new Vector2(position.X - 16, position.Y - 24), checkRec, Color.Red);
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
@@ -236,61 +239,61 @@ namespace LethalWeapon
                 canMove = true;
             }
         }
-        public void CheckCollision(LevelManager level)
-        {
-            tempList = level.hitBoxWall;
+        //public void CheckCollision(LevelManager level)
+        //{
+        //    tempList = level.hitBoxWall;
 
-            foreach (Rectangle wall in level.hitBoxWall)
-            {
-                int hitOffset = 10;
-                //check från sidorna
-                if (/*playerHitbox.Top >= wall.Bottom  && playerHitbox.Bottom >= wall.Top  &&*/ 
-                    playerHitbox.Left >= wall.Right && playerHitbox.Left <= wall.Right - 5)
-                {
-                    position.X = wall.Right + texture.Width - 30;
+        //    foreach (Rectangle wall in level.hitBoxWall)
+        //    {
+        //        int hitOffset = 10;
+        //        //check från sidorna
+        //        if (/*playerHitbox.Top >= wall.Bottom  && playerHitbox.Bottom >= wall.Top  &&*/ 
+        //            playerHitbox.Left >= wall.Right && playerHitbox.Left <= wall.Right - 5)
+        //        {
+        //            position.X = wall.Right + texture.Width - 30;
                     
-                    canMove = false;
-                    Console.Write("Höger träff");
-                }
-                else if(playerHitbox.Top >= wall.Bottom - 20 && playerHitbox.Bottom >= wall.Top - 20 && 
-                    playerHitbox.Right <= wall.Left  && playerHitbox.Right >= wall.Left - 6)
-                {
-                    //position.X = wall.Left - texture.Width - 10;
-                    canMove = false;
-                    Console.Write("Vänster träff");
-                }
-                //check uppe och nere
-                if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && 
-                    playerHitbox.Right >= wall.Left  && playerHitbox.Left <= wall.Right)
-                {
-                    position.Y = wall.Top - texture.Height - 6;
-                    canMove = false;                    
-                }
-                else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && 
-                    playerHitbox.Right >= wall.Left && playerHitbox.Left <= wall.Right)
-                {
-                    position.Y = wall.Bottom + texture.Height - 47;
-                    canMove = false;                   
-                }
+        //            canMove = false;
+        //            Console.Write("Höger träff");
+        //        }
+        //        else if(playerHitbox.Top >= wall.Bottom - 20 && playerHitbox.Bottom >= wall.Top - 20 && 
+        //            playerHitbox.Right <= wall.Left  && playerHitbox.Right >= wall.Left - 6)
+        //        {
+        //            //position.X = wall.Left - texture.Width - 10;
+        //            canMove = false;
+        //            Console.Write("Vänster träff");
+        //        }
+        //        //check uppe och nere
+        //        if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && 
+        //            playerHitbox.Right >= wall.Left  && playerHitbox.Left <= wall.Right)
+        //        {
+        //            position.Y = wall.Top - texture.Height - 6;
+        //            canMove = false;                    
+        //        }
+        //        else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && 
+        //            playerHitbox.Right >= wall.Left && playerHitbox.Left <= wall.Right)
+        //        {
+        //            position.Y = wall.Bottom + texture.Height - 47;
+        //            canMove = false;                   
+        //        }
  
 
-               /* if (player.Bottom > platform.Top && player.Bottom < platform.Bottom) // Object is above
-                    player.Rect.Pos += new Vector2(0, platform.Top - player.Bottom);
-                else if (player.Top < platform.Bottom && player.Top > platform.Top) // Object below
-                    player.Rect.Pos += new Vector2(0, platform.Bottom - player.Top);
-                if (player.Left < platform.Right && player.Left > platform.Left) // Object to the left
-                    player.Rect.Pos += new Vector2(platform.Right - player.Left, 0);
-                else if (player.Right > platform.Left && player.Right < platform.Right) // Object to the right
-                    player.Rect.Pos += new Vector2(platform.Left - player.Right, 0);
-                    */
-                //right
-                //player.Left < platform.Right && player.Left > platform.Left
+        //       /* if (player.Bottom > platform.Top && player.Bottom < platform.Bottom) // Object is above
+        //            player.Rect.Pos += new Vector2(0, platform.Top - player.Bottom);
+        //        else if (player.Top < platform.Bottom && player.Top > platform.Top) // Object below
+        //            player.Rect.Pos += new Vector2(0, platform.Bottom - player.Top);
+        //        if (player.Left < platform.Right && player.Left > platform.Left) // Object to the left
+        //            player.Rect.Pos += new Vector2(platform.Right - player.Left, 0);
+        //        else if (player.Right > platform.Left && player.Right < platform.Right) // Object to the right
+        //            player.Rect.Pos += new Vector2(platform.Left - player.Right, 0);
+        //            */
+        //        //right
+        //        //player.Left < platform.Right && player.Left > platform.Left
               
-                else
-                {
-                    canMove = true;
-                }
-            }
-        }
+        //        else
+        //        {
+        //            canMove = true;
+        //        }
+        //    }
+        //}
     }
 }
