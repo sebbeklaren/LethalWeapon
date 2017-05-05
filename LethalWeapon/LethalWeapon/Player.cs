@@ -13,7 +13,7 @@ namespace LethalWeapon
     class Player : GameObject
     {
         public InputManager input = new InputManager();
-        float speed = 2.0f;
+        float speed = 4.0f;
         float rotation = 1.0f;
         float layerDepth = 1f;
         float aimSpeed = 5.0f;
@@ -28,6 +28,7 @@ namespace LethalWeapon
         KeyboardState last;
         public Vector2 position;
         public Texture2D texture;
+
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
@@ -40,7 +41,7 @@ namespace LethalWeapon
         protected int regen = 10;
         protected bool canRegen = false;
         int screenWidth, screenHeight;
-        //ContentManager content;
+       
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
         
@@ -54,8 +55,7 @@ namespace LethalWeapon
         }
         public Vector2 Position
         {
-            get { return position; }
-           // set { position = value; }
+            get { return position; }           
         }
 
         public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, int screenWidth, int screenHeight): 
@@ -66,7 +66,7 @@ namespace LethalWeapon
             this.position = position;
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
-            PlayerMaxHealth = 100;      //ändrat till double för att kunna räkna ut rätt storlek på mätaren i förhållande till max hp 
+            PlayerMaxHealth = 100;      
             PlayerMaxEnergi = 100;
             PlayerCurrentHealth = 100;
             PlayerCurrentEnergi = 100;
@@ -86,7 +86,7 @@ namespace LethalWeapon
             playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width + 8, texture.Height - 24);
             playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
-
+            energiRegen(gameTime);
             if (canMove)
             {
                 input.Update();
@@ -124,7 +124,7 @@ namespace LethalWeapon
             }
             if (dodgeTimer > 300 || input.gamePad.Triggers.Left <= 0)
             {
-                speed = 2;
+                //speed = 2;
                 isDodging = false;
                 dodgeTimer = 0;
             }
@@ -132,9 +132,7 @@ namespace LethalWeapon
             {
                 playerIsHit = false;
                 hitTimer = 0;
-            }
-            energiRegen(gameTime);
-
+            }      
             if (!input.isConnected)
             {
                 aimPosition = input.aimDirection;
@@ -186,7 +184,6 @@ namespace LethalWeapon
                     canRegen = false;
                 }
             }
-
             if (PlayerCurrentEnergi >= 100)
             {
                 PlayerCurrentEnergi = 100;
@@ -194,8 +191,7 @@ namespace LethalWeapon
             }
         }
         public override void Draw(SpriteBatch sb)
-        {
-            //sb.Draw(tempText,new Vector2(playerHitboxVertical.X, playerHitboxVertical.Y), playerHitboxVertical, Color.Red);
+        {            
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)

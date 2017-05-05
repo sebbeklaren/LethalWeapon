@@ -101,7 +101,6 @@ namespace LethalWeapon
 
         public override void Draw(SpriteBatch sb)
         {
-
             sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
             foreach (Bullet b in bullets)
             {

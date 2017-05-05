@@ -39,8 +39,6 @@ namespace LethalWeapon
 
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
-            //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna   
-
             healthPosition = cameraPosition;
             activeWeaponBorderPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;

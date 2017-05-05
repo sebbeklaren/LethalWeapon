@@ -78,22 +78,73 @@ namespace LethalWeapon
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 //check från sidorna
-                if (player.playerHitboxVertical.Right >= wall.Left - 2 && player.playerHitboxVertical.Right <= wall.Left + 6 &&
+                if (player.playerHitboxVertical.Right >= wall.Left - 6 && player.playerHitboxVertical.Right <= wall.Left + 12 &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Left - player.texture.Width - 6;
+                    player.position.X = wall.Left - player.texture.Width - 12;
                     player.canMove = false;
                 }
-                else if (player.playerHitboxVertical.Left <= wall.Right + 6 && player.playerHitboxVertical.Left >= wall.Right - 2 &&
+                else if (player.playerHitboxVertical.Left <= wall.Right + 12 && player.playerHitboxVertical.Left >= wall.Right - 6 &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Right + player.texture.Width  - 22;
+                    player.position.X = wall.Right + player.texture.Width  - 15;
                     player.canMove = false;
                 }
                 else
                 {
                     player.canMove = true;
                 }
+            }
+        }
+
+        public void CameraBoundCheck(Player player, Camera camera)
+        {
+            Vector2 cameraOffset = new Vector2(35, 65);
+            int inputCameraMultiplier = 10;
+            if (player.Position.X < 270)
+            {
+                camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                                              (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
+                if (player.Position.Y > 565)
+                {
+                    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                                                    505 - player.input.position.Y * inputCameraMultiplier));
+                }
+                else if (player.Position.Y < 180)
+                {
+                    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                                                   120 - player.input.position.Y * inputCameraMultiplier));
+                }
+            }
+            else if (player.Position.X > 684)
+            {
+                camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
+                                            (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
+                if (player.Position.Y > 565)
+                {
+                    camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
+                                                  505 - player.input.position.Y * inputCameraMultiplier));
+                }
+                else if (player.Position.Y < 180)
+                {
+                    camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
+                                                   120 - player.input.position.Y * inputCameraMultiplier));
+                }
+            }
+            else if (player.Position.Y > 565)
+            {
+                camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
+                                               505 - player.input.position.Y * inputCameraMultiplier));
+            }
+            else if (player.Position.Y < 180)
+            {
+                camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
+                                               120 - player.input.position.Y * inputCameraMultiplier));
+            }
+            else
+            {
+                camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
+                                               (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
             }
         }
     }

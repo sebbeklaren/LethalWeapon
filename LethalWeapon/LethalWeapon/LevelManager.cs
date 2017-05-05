@@ -170,12 +170,6 @@ namespace LethalWeapon
                     tiles[i, j].Draw(spriteBatch);                    
                 }
             }
-
-           // temporärt för att ha koll på hitboxar
-            foreach (Rectangle wall in hitBoxWall)
-            {
-                //spriteBatch.Draw(wallTest, new Vector2(wall.X, wall.Y), wall, Color.White);
-            }
         }
     }
 }

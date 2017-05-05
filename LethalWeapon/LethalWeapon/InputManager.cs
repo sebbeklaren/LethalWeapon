@@ -12,12 +12,9 @@ namespace LethalWeapon
     class InputManager
     {
         public Vector2 position, aimDirection;
-        public float rotation;
-        public bool fire;
         public bool isConnected;
         MouseState mousePosOld, mousePosNew;
         public GamePadState gamePad;
-
 
         public InputManager()
         {
@@ -41,15 +38,6 @@ namespace LethalWeapon
 
                 aimDirection = gamePad.ThumbSticks.Right;
                 aimDirection.Y *= -1;
-
-                //if(gamePad.Triggers.Right > 0 && )
-                //{
-                //    fire = true;
-                //}
-                //else if(gamePad.Triggers.Right <= 0)
-                //{
-                //    fire = false;
-                //}
                 GamePad.SetVibration(PlayerIndex.One, gamePad.Triggers.Right, gamePad.Triggers.Right);
             }
             else
