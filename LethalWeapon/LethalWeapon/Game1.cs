@@ -75,9 +75,6 @@ namespace LethalWeapon
             gamePlayManager.CurrentLevel("Content/Map/map02.txt", Content.Load<Texture2D>(@"DesertTile"));
             
         }
-
-
-
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -91,13 +88,11 @@ namespace LethalWeapon
                     UpdateWorldMap();   
                     break;
 
-                case GameState.RuinsLevel:                    
-                //    gamePlayManager.CurrentLevel("Content/Map/map02.txt");
+                case GameState.RuinsLevel:   
                     UpdateWorldMap();
                     break;
 
                 case GameState.MainMenu:
-                    // Test för mainmenu, världen ska vara en variabel
                     UpdateWorldMap();
                     break;
 
@@ -153,7 +148,6 @@ namespace LethalWeapon
                 LoadOverWorld();
                 gameOn = false;
             }
-
         }
 
         public void DrawCurrentState(GameTime gameTime)
@@ -189,11 +183,5 @@ namespace LethalWeapon
 
             spriteBatch.End();
         }
-
-        //public void CurrentLevel(string newLevel)
-        //{           
-        //    currentLevel = newLevel;
-        //    level = new LevelManager(Content, currentLevel);
-        //}
     }
 }
