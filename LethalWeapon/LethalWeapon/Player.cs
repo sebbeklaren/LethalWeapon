@@ -26,6 +26,7 @@ namespace LethalWeapon
         Texture2D aimTexture;
         KeyboardState current;
         KeyboardState last;
+       
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
@@ -33,6 +34,7 @@ namespace LethalWeapon
         public double PlayerCurrentEnergi { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
+
         protected float regenTimer;
         protected int regen = 10;
         protected bool canRegen = false;
@@ -80,8 +82,13 @@ namespace LethalWeapon
             
             last = current;
             current = Keyboard.GetState();
+
             playerHitbox = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
             checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
+
+            //playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            //checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
+
             if (canMove)
             {
                 input.Update();
@@ -189,7 +196,7 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(tempText, position, playerHitbox, Color.Red);
+            //sb.Draw(tempText, position, playerHitbox, /*new Vector2(position.X - 16, position.Y - 24), checkRec,*/ Color.Red);
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
@@ -235,23 +242,37 @@ namespace LethalWeapon
 
             foreach (Rectangle wall in level.hitBoxWall)
             {
-                int hitOffset = 22;
-                
-                if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && playerHitbox.Right >= wall.Left  &&
-                    playerHitbox.Left <= wall.Right)
+                int hitOffset = 10;
+                //check från sidorna
+                if (/*playerHitbox.Top >= wall.Bottom  && playerHitbox.Bottom >= wall.Top  &&*/ 
+                    playerHitbox.Left >= wall.Right && playerHitbox.Left <= wall.Right - 5)
+                {
+                    position.X = wall.Right + texture.Width - 30;
+                    
+                    canMove = false;
+                    Console.Write("Höger träff");
+                }
+                else if(playerHitbox.Top >= wall.Bottom - 20 && playerHitbox.Bottom >= wall.Top - 20 && 
+                    playerHitbox.Right <= wall.Left  && playerHitbox.Right >= wall.Left - 6)
+                {
+                    //position.X = wall.Left - texture.Width - 10;
+                    canMove = false;
+                    Console.Write("Vänster träff");
+                }
+                //check uppe och nere
+                if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && 
+                    playerHitbox.Right >= wall.Left  && playerHitbox.Left <= wall.Right)
                 {
                     position.Y = wall.Top - texture.Height - 6;
-                    canMove = false;
-                    Console.Write("Bottom träff");
+                    canMove = false;                    
                 }
-                else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && playerHitbox.Right >= wall.Left &&
-                    playerHitbox.Left <= wall.Right)
+                else if (playerHitbox.Top <= wall.Bottom  && playerHitbox.Top >= wall.Bottom - hitOffset && 
+                    playerHitbox.Right >= wall.Left && playerHitbox.Left <= wall.Right)
                 {
-
-                    position.Y = wall.Bottom + texture.Height - 44;
-                    canMove = false;
-                    Console.Write("Top träff");
+                    position.Y = wall.Bottom + texture.Height - 47;
+                    canMove = false;                   
                 }
+ 
 
                /* if (player.Bottom > platform.Top && player.Bottom < platform.Bottom) // Object is above
                     player.Rect.Pos += new Vector2(0, platform.Top - player.Bottom);
@@ -264,28 +285,7 @@ namespace LethalWeapon
                     */
                 //right
                 //player.Left < platform.Right && player.Left > platform.Left
-              /*  if (playerHitbox.Left <= wall.Right  && playerHitbox.Left >= wall.Left  && playerHitbox.Right >= wall.Left - 11 &&
-                    playerHitbox.Left <= wall.Right - 11)
-                {
-
-                    position.X = wall.Left;
-                    canMove = false;
-                //    Console.Write("Höger träff");
-                }*/
-                //else if (playerHitbox.Top <= wall.Bottom)
-                //{
-                //    position.Y = wall.Top;
-                //}
-
-                //if (playerHitbox.Left <= wall.Right)
-                //{
-                //    position.X = wall.Right;
-                //}
-
-                //if (playerHitbox.Right >= wall.Left)
-                //{
-                //    position.X = wall.Left;
-                //}
+              
                 else
                 {
                     canMove = true;

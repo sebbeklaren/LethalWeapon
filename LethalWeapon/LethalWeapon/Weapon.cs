@@ -29,7 +29,6 @@ namespace LethalWeapon
         double shotTimer;
         double shotLife;
         public List<Bullet> bullets = new List<Bullet>();
-        public List<Bullet> shouldBeDeleted = new List<Bullet>();
 
         public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content) : base (texture, position, sourceRect)
         {
