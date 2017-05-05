@@ -16,12 +16,14 @@ namespace LethalWeapon
         protected Vector2 position;
   
 
-        public MainMenu(Texture2D texture, Vector2 position)
+        public MainMenu(ContentManager content)
         {
-            this.texture = texture;
-            this.position = position;
+            this.texture = content.Load<Texture2D>(@"leathalweaponwall");
+            this.position = new Vector2(100, 100);
       
         }
+
+        public void Update(GameTime gameTinme) {  }
 
         public virtual void Draw(SpriteBatch sb)
         {

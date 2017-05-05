@@ -23,7 +23,7 @@ namespace LethalWeapon
 
         public virtual void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, sourceRect,Color.White);
+            sb.Draw(texture, position, sourceRect, Color.White);
         }
     }
 }

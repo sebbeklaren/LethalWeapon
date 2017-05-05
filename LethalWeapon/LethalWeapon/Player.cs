@@ -92,13 +92,13 @@ namespace LethalWeapon
                 input.Update();
                 position += input.position * speed;
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                if (Keyboard.GetState().IsKeyDown(Keys.W))
                     position.Y -= speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                if (Keyboard.GetState().IsKeyDown(Keys.S))
                     position.Y += speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                if (Keyboard.GetState().IsKeyDown(Keys.A))
                     position.X -= speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                if (Keyboard.GetState().IsKeyDown(Keys.D))
                     position.X += speed;
             }
                 if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePad.Triggers.Left > 0 && PlayerCurrentEnergi >= 20)

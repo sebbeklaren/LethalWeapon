@@ -122,7 +122,6 @@ namespace LethalWeapon
                     break;
 
                 case GameState.MainMenu:
-                    gameOn = false;
                     DrawCurrentState(gameTime);
                     break;
             }
@@ -139,14 +138,21 @@ namespace LethalWeapon
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
+                state = GameState.CityLevel;
                 LoadCityLevel();
                 gameOn = true;
             }
 
             else if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
+                state = GameState.OverWorld;
                 LoadOverWorld();
-                gameOn = false;
+                gameOn = false; 
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.L))
+            {
+               // state = GameState.MainMenu;
+                //gameOn = false;
             }
         }
 
@@ -160,7 +166,7 @@ namespace LethalWeapon
 
             if (state == GameState.MainMenu)
             {
-
+                mainMenu.Draw(spriteBatch);
             }
 
             else if (state == GameState.CityLevel)
