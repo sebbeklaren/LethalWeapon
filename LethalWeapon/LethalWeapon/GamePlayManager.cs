@@ -39,7 +39,7 @@ namespace LethalWeapon
             this.Content = Content;
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
-            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(250, 500), sourceRect, Content, screenWidth, screenHeight);
+            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(250, 540), sourceRect, Content, screenWidth, screenHeight);
             for (int i = 0; i < 3; i++)
             {
                 tempEnemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240 + 50 * i), sourceRect);
@@ -61,18 +61,21 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
+            collision.CheckBounds(player, screenHeight, screenWidth);
+            collision.CheckCollisionHorizontal(level, player);
+            collision.CheckCollisionVertical(level, player);
+            //foreach (Rectangle wall in level.hitBoxWall)
+            //{
+            //    if (player.checkRec.Top < wall.Bottom || player.checkRec.Bottom > wall.Top)
+            //    {                 
+            //        collision.CheckCollisionVertical(level, player); 
+            //    }
+            //    //if(player.checkRec.Left <= wall.Right || player.checkRec.Right >= wall.Left)
+            //    //{
+            //        collision.CheckCollisionHorizontal(level, player);
+            //   // }
+            //}
 
-            foreach (Rectangle wall in level.hitBoxWall)
-            {
-                if (player.checkRec.Top < wall.Bottom || player.checkRec.Bottom > wall.Top)
-                {                 
-                    collision.CheckCollisionVertical(level, player); 
-                }
-                if(player.checkRec.Left <= wall.Right || player.checkRec.Right >= wall.Left)
-                {
-                    collision.CheckCollisionHorizontal(level, player);
-                }
-            }
             player.Update(gameTime, tempEnemy);
             //for (int i = 0; i < enemyList.Count; i++)
             //{
