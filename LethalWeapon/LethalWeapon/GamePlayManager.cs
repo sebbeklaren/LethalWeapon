@@ -30,7 +30,7 @@ namespace LethalWeapon
         int screenHeight, screenWidth;
         GraphicsDevice graphicsDevice;
         GraphicsDeviceManager graphics;
- 
+        CollisionDetection collision;
 
         public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice)
         {
@@ -51,7 +51,7 @@ namespace LethalWeapon
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
             gui = new Gui(Content, 1, 1);
             overWorldTex = Content.Load<Texture2D>(@"overworldmap");
-
+            collision = new CollisionDetection();
             Viewport view = graphicsDevice.Viewport;
             camera = new Camera(view);
             cameraOffset = new Vector2(35, 65);            
@@ -64,9 +64,13 @@ namespace LethalWeapon
 
             foreach (Rectangle wall in level.hitBoxWall)
             {
-                if (player.checkRec.Intersects(wall))
+                if (player.checkRec.Top < wall.Bottom || player.checkRec.Bottom > wall.Top)
                 {                 
-                    player.CheckCollision(level);
+                    collision.CheckCollisionVertical(level, player); 
+                }
+                if(player.checkRec.Left <= wall.Right || player.checkRec.Right >= wall.Left)
+                {
+                    collision.CheckCollisionHorizontal(level, player);
                 }
             }
             player.Update(gameTime, tempEnemy);
