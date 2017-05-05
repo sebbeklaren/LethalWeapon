@@ -46,7 +46,7 @@ namespace LethalWeapon
            // mainMenu = new MainMenu()
             graphics.ApplyChanges();
             input = new InputManager();
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
             //if (!graphics.IsFullScreen)
             //{
             //    graphics.ToggleFullScreen();
@@ -61,14 +61,22 @@ namespace LethalWeapon
         protected void LoadOverWorld()
         {
             state = GameState.OverWorld;
-            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt");
+            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", Content.Load<Texture2D>(@"overworldmap"));
         }
 
         protected void LoadCityLevel()
         {
             state = GameState.CityLevel;
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
         }
+        protected void LoadRuinsLevel()
+        {
+            state = GameState.RuinsLevel;
+            gamePlayManager.CurrentLevel("Content/Map/map02.txt", Content.Load<Texture2D>(@"DesertTile"));
+            
+        }
+
+
 
         protected override void Update(GameTime gameTime)
         {
@@ -131,7 +139,7 @@ namespace LethalWeapon
         {
             if (Keyboard.GetState().IsKeyDown(Keys.O))
             {
-                state = GameState.RuinsLevel;
+                LoadRuinsLevel();
                 gameOn = true;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.P))
