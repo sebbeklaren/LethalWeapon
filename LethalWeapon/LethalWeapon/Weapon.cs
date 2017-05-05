@@ -67,7 +67,8 @@ namespace LethalWeapon
                     shotTimer = 0;
                 }
                 Bullet b = new Bullet(bulletTexture);
-                b.bulletStartingPosition = player.Position + new Vector2(16, 24);
+                b.bulletStartingPosition = player.Position + new Vector2(11, 19);
+                b.bulletRotation = weaponRotation;
                 bullets.Add(b);
                 canShot = false;
             }

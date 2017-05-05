@@ -70,7 +70,7 @@ namespace LethalWeapon
                 }
             }
             player.Update(gameTime, tempEnemy);
-<<<<<<< HEAD
+
             for (int i = 0; i < enemyList.Count; i++)
             {
                 enemyList[i].Update(player);
@@ -87,14 +87,14 @@ namespace LethalWeapon
                 enemyList[i].Update(player);
                 enemyHealthBarList[i].UpdateBar(enemyList[i]);
             }
-            weapon.Update(player, enemyList, bullet, gui, gameTime, level);
-=======
+            //weapon.Update(player, enemyList, bullet, gui, gameTime, level);
+
             //for (int i = 0; i < enemyList.Count; i++)
             //{
             //    enemyList[i].Update(player);
             //    enemyHealthBarList[i].UpdateBar(enemyList[i]);
             //}
-            weapon.Update(player, enemyList, bullet, gui, gameTime);
+            //weapon.Update(player, enemyList, bullet, gui, gameTime, level);
 
             player.Update(gameTime, tempEnemy);
             //for(int i = 0; i < enemyList.Count; i++)
@@ -102,8 +102,7 @@ namespace LethalWeapon
             //    enemyList[i].Update(player);
             //    enemyHealthBarList[i].UpdateBar(enemyList[i]);
             //}
-            weapon.Update(player, enemyList, bullet, gui, gameTime);
->>>>>>> ddc935e51d047efb88418f42449ce4bebe48253c
+            weapon.Update(player, enemyList, bullet, gui, gameTime, level);
 
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;

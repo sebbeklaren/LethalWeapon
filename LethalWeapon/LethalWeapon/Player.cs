@@ -257,7 +257,7 @@ namespace LethalWeapon
                 {
                     //position.X = wall.Left - texture.Width - 10;
                     canMove = false;
-                    Console.Write("Vänster träff");
+                    //Console.Write("Vänster träff");
                 }
                 //check uppe och nere
                 if (playerHitbox.Bottom >= wall.Top - 5  && playerHitbox.Bottom <= wall.Top  && 
