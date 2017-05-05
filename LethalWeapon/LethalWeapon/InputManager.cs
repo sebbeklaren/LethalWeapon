@@ -16,14 +16,16 @@ namespace LethalWeapon
         public bool fire;
         public bool isConnected;
         MouseState mousePosOld, mousePosNew;
-                
+        public GamePadState gamePad;
+
+
         public InputManager()
         {
         }
 
         public void Update()
         {           
-            GamePadState gamePad = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+            gamePad = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
 
             mousePosOld = mousePosNew;
             mousePosNew = Mouse.GetState();
@@ -40,14 +42,14 @@ namespace LethalWeapon
                 aimDirection = gamePad.ThumbSticks.Right;
                 aimDirection.Y *= -1;
 
-                if(gamePad.Triggers.Right > 0)
-                {
-                    fire = true;
-                }
-                else if(gamePad.Triggers.Right <= 0)
-                {
-                    fire = false;
-                }
+                //if(gamePad.Triggers.Right > 0 && )
+                //{
+                //    fire = true;
+                //}
+                //else if(gamePad.Triggers.Right <= 0)
+                //{
+                //    fire = false;
+                //}
                 GamePad.SetVibration(PlayerIndex.One, gamePad.Triggers.Right, gamePad.Triggers.Right);
             }
             else

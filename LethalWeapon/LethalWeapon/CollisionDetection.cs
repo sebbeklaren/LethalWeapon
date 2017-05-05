@@ -11,10 +11,8 @@ using Microsoft.Xna.Framework.Content;
 namespace LethalWeapon
 {
     class CollisionDetection
-    {
-        Rectangle walHitBox, playerHitBox;
+    {    
         List<Rectangle> tempList = new List<Rectangle>();
-
 
         public void CheckBounds(Player player, int screenHeight, int screenWidth)
         {
@@ -76,9 +74,7 @@ namespace LethalWeapon
         }
 
         public void CheckCollisionHorizontal(LevelManager level, Player player)
-        {
-            int hitOffset = 10;
-
+        {           
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 //check från sidorna
@@ -94,21 +90,6 @@ namespace LethalWeapon
                     player.position.X = wall.Right + player.texture.Width  - 22;
                     player.canMove = false;
                 }
-                //if (player.playerHitboxVertical.Left >= wall.Right -22 && player.playerHitboxVertical.Left <= wall.Right 
-                //    && player.playerHitboxVertical.Top >= wall.Bottom && player.playerHitboxVertical.Bottom <= wall.Top)
-                //{
-                //   // player.position.X = wall.Right + player.texture.Width - 30;
-
-                //    player.canMove = false;
-                //    // Console.Write("Höger träff");
-                //}
-                //else if (player.playerHitboxVertical.Top >= wall.Bottom && player.playerHitboxVertical.Bottom <= wall.Top  &&
-                //    player.playerHitboxVertical.Right <= wall.Left && player.playerHitboxVertical.Right >= wall.Left - 6)
-                //{
-                //    //position.X = wall.Left - texture.Width - 10;
-                //    player.canMove = false;
-                //    //Console.Write("Vänster träff");
-                //}
                 else
                 {
                     player.canMove = true;

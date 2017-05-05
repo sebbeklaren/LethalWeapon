@@ -80,17 +80,12 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
-            //collision.CheckBounds();
-            
             last = current;
             current = Keyboard.GetState();
 
-            playerHitboxVertical = new Rectangle((int)position.X - 4/* - (texture.Width /2)*/, (int)position.Y + 12 /*- (texture.Height /2)*/, texture.Width + 8, texture.Height - 24);
-            playerHitboxHorizontal = new Rectangle((int)position.X/* - (texture.Width /2)*/, (int)position.Y /*- (texture.Height /2)*/, texture.Width, texture.Height);
+            playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width + 8, texture.Height - 24);
+            playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
-
-            //playerHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            //checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
 
             if (canMove)
             {
@@ -106,11 +101,12 @@ namespace LethalWeapon
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     position.X += speed;
             }
-                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) && PlayerCurrentEnergi >= 20)
+                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePad.Triggers.Left > 0 && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
                     }
+
             if (playerHitboxHorizontal.Intersects(enemy.HitBox) && isDodging == false && playerIsHit == false)
             {
                 PlayerCurrentHealth -= 20;
@@ -126,7 +122,7 @@ namespace LethalWeapon
             {
                 hitTimer += gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (dodgeTimer > 300)
+            if (dodgeTimer > 300 || input.gamePad.Triggers.Left <= 0)
             {
                 speed = 2;
                 isDodging = false;
@@ -199,46 +195,13 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(tempText,new Vector2(playerHitboxVertical.X, playerHitboxVertical.Y), playerHitboxVertical, Color.Red);
+            //sb.Draw(tempText,new Vector2(playerHitboxVertical.X, playerHitboxVertical.Y), playerHitboxVertical, Color.Red);
             sb.Draw(texture, position, Color.White);
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
             {
                 sb.Draw(texture, position, Color.Red);
             }
-        }
-
-        //private void CheckBounds()
-        //{
-        //    if(position.Y <= 0)
-        //    {
-        //        position.Y =  1;
-        //        canMove = false;
-        //    }
-        //    else if(position.Y >= screenHeight - 45)
-        //    {
-        //        position.Y = screenHeight - 46;
-        //        canMove = false;
-        //    }
-        //    else
-        //    {
-        //        canMove = true;
-        //    }
-        //    if(position.X <= 0)
-        //    {
-        //        position.X = 1;
-        //        canMove = false;
-        //    }
-        //    else if(position.X >= screenWidth - 32)
-        //    {
-        //        position.X = screenWidth - 33;
-        //        canMove = false;
-        //    }
-        //    else
-        //    {
-        //        canMove = true;
-        //    }
-        //}
-       
+        }    
     }
 }
