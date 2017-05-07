@@ -151,7 +151,7 @@ namespace LethalWeapon
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.L))
             {
-               // state = GameState.MainMenu;
+                state = GameState.MainMenu;
                 //gameOn = false;
             }
         }

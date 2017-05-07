@@ -21,6 +21,7 @@ namespace LethalWeapon
         Weapon weapon;
         Gui gui;
         Bullet bullet;
+        BossOne bossOne;
         ContentManager Content;
         Rectangle sourceRect;
         LevelManager level;
@@ -52,6 +53,7 @@ namespace LethalWeapon
             }
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
+            bossOne = new BossOne(Content.Load<Texture2D>(@"BossOne"), new Vector2(500, 300), sourceRect, Content);           
             gui = new Gui(Content, 1, 1);
             overWorldTex = Content.Load<Texture2D>(@"overworldmap");
             collision = new CollisionDetection();
@@ -74,7 +76,7 @@ namespace LethalWeapon
             weapon.Update(player, enemyList, bullet, gui, gameTime);
             player.Update(gameTime, tempEnemy);
             gui.Update(camera.GetPosition(), player, gameTime);
-
+            bossOne.Update(player, gameTime);
             for (int i = 0; i < enemyList.Count; i++)
             {
                 enemyList[i].Update(player);
@@ -99,6 +101,7 @@ namespace LethalWeapon
         {
             level.Draw(spriteBatch);
             spriteBatch.Draw(craterText, new Vector2(100, 0), Color.White);
+            bossOne.Draw(spriteBatch);
             player.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             gui.Draw(spriteBatch);
