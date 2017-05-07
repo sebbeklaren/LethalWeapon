@@ -10,19 +10,14 @@ namespace LethalWeapon
 {
     class Missile : GameObject
     {
-        //missile
-        
-        
         float rotation;
         float missileSpeed;
         Rectangle missileRect;
 
         public Missile(Texture2D texture, Vector2 position, Rectangle sourceRect)
             : base(texture, position, sourceRect)
-        {
-            
-            missileRect = new Rectangle(0, 0, texture.Width, texture.Height);
-            
+        {            
+            missileRect = new Rectangle(0, 0, texture.Width, texture.Height);            
         }
 
         public void Update(Vector2 playerPos)
@@ -31,7 +26,6 @@ namespace LethalWeapon
             difference.Normalize();
             position += difference * 1f;
             rotation = (float)Math.Atan2(-difference.Y, -difference.X);
-
         }
 
         public override void Draw(SpriteBatch sb)

@@ -19,8 +19,6 @@ namespace LethalWeapon
         List<Missile> missileList = new List<Missile>();
         InputManager input;
         double timeMissileRight, timeMissileLeft;
-        //double timeMissileLeft = 3;
-        int missileTimer  = 3;
 
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content): 
             base (texture, position, sourceRect)
@@ -28,8 +26,6 @@ namespace LethalWeapon
             hitBox = new Rectangle(0, 0, texture.Width * 2, texture.Height * 2);
             missileTexture = content.Load<Texture2D>(@"Missile");
             input = new InputManager();
-
-
         }
 
         public void Update(Player player, GameTime gameTime)
@@ -47,12 +43,7 @@ namespace LethalWeapon
             {
                 ShootMissile(startPosOffsetLeft);
                 timeMissileLeft = 0;
-            } 
-            //if(Keyboard.GetState().IsKeyDown(Keys.Space)/*input.mousePosOld.LeftButton == ButtonState.Released && input.mousePosNew.LeftButton == ButtonState.Pressed*/)
-            //{
-            //    ShootMissile();
-            //}
-            
+            }             
             foreach(Missile projectile in missileList)
             {
                 projectile.Update(player.position);
