@@ -24,6 +24,7 @@ namespace LethalWeapon
             bulletRect = new Rectangle(0, 0, texture.Width, texture.Height);
             this.position = position;
             startPos = position;
+            targetPosition = new Vector2(player.position.X + spread  , player.position.Y + spread) + new Vector2(0, -200);
             difference = targetPosition - position;            
             difference.Normalize();
         }
