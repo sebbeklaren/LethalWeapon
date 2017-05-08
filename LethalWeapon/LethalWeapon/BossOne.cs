@@ -23,6 +23,7 @@ namespace LethalWeapon
         InputManager input;
         double timeMissileRight, timeMissileLeft;
         int screenHeight, screenWidth, randPosX, randPosY;
+        double elapsedBulletTime = 0;
 
         Random randomPos;
 
@@ -77,12 +78,19 @@ namespace LethalWeapon
             }
         }
         private void BulletAway(GameTime gameTime, Player player)
-        {
+        {            
+            elapsedBulletTime += gameTime.ElapsedGameTime.TotalSeconds;
             int startPos = 120;
-            ShootBullets(startPos);
+            
+            if(elapsedBulletTime >= 2)
+            {
+
+                ShootBullets(startPos, player);
+                elapsedBulletTime = 0;
+            }
             foreach(BossOneBullets bullets in bulletList)
             {
-                bullets.Update(player.position);
+                bullets.Update(gameTime);
             }
         }
         public override void Draw(SpriteBatch sb)
@@ -161,14 +169,15 @@ namespace LethalWeapon
             missileList.Add(missile);
         }
 
-        private void ShootBullets(int startPos)
+        private void ShootBullets(int startPos, Player player)
         {
             Rectangle bulletRect = new Rectangle(0, 0, bulletTexture.Width, bulletTexture.Height);
             Vector2 bulletPosition = new Vector2(position.X + startPos, position.Y + startPos);
-
-            bullet = new BossOneBullets(bulletTexture, bulletPosition, bulletRect);
-            bulletList.Add(bullet);
-
+            for (int i = 0; i <= 5; i++)
+            {
+                bullet = new BossOneBullets(bulletTexture, new Vector2(bulletPosition.X + (i * 10), bulletPosition.Y + (i * 10)), bulletRect, player);
+                bulletList.Add(bullet);
+            }
         }
 
         private void ShootLaser()

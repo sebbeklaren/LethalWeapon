@@ -14,20 +14,36 @@ namespace LethalWeapon
         // float bulletSpeed;
         public Rectangle bulletRect;
         public Vector2 position;
+        Vector2 targetPosition;
+        double elapsedTime;
+        Vector2 aimVector;
+        int screenWidth = 1024;
+        int screenHeight = 768;
 
-        public BossOneBullets(Texture2D texture, Vector2 position, Rectangle sourceRect)
+        public BossOneBullets(Texture2D texture, Vector2 position, Rectangle sourceRect, Player player)
             : base(texture, position, sourceRect)
         {
             bulletRect = new Rectangle(0, 0, texture.Width, texture.Height);
             this.position = position;
+
+            targetPosition = new Vector2(player.position.X, player.position.Y);
+        }
+        
+
+        public void Update(GameTime gameTime)
+        {
+            elapsedTime = gameTime.ElapsedGameTime.TotalMilliseconds;
+            Vector2 difference = targetPosition - position;
+            difference.Normalize();
+            position += difference * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.2f;
+            rotation = (float)Math.Atan2(-difference.Y, -difference.X);
         }
 
-        public void Update(Vector2 playerPos)
+        private void GetAimPosition()
         {
-            Vector2 difference = playerPos - position;
-            difference.Normalize();
-            position += difference * 1f;
-            rotation = (float)Math.Atan2(-difference.Y, -difference.X);
+            aimVector = new Vector2(targetPosition.X - screenWidth, targetPosition.Y - screenHeight);
+            
+
         }
 
         public override void Draw(SpriteBatch sb)
