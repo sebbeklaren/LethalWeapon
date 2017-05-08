@@ -78,10 +78,11 @@ namespace LethalWeapon
             foreach (Rectangle wall in level.hitBoxWall)
             {
                 //check från sidorna
-                if (player.playerHitboxVertical.Right >= wall.Left - 6 && player.playerHitboxVertical.Right <= wall.Left + 12 &&
+                if (player.playerHitboxVertical.Right >= wall.Left - 7 && player.playerHitboxVertical.Right <= wall.Left &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Left - player.texture.Width - 12;
+                    player.position.X = wall.Left - player.texture.Width -12;
+                    
                     player.canMove = false;
                 }
                 else if (player.playerHitboxVertical.Left <= wall.Right + 12 && player.playerHitboxVertical.Left >= wall.Right - 6 &&

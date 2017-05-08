@@ -29,6 +29,7 @@ namespace LethalWeapon
         public Vector2 position;
         public Texture2D texture;
 
+
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
@@ -101,6 +102,7 @@ namespace LethalWeapon
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
                     position.X += speed;
             }
+
                 if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePad.Triggers.Left > 0 && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
@@ -135,10 +137,12 @@ namespace LethalWeapon
             }      
             if (!input.isConnected)
             {
-                aimPosition = input.aimDirection;
+                aimSpeed = 5.0f;
+                aimPosition = input.aimDirection;                
             }
             else
             {
+                aimSpeed = 10f;
                 aimPosition += input.aimDirection * aimSpeed;
             }
             double maxAimDistYBot= 170;

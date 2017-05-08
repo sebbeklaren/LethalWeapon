@@ -69,19 +69,7 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
-            collision.CheckBounds(player, screenHeight, screenWidth);
-            collision.CheckCollisionHorizontal(level, player);
-            collision.CheckCollisionVertical(level, player);
-            collision.CameraBoundCheck(player, camera);
-            weapon.Update(player, enemyList, bullet, gui, gameTime);
-            player.Update(gameTime, tempEnemy);
-            gui.Update(camera.GetPosition(), player, gameTime);
-            bossOne.Update(player, gameTime, weapon);
-            for (int i = 0; i < enemyList.Count; i++)
-            {
-                enemyList[i].Update(player);
-                enemyHealthBarList[i].UpdateBar(enemyList[i]);
-            }
+
         }
 
         public void DrawCityLevel(SpriteBatch spriteBatch)
@@ -107,10 +95,41 @@ namespace LethalWeapon
             gui.Draw(spriteBatch);
         }
 
+        public void UpdateRuinsLevel(GameTime gameTime)
+        {
+            weapon.Update(player, enemyList, bullet, gui, gameTime);
+            player.Update(gameTime, tempEnemy);
+            gui.Update(camera.GetPosition(), player, gameTime);
+            bossOne.Update(player, gameTime, weapon);
+            CheckForCollision();
+        }
+
+        public void UpdateCityLevel(GameTime gameTime)
+        {
+            weapon.Update(player, enemyList, bullet, gui, gameTime);
+            player.Update(gameTime, tempEnemy);
+            gui.Update(camera.GetPosition(), player, gameTime);
+            
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Update(player);
+                enemyHealthBarList[i].UpdateBar(enemyList[i]);
+            }
+            CheckForCollision();
+        }
+
         public void CurrentLevel(string newLevel, Texture2D texture)
         {
             currentLevel = newLevel;
             level = new LevelManager(Content, currentLevel, texture);
         }        
+
+        private void CheckForCollision()
+        {
+            collision.CheckBounds(player, screenHeight, screenWidth);
+            collision.CheckCollisionHorizontal(level, player);
+            collision.CheckCollisionVertical(level, player);
+            collision.CameraBoundCheck(player, camera);
+        }
     }
 }

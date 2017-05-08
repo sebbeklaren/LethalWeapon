@@ -36,8 +36,7 @@ namespace LethalWeapon
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
-            bossVelocity = new Vector2(1, 0);
-           
+            bossVelocity = new Vector2(1, 0);           
         }
 
         public void Update(Player player, GameTime gameTime, Weapon weapon)
@@ -45,32 +44,7 @@ namespace LethalWeapon
             MissileAway(gameTime, player);
             BulletAway(gameTime, player);
             Move();
-            
-            for(int i = 0; i < missileList.Count; i++)
-            {
-                for (int j = 0; j < weapon.bullets.Count; j++)
-                {
-                    if (Vector2.Distance(weapon.bullets[j].position, missileList[i].position) < 10 && weapon.bullets.Count >= 1 && missileList.Count >= 1)
-                    {
-                        missileList.Remove(missileList[i]);
-                        weapon.bullets.Remove(weapon.bullets[j]);
-                    }
-                    else if (Vector2.Distance(missileList[i].position, new Vector2(player.position.X + 12, player.position.Y + 24)) < 24 && missileList.Count >= 1)
-                    {
-                        missileList.Remove(missileList[i]);
-                        player.PlayerCurrentHealth -= 30;
-                    }
-                    
-                }
-            }
-            for(int i = 0; i < bulletList.Count; i++)
-            {
-                if(Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + 16, player.position.Y +24)) < 20.0f && missileList.Count >= 1)
-                {
-                    bulletList.Remove(bulletList[i]);
-                    player.PlayerCurrentHealth -= 10;
-                }
-            }
+            ProjectileCollision(player, weapon);           
         }
 
         private void MissileAway(GameTime gameTime, Player player)
@@ -123,9 +97,40 @@ namespace LethalWeapon
             
         }
 
-        public void GetPlayerPos()
+        public void ProjectileCollision(Player player, Weapon weapon)
         {
+            for (int i = 0; i < missileList.Count; i++)
+            {
+                for (int j = 0; j < weapon.bullets.Count; j++)
+                {
+                    if (Vector2.Distance(weapon.bullets[j].position, missileList[i].position) < 10 && missileList.Count >= 1)
+                    {
+                        missileList.Remove(missileList[i]);
+                        weapon.bullets.Remove(weapon.bullets[j]);
+                    }
+                    else
+                    {
 
+                    }
+                }
+            }
+            for (int i = 0; i < missileList.Count; i++)
+            {
+                if (Vector2.Distance(missileList[i].position, new Vector2(player.position.X + 12, player.position.Y + 24)) < 50 && missileList.Count >= 1)
+                {
+                    missileList.Remove(missileList[i]);
+                    player.PlayerCurrentHealth -= 30;
+                }
+            }
+
+            for (int i = 0; i < bulletList.Count; i++)
+            {
+                if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + 16, player.position.Y + 24)) < 20.0f && bulletList.Count >= 1)
+                {
+                    bulletList.Remove(bulletList[i]);
+                    player.PlayerCurrentHealth -= 10;
+                }
+            }
         }
         public void Random()
         {

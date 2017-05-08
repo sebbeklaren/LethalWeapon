@@ -84,10 +84,12 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.CityLevel:
+                    gamePlayManager.UpdateCityLevel(gameTime);
                     UpdateWorldMap();   
                     break;
 
-                case GameState.RuinsLevel:   
+                case GameState.RuinsLevel:
+                    gamePlayManager.UpdateRuinsLevel(gameTime);   
                     UpdateWorldMap();
                     break;
 
@@ -98,8 +100,7 @@ namespace LethalWeapon
                 case GameState.OverWorld:
                     UpdateWorldMap();
                     break;
-            }
-            gamePlayManager.Update(gameTime);
+            }           
         }
 
         protected override void Draw(GameTime gameTime)

@@ -61,7 +61,7 @@ namespace LethalWeapon
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / 4), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
-                    healtBarTexture.Width / 4, healtBarTexture.Height / 4), Color.White);
+                    healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / 4), Color.White);
             sb.Draw(activeWeaponBorderTex, new Vector2(activeWeaponBorderRect.X, activeWeaponBorderRect.Y), null, Color.White, activeWeaponRotation,
                     new Vector2(0, 0), activeWeaponScale, SpriteEffects.None, 0f);
 
