@@ -21,6 +21,7 @@ namespace LethalWeapon
         InputManager input;
         double timeMissileRight, timeMissileLeft;
         int screenHeight, screenWidth, randPosX, randPosY;
+
         Random randomPos;
 
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, int screenWidth, int screenHeight): 
@@ -78,9 +79,8 @@ namespace LethalWeapon
         public void Random()
         {
              randomPos = new Random();
-             randPosX = randomPos.Next(-1, 1);
-             randPosY = randomPos.Next(-1, 1);
-            
+             randPosX = randomPos.Next(-2, 2);
+             randPosY = randomPos.Next(-2, 2);
         }
         public void Move()
         {
@@ -89,12 +89,37 @@ namespace LethalWeapon
             if(position.X >= screenWidth - texture.Width)
             {
                 position.X = screenWidth - texture.Width ;
-                bossVelocity = new Vector2(randPosX, randPosY);
-                
+                if (randPosX == 0 || randPosY == 0)
+                {
+                    Random();
+                }
+                bossVelocity = new Vector2(randPosX, randPosY);                
             }
             if(position.X <= 0)
             {
-                position.X = 1;
+                position.X = 2;
+                if (randPosX == 0 || randPosY == 0)
+                {
+                    Random();
+                }
+                bossVelocity = new Vector2(randPosX, randPosY);
+            }
+            if(position.Y >= screenHeight - texture.Height)
+            {
+                position.Y = screenHeight - texture.Height;
+                if (randPosX == 0 || randPosY == 0)
+                {
+                    Random();
+                }
+                bossVelocity = new Vector2(randPosX, randPosY);
+            }
+            if(position.Y <= 0 || position.X <= 0)
+            {
+                position.Y = 2;
+                if (randPosX == 0 || randPosY == 0)
+                {
+                    Random();
+                }
                 bossVelocity = new Vector2(randPosX, randPosY);
             }
             position += bossVelocity;
@@ -107,7 +132,6 @@ namespace LethalWeapon
 
             missileLeft = new Missile(missileTexture, missilePosition, missileRect);
             missileList.Add(missileLeft);
-
         }
 
         private void ShootBullets()
