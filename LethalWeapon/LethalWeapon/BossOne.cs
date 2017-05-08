@@ -40,6 +40,16 @@ namespace LethalWeapon
         {
             MissileAway(gameTime, player);
             Move();
+
+            for(int i = 0; i < missileList.Count; i++)
+            {
+                if (Vector2.Distance(missileList[i].position, player.position) < 10 && missileList.Count >= 1)
+                {
+                    missileList.Remove(missileList[i]);
+                    player.PlayerCurrentHealth -= 30;
+                }
+            }
+
         }
 
         private void MissileAway(GameTime gameTime, Player player)
@@ -65,11 +75,12 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
+            sb.Draw(texture, position, hitBox, Color.White);
             foreach (Missile projectile in missileList)
             {
                 projectile.Draw(sb);
             }
-            sb.Draw(texture, position, hitBox, Color.White);
+            
         }
 
         public void GetPlayerPos()
