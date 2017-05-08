@@ -132,6 +132,10 @@ namespace LethalWeapon
             }
             if(position.X <= 0)
             {
+                if(position.Y <= 0)
+                {
+                    bossVelocity = new Vector2(randPosX, randPosY);
+                }
                 position.X = 3;
                 if (randPosX == 0 || randPosY == 0)
                 {
@@ -173,9 +177,10 @@ namespace LethalWeapon
         {
             Rectangle bulletRect = new Rectangle(0, 0, bulletTexture.Width, bulletTexture.Height);
             Vector2 bulletPosition = new Vector2(position.X + startPos, position.Y + startPos);
-            for (int i = 0; i <= 5; i++)
+            int spread = 30;
+            for (int i = 0; i <= 10; i++)
             {
-                bullet = new BossOneBullets(bulletTexture, new Vector2(bulletPosition.X + (i * 10), bulletPosition.Y + (i * 10)), bulletRect, player);
+                bullet = new BossOneBullets(bulletTexture, new Vector2(bulletPosition.X , bulletPosition.Y), bulletRect, player, (spread * i));
                 bulletList.Add(bullet);
             }
         }
