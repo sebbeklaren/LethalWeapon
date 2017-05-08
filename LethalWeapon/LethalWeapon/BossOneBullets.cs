@@ -32,8 +32,6 @@ namespace LethalWeapon
             difference = targetPosition - position;            
             difference.Normalize();
         }
-        
-
         public void Update(GameTime gameTime)
         {
             position = position + difference * 2f;
