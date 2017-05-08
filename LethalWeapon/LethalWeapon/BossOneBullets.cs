@@ -10,16 +10,12 @@ namespace LethalWeapon
 {
     class BossOneBullets : GameObject
     {
-        float rotation;
-        // float bulletSpeed;
+        float rotation;       
         public Rectangle bulletRect;
         public Vector2 position;
         Vector2 targetPosition;
-        double elapsedTime;
-        public Vector2 aimVector;
         int screenWidth = 1024;
         int screenHeight = 768;
-        float aimRotation;
         Vector2 startPos;
         Vector2 difference;
         public BossOneBullets(Texture2D texture, Vector2 position, Rectangle sourceRect, Player player, int spread)
@@ -28,20 +24,16 @@ namespace LethalWeapon
             bulletRect = new Rectangle(0, 0, texture.Width, texture.Height);
             this.position = position;
             startPos = position;
-            targetPosition = new Vector2(player.position.X + spread  , player.position.Y + spread);
             difference = targetPosition - position;            
             difference.Normalize();
         }
         public void Update(GameTime gameTime)
         {
-            position = position + difference * 2f;
-            rotation = (float)Math.Atan2(-difference.Y, -difference.X);
+            position = position + difference * 2f ;
+            rotation = 0f;
         }
 
-        private void GetAimPosition()
-        {
-            aimVector = new Vector2(targetPosition.X - screenWidth, targetPosition.Y - screenHeight);
-        }
+
 
         public override void Draw(SpriteBatch sb)
         {

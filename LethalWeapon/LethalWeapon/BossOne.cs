@@ -32,7 +32,7 @@ namespace LethalWeapon
         {
             hitBox = new Rectangle(0, 0, texture.Width * 2, texture.Height * 2);
             missileTexture = content.Load<Texture2D>(@"Missile");
-            bulletTexture = content.Load<Texture2D>(@"Bullet");
+            bulletTexture = content.Load<Texture2D>(@"BossBullet");
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
@@ -45,13 +45,21 @@ namespace LethalWeapon
             MissileAway(gameTime, player);
             BulletAway(gameTime, player);
             Move();
-
+            
             for(int i = 0; i < missileList.Count; i++)
             {
                 if (Vector2.Distance(missileList[i].position, new Vector2(player.position.X + 12, player.position.Y + 24)) < 24 && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
                     player.PlayerCurrentHealth -= 30;
+                }
+            }
+            for(int i = 0; i < bulletList.Count; i++)
+            {
+                if(Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + 16, player.position.Y +24)) < 20.0f && missileList.Count >= 1)
+                {
+                    bulletList.Remove(bulletList[i]);
+                    player.PlayerCurrentHealth -= 10;
                 }
             }
         }
