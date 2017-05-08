@@ -15,9 +15,11 @@ namespace LethalWeapon
         Vector2 playerPosition;
         Vector2 bossVelocity;
         Rectangle hitBox;
-        Texture2D missileTexture;
-        Missile missileLeft;
+        Texture2D missileTexture, bulletTexture;
+        Missile missile;
+        BossOneBullets bullet;
         List<Missile> missileList = new List<Missile>();
+        List<BossOneBullets> bulletList = new List<BossOneBullets>();
         InputManager input;
         double timeMissileRight, timeMissileLeft;
         int screenHeight, screenWidth, randPosX, randPosY;
@@ -29,6 +31,7 @@ namespace LethalWeapon
         {
             hitBox = new Rectangle(0, 0, texture.Width * 2, texture.Height * 2);
             missileTexture = content.Load<Texture2D>(@"Missile");
+            bulletTexture = content.Load<Texture2D>(@"Bullet");
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
@@ -39,17 +42,17 @@ namespace LethalWeapon
         public void Update(Player player, GameTime gameTime)
         {
             MissileAway(gameTime, player);
+            BulletAway(gameTime, player);
             Move();
 
             for(int i = 0; i < missileList.Count; i++)
             {
-                if (Vector2.Distance(missileList[i].position, player.position) < 10 && missileList.Count >= 1)
+                if (Vector2.Distance(missileList[i].position, new Vector2(player.position.X + 12, player.position.Y + 24)) < 24 && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
                     player.PlayerCurrentHealth -= 30;
                 }
             }
-
         }
 
         private void MissileAway(GameTime gameTime, Player player)
@@ -73,12 +76,25 @@ namespace LethalWeapon
                 projectile.Update(player.position);
             }
         }
+        private void BulletAway(GameTime gameTime, Player player)
+        {
+            int startPos = 120;
+            ShootBullets(startPos);
+            foreach(BossOneBullets bullets in bulletList)
+            {
+                bullets.Update(player.position);
+            }
+        }
         public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, hitBox, Color.White);
             foreach (Missile projectile in missileList)
             {
                 projectile.Draw(sb);
+            }
+            foreach(BossOneBullets bullets in bulletList)
+            {
+                bullets.Draw(sb);
             }
             
         }
@@ -108,7 +124,7 @@ namespace LethalWeapon
             }
             if(position.X <= 0)
             {
-                position.X = 2;
+                position.X = 3;
                 if (randPosX == 0 || randPosY == 0)
                 {
                     Random();
@@ -126,7 +142,7 @@ namespace LethalWeapon
             }
             if(position.Y <= 0 || position.X <= 0)
             {
-                position.Y = 2;
+                position.Y = 3;
                 if (randPosX == 0 || randPosY == 0)
                 {
                     Random();
@@ -141,12 +157,17 @@ namespace LethalWeapon
             Rectangle missileRect = new Rectangle(0, 0, missileTexture.Width, missileTexture.Height);
             Vector2 missilePosition = new Vector2(position.X+ 30 + startPos, position.Y+ 30);
 
-            missileLeft = new Missile(missileTexture, missilePosition, missileRect);
-            missileList.Add(missileLeft);
+            missile = new Missile(missileTexture, missilePosition, missileRect);
+            missileList.Add(missile);
         }
 
-        private void ShootBullets()
+        private void ShootBullets(int startPos)
         {
+            Rectangle bulletRect = new Rectangle(0, 0, bulletTexture.Width, bulletTexture.Height);
+            Vector2 bulletPosition = new Vector2(position.X + startPos, position.Y + startPos);
+
+            bullet = new BossOneBullets(bulletTexture, bulletPosition, bulletRect);
+            bulletList.Add(bullet);
 
         }
 

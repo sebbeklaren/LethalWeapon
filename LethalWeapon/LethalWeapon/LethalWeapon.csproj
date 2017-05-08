@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Bar.cs" />
     <Compile Include="BossOne.cs" />
+    <Compile Include="BossOneBullets.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="CollisionDetection.cs" />
