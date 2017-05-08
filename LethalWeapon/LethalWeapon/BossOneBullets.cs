@@ -14,10 +14,9 @@ namespace LethalWeapon
         public Rectangle bulletRect;
         public Vector2 position;
         Vector2 targetPosition;
-        int screenWidth = 1024;
-        int screenHeight = 768;
         Vector2 startPos;
         Vector2 difference;
+
         public BossOneBullets(Texture2D texture, Vector2 position, Rectangle sourceRect, Player player, int spread)
             : base(texture, position, sourceRect)
         {
@@ -33,9 +32,6 @@ namespace LethalWeapon
             position = position + difference * 2f ;
             rotation = 0f;
         }
-
-
-
         public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, bulletRect, Color.White, rotation, new Vector2(texture.Width / 2, texture.Height / 2), 1f, SpriteEffects.None, 1f);

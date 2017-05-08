@@ -40,7 +40,7 @@ namespace LethalWeapon
            
         }
 
-        public void Update(Player player, GameTime gameTime)
+        public void Update(Player player, GameTime gameTime, Weapon weapon)
         {
             MissileAway(gameTime, player);
             BulletAway(gameTime, player);
@@ -48,10 +48,19 @@ namespace LethalWeapon
             
             for(int i = 0; i < missileList.Count; i++)
             {
-                if (Vector2.Distance(missileList[i].position, new Vector2(player.position.X + 12, player.position.Y + 24)) < 24 && missileList.Count >= 1)
+                for (int j = 0; j < weapon.bullets.Count; j++)
                 {
-                    missileList.Remove(missileList[i]);
-                    player.PlayerCurrentHealth -= 30;
+                    if (Vector2.Distance(weapon.bullets[j].position, missileList[i].position) < 10 && weapon.bullets.Count >= 1 && missileList.Count >= 1)
+                    {
+                        missileList.Remove(missileList[i]);
+                        weapon.bullets.Remove(weapon.bullets[j]);
+                    }
+                    else if (Vector2.Distance(missileList[i].position, new Vector2(player.position.X + 12, player.position.Y + 24)) < 24 && missileList.Count >= 1)
+                    {
+                        missileList.Remove(missileList[i]);
+                        player.PlayerCurrentHealth -= 30;
+                    }
+                    
                 }
             }
             for(int i = 0; i < bulletList.Count; i++)

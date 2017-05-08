@@ -14,7 +14,7 @@ namespace LethalWeapon
     {
         public Texture2D texture;
         public Vector2 position;
-        Rectangle hitBox;
+        public Rectangle hitBox;
         public Rectangle HitBox
         {
             get { return hitBox; }

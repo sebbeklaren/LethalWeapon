@@ -12,13 +12,14 @@ namespace LethalWeapon
     {
         float rotation;
        // float missileSpeed;
-        public Rectangle missileRect;
+        public Rectangle missileRect, hitBox;
         public Vector2 position;
 
         public Missile(Texture2D texture, Vector2 position, Rectangle sourceRect)
             : base(texture, position, sourceRect)
         {            
-            missileRect = new Rectangle(0, 0, texture.Width, texture.Height);    
+            missileRect = new Rectangle(0, 0, texture.Width, texture.Height);
+            hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);    
             this.position = position;        
         }
 

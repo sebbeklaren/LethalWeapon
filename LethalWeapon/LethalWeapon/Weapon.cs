@@ -92,6 +92,10 @@ namespace LethalWeapon
                     bullets.Remove(b);
                     shotRemoved = false;
                 }
+                if(Vector2.Distance(b.position, player.position) >= 500)
+                {
+                    bullets.Remove(b);
+                }
             }
         }
 

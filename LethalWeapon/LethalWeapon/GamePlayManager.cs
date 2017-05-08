@@ -76,7 +76,7 @@ namespace LethalWeapon
             weapon.Update(player, enemyList, bullet, gui, gameTime);
             player.Update(gameTime, tempEnemy);
             gui.Update(camera.GetPosition(), player, gameTime);
-            bossOne.Update(player, gameTime);
+            bossOne.Update(player, gameTime, weapon);
             for (int i = 0; i < enemyList.Count; i++)
             {
                 enemyList[i].Update(player);
