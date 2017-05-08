@@ -59,7 +59,8 @@ namespace LethalWeapon
                 position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= 500 || input.gamePad.Triggers.Right > 0 && canShot == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= 500 || input.gamePad.Triggers.Right > 0 && canShot == true
+                || input.mousePosOld.LeftButton == ButtonState.Released && input.mousePosNew.LeftButton == ButtonState.Pressed)
             {
                 while (shotTimer >= 500)
                 {

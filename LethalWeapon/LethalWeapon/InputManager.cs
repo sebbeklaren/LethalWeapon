@@ -13,7 +13,7 @@ namespace LethalWeapon
     {
         public Vector2 position, aimDirection;
         public bool isConnected;
-        MouseState mousePosOld, mousePosNew;
+        public MouseState mousePosOld, mousePosNew;
         public GamePadState gamePad;
 
         public InputManager()

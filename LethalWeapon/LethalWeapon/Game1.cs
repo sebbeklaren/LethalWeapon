@@ -147,7 +147,16 @@ namespace LethalWeapon
             {
                 state = GameState.OverWorld;
                 LoadOverWorld();
+<<<<<<< HEAD
                 
+=======
+                gameOn = false; 
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.L))
+            {
+                state = GameState.MainMenu;
+                //gameOn = false;
+>>>>>>> origin/master
             }
         }
 
