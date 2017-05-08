@@ -133,31 +133,25 @@ namespace LethalWeapon
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
+                state = GameState.CityLevel;
                 LoadCityLevel();
                 gameOn = true;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.P))
-            {
-                state = GameState.CityLevel;
-                LoadCityLevel();
-             
-            }
-
+            
             else if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
                 state = GameState.OverWorld;
                 LoadOverWorld();
-<<<<<<< HEAD
-                
-=======
-                gameOn = false; 
+                gameOn = true; 
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.L))
+            else if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
-                state = GameState.MainMenu;
-                //gameOn = false;
->>>>>>> origin/master
+                state = GameState.RuinsLevel;
+                LoadRuinsLevel();
+                gameOn = true;
             }
+
+
         }
 
         public void DrawCurrentState(GameTime gameTime)
