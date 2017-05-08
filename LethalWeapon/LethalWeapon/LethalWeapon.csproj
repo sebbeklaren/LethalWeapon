@@ -95,10 +95,10 @@
     <Content Include="Content\HoodyBoy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\lethalweaponwall.jpg">
+    <Content Include="Content\LethalWeapon_RoadsAndWalls.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LethalWeapon_RoadsAndWalls.png">
+    <Content Include="Content\MainMenuWall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Map\map01.txt">

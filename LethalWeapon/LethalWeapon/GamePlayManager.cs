@@ -27,7 +27,7 @@ namespace LethalWeapon
         string currentLevel;
         public Camera camera;
         Vector2 cameraOffset;
-        int screenHeight, screenWidth;
+       public int screenHeight, screenWidth;
         GraphicsDevice graphicsDevice;
         GraphicsDeviceManager graphics;
         CollisionDetection collision;
