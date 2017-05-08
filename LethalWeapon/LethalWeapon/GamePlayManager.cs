@@ -53,7 +53,7 @@ namespace LethalWeapon
             }
             weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
-            bossOne = new BossOne(Content.Load<Texture2D>(@"BossOne"), new Vector2(500, 300), sourceRect, Content);           
+            bossOne = new BossOne(Content.Load<Texture2D>(@"BossOne"), new Vector2(500, 300), sourceRect, Content, screenWidth, screenHeight);           
             gui = new Gui(Content, 1, 1);
             overWorldTex = Content.Load<Texture2D>(@"overworldmap");
             collision = new CollisionDetection();

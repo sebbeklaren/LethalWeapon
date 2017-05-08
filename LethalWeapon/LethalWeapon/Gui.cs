@@ -22,7 +22,7 @@ namespace LethalWeapon
         public float activeWeaponRotation, activeWeaponScale;
         Vector2 weaponOrigin;
 
-        public bool WeaponIsPickedUp { get; set; } = false;
+        public bool WeaponIsPickedUp { get; set; } //= false;
 
         public Gui(ContentManager content, int health, int energy)
         {
