@@ -28,19 +28,14 @@ namespace LethalWeapon
             bulletRect = new Rectangle(0, 0, texture.Width, texture.Height);
             this.position = position;
             startPos = position;
-
             targetPosition = new Vector2(player.position.X + spread  , player.position.Y + spread);
-            difference = targetPosition - position;
-            //aimRotation = (float)Math.Atan2(difference.Y, difference.X);
-            //aimVector = new Vector2((float)Math.Cos(aimRotation), (float)Math.Sin(aimRotation)) *  2f ;
-
+            difference = targetPosition - position;            
             difference.Normalize();
         }
         
 
         public void Update(GameTime gameTime)
         {
-            
             position = position + difference * 2f;
             rotation = (float)Math.Atan2(-difference.Y, -difference.X);
         }

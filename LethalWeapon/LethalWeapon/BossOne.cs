@@ -84,7 +84,6 @@ namespace LethalWeapon
             
             if(elapsedBulletTime >= 2)
             {
-
                 ShootBullets(startPos, player);
                 elapsedBulletTime = 0;
             }
