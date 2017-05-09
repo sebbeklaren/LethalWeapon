@@ -14,8 +14,8 @@ namespace LethalWeapon
     {
         Vector2 playerPosition;
         Vector2 bossVelocity;
-        Rectangle hitBox;
-        Texture2D missileTexture, bulletTexture;
+        Rectangle bossRect, hitBox;
+        Texture2D missileTexture, bulletTexture, tempText;
         Missile missile;
         BossOneBullets bullet;
         List<Missile> missileList = new List<Missile>();
@@ -24,19 +24,26 @@ namespace LethalWeapon
         double timeMissileRight, timeMissileLeft;
         int screenHeight, screenWidth, randPosX, randPosY;
         double elapsedBulletTime = 0;
-
         Random randomPos;
+
+
+        public double BossCurrentHealth { get; set; }
+
 
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
         {
-            hitBox = new Rectangle(0, 0, texture.Width * 2, texture.Height * 2);
+            bossRect = new Rectangle(0, 0, texture.Width * 2, texture.Height * 2);
+            
             missileTexture = content.Load<Texture2D>(@"Missile");
             bulletTexture = content.Load<Texture2D>(@"BossBullet");
+            tempText = content.Load<Texture2D>(@"PonchoBoy");
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
-            bossVelocity = new Vector2(1, 0);           
+            bossVelocity = new Vector2(1, 0);
+            BossCurrentHealth = 1000;     
+               
         }
 
         public void Update(Player player, GameTime gameTime, Weapon weapon)
@@ -44,6 +51,7 @@ namespace LethalWeapon
             MissileAway(gameTime, player);
             BulletAway(gameTime, player);
             Move();
+            hitBox = new Rectangle((int)position.X + 90,(int)position.Y + 90, tempText.Width, tempText.Height);
             ProjectileCollision(player, weapon);           
         }
 
@@ -85,7 +93,9 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, hitBox, Color.White);
+           
+            sb.Draw(texture, position, bossRect, Color.White);
+            sb.Draw(tempText, hitBox, Color.Red);
             foreach (Missile projectile in missileList)
             {
                 projectile.Draw(sb);
@@ -94,6 +104,7 @@ namespace LethalWeapon
             {
                 bullets.Draw(sb);
             }
+            
             
         }
 
@@ -132,6 +143,13 @@ namespace LethalWeapon
                 {
                     bulletList.Remove(bulletList[i]);
                     player.PlayerCurrentHealth -= 10;
+                }
+            }
+            for(int i = 0; i < weapon.bullets.Count; i++)
+            {
+                if(weapon.bullets[i].HitBox.Intersects(hitBox))
+                {
+                    BossCurrentHealth -= 30;
                 }
             }
         }
