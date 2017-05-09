@@ -25,7 +25,12 @@ namespace LethalWeapon
         int screenHeight, screenWidth, randPosX, randPosY;
         double elapsedBulletTime = 0;
         Random randomPos;
-
+        double bossMaxHealth = 1000;
+        bool bossIsAlive = true;
+        protected Texture2D healtBarTexture, borderTexture;
+        protected Vector2 healthPosition;
+        protected Rectangle healthRect;
+        protected double health;
 
         public double BossCurrentHealth { get; set; }
 
@@ -36,8 +41,9 @@ namespace LethalWeapon
             bossRect = new Rectangle(0, 0, texture.Width * 2, texture.Height * 2);
             
             missileTexture = content.Load<Texture2D>(@"Missile");
-            bulletTexture = content.Load<Texture2D>(@"BossBullet");
-            tempText = content.Load<Texture2D>(@"PonchoBoy");
+            bulletTexture = content.Load<Texture2D>(@"BossBullet");            
+            healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
+            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
@@ -46,13 +52,22 @@ namespace LethalWeapon
                
         }
 
-        public void Update(Player player, GameTime gameTime, Weapon weapon)
+        public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
         {
-            MissileAway(gameTime, player);
-            BulletAway(gameTime, player);
-            Move();
-            hitBox = new Rectangle((int)position.X + 90,(int)position.Y + 90, tempText.Width, tempText.Height);
-            ProjectileCollision(player, weapon);           
+
+            healthPosition = cameraPosition;
+            health = (BossCurrentHealth / bossMaxHealth) * 200;
+            if (bossIsAlive)
+            {
+                MissileAway(gameTime, player);
+                BulletAway(gameTime, player);
+                Move();
+            }
+            hitBox = new Rectangle((int)position.X + 90,(int)position.Y + 90, 32, 48);
+            ProjectileCollision(player, weapon);
+            ProjectileCollision(player, weapon);
+            healthRect = new Rectangle((int)healthPosition.X - 200, (int)healthPosition.Y,
+                   (int)health, healtBarTexture.Height / 4);
         }
 
         private void MissileAway(GameTime gameTime, Player player)
@@ -93,9 +108,9 @@ namespace LethalWeapon
         }
         public override void Draw(SpriteBatch sb)
         {
-           
-            sb.Draw(texture, position, bossRect, Color.White);
-            sb.Draw(tempText, hitBox, Color.Red);
+            int helthrectOffset = 100;
+            int helthrectOffsetX = 200;
+            sb.Draw(texture, position, bossRect, Color.White);         
             foreach (Missile projectile in missileList)
             {
                 projectile.Draw(sb);
@@ -104,8 +119,9 @@ namespace LethalWeapon
             {
                 bullets.Draw(sb);
             }
-            
-            
+            sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, (int)health, healtBarTexture.Height /4  ), Color.White);
+            sb.Draw(borderTexture, new Rectangle((int)healthRect.X + helthrectOffsetX, (int)healthRect.Y  - helthrectOffset,
+                 (int)bossMaxHealth / 5 , healtBarTexture.Height / 4), Color.White);
         }
 
         public void ProjectileCollision(Player player, Weapon weapon)
@@ -150,7 +166,13 @@ namespace LethalWeapon
                 if(weapon.bullets[i].HitBox.Intersects(hitBox))
                 {
                     BossCurrentHealth -= 30;
+                    weapon.bullets.Remove(weapon.bullets[i]);
                 }
+            }
+            
+            if (BossCurrentHealth <= 0)
+            {
+                bossIsAlive = false;
             }
         }
         public void Random()
