@@ -28,13 +28,16 @@ namespace LethalWeapon
         string currentLevel;
         public Camera camera;
         Vector2 cameraOffset;
-       public int screenHeight, screenWidth;
+        public int screenHeight, screenWidth;
         GraphicsDevice graphicsDevice;
         GraphicsDeviceManager graphics;
         CollisionDetection collision;
         Texture2D craterText;
         public bool levelCleard = false;
         Game1 game;
+        GameOver gameOver;
+        Texture2D gameOverTex;
+        public bool isGameOver = false;
 
 
         public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice, Game1 game)
@@ -68,11 +71,15 @@ namespace LethalWeapon
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
+            gameOverTex = Content.Load<Texture2D>("Game Over");
+            gameOver = new GameOver(gameOverTex);
         }
 
         public void Update(GameTime gameTime)
         {
-
+            if (player.PlayerCurrentHealth <= 0)
+                isGameOver = true;
+                
         }
 
         public void DrawCityLevel(SpriteBatch spriteBatch)
@@ -156,6 +163,11 @@ namespace LethalWeapon
             collision.CheckCollisionHorizontal(level, player);
             collision.CheckCollisionVertical(level, player);
             collision.CameraBoundCheck(player, camera);
+        }
+
+        public void DrawGameOver(SpriteBatch spriteBatch)
+        {
+            gameOver.Draw(spriteBatch);
         }
     }
 }
