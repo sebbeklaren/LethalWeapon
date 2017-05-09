@@ -133,7 +133,8 @@ namespace LethalWeapon
             }
             if(levelCleard && player.position.X >= screenWidth || player.position.X <= 0 || player.position.Y >= screenHeight || player.position.Y <= 0 )
             {
-                game.boolOverWorld = true;                
+                game.boolOverWorld = true;
+                player.position.X = 1;
             }
             CheckForCollision();
         }
