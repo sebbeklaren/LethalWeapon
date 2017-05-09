@@ -50,6 +50,7 @@
     <Compile Include="GameOver.cs" />
     <Compile Include="GamePlayManager.cs" />
     <Compile Include="Gui.cs" />
+    <Compile Include="HelpTextManager.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="LevelManager.cs" />
     <Compile Include="MainMenu.cs" />
@@ -90,6 +91,9 @@
     <Content Include="Content\Elderly_Dragon_Head_Gray.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\ExitMap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Gui\barBorder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -103,6 +107,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\HoodyBoy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\KillAllEnemies.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\LethalWeapon_RoadsAndWalls.png">

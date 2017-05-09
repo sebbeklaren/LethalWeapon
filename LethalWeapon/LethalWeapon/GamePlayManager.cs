@@ -36,6 +36,7 @@ namespace LethalWeapon
         public bool levelCleard = false;
         Game1 game;
         GameOver gameOver;
+        HelpTextManager killAllEnemies, exitMap;
         Texture2D gameOverTex;
         public bool isGameOver = false;
 
@@ -73,6 +74,9 @@ namespace LethalWeapon
             camera.Rotation = 0f;
             gameOverTex = Content.Load<Texture2D>("Game Over");
             gameOver = new GameOver(gameOverTex);
+            killAllEnemies = new HelpTextManager(Content, player.position);
+            exitMap = new HelpTextManager(Content, player.position);
+
         }
 
         public void Update(GameTime gameTime)
@@ -93,6 +97,12 @@ namespace LethalWeapon
                 enemyHealthBarList[i].Draw(spriteBatch);
             }
             gui.Draw(spriteBatch);
+            killAllEnemies.KillAllDraw(spriteBatch);
+            if (levelCleard)
+            {
+                exitMap.ExitMapDraw(spriteBatch);
+            }
+            
         }
 
         public void DrawRuinsLevel(SpriteBatch spriteBatch)
@@ -137,13 +147,17 @@ namespace LethalWeapon
             if(enemyList.Count <= 0)
             {
                 levelCleard = true;
+                
+                exitMap.ExitMapUpdate(gameTime, player.position);
             }
-            if(levelCleard && player.position.X >= screenWidth || player.position.X <= 0 || player.position.Y >= screenHeight || player.position.Y <= 0 )
+            if(levelCleard && player.position.X >= screenWidth || player.position.X <= 0 && levelCleard || 
+                player.position.Y >= screenHeight && levelCleard || player.position.Y <= 0 && levelCleard)
             {
                 game.boolOverWorld = true;
                 player.position.X = 1;
             }
             CheckForCollision();
+            killAllEnemies.UpdateKillAll(gameTime);
         }
 
         public void UpdateOverWorld()
