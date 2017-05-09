@@ -19,10 +19,17 @@ namespace LethalWeapon
         float aimSpeed = 5.0f;
         double dodgeTimer;
         double hitTimer;
+<<<<<<< HEAD
         bool isDodging = false;
         bool playerIsHit = false;
         bool canMove = true;
         public Rectangle playerHitbox;
+=======
+        public bool isDodging = false;
+        public bool playerIsHit = false;
+        public bool canMove = true;
+        public Rectangle playerHitboxVertical, playerHitboxHorizontal;
+>>>>>>> origin/master
         Texture2D aimTexture;
         KeyboardState current;
         KeyboardState last;
@@ -108,12 +115,15 @@ namespace LethalWeapon
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
                     }
+<<<<<<< HEAD
             if (playerHitbox.Intersects(enemy.HitBox) && isDodging == false && playerIsHit == false)
             {
                 PlayerCurrentHealth -= 20;
                 playerIsHit = true;
             }
 
+=======
+>>>>>>> origin/master
             if (isDodging == true)
             {
                 dodgeTimer += gameTime.ElapsedGameTime.Milliseconds;

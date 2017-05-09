@@ -74,6 +74,12 @@ namespace LethalWeapon
             hitBox.X = (int)position.X;
             hitBox.Y = (int)position.Y;
 
+            if (player.playerHitboxHorizontal.Intersects(hitBox) && player.isDodging == false && player.playerIsHit == false)
+            {
+                player.PlayerCurrentHealth -= 20;
+                player.playerIsHit = true;
+            }
+
             HasDied();
         }
 
