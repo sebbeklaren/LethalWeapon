@@ -103,7 +103,7 @@ namespace LethalWeapon
             {
                 for (int j = 0; j < weapon.bullets.Count; j++)
                 {
-                    if (missileList.Count > 0)
+                    if (i <= missileList.Count -1)
                     {
                         if (Vector2.Distance(weapon.bullets[j].position, missileList[i].position) < 10 && missileList.Count >= 1)
                         {
