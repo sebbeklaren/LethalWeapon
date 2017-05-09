@@ -25,15 +25,10 @@ namespace LethalWeapon
             this.exitMapPos = playerPos;
             exitMapText = content.Load<Texture2D>(@"ExitMap");
             killAllEnemiesText = content.Load<Texture2D>(@"KillAllEnemies");
-
-            //exitMapRect = new Rectangle((int)exitMapPos.X - 240, (int)exitMapPos.Y - 130, 
-            //                             exitMapText.Width / 2, exitMapText.Height / 4);
             exitMapDrawRect = new Rectangle(0, 0, exitMapText.Width, exitMapText.Height);
-
             killAllRect = new Rectangle((int)killAllPos.X - 200, (int)killAllPos.Y - 200, 
                                          killAllEnemiesText.Width / 2, killAllEnemiesText.Height / 4);
-            killDrawRect = new Rectangle(0, 0, killAllEnemiesText.Width, killAllEnemiesText.Height / 2);
-            
+            killDrawRect = new Rectangle(0, 0, killAllEnemiesText.Width, killAllEnemiesText.Height / 2);            
         }
 
         public void UpdateKillAll(GameTime gameTime)
@@ -62,15 +57,15 @@ namespace LethalWeapon
             elapsedTimeMap -= gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTimeMap <= 0)
             {
+                int flashTimer = 100;
                 elapsedTimeMap = 0.035;
-                alphaV += fadeIncr * 100;
+                alphaV += fadeIncr * flashTimer;
                 if (alphaV >= 255 || alphaV <= 0)
                 {
                     fadeIncr *= -1;
                 }
             }
         }
-
         public void ExitMapDraw(SpriteBatch sb)
         {
             sb.Draw(exitMapText, exitMapRect, exitMapDrawRect, new Color(alphaV, alphaV, alphaV, alphaV));
