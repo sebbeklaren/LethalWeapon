@@ -54,7 +54,6 @@ namespace LethalWeapon
 
         public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
         {
-
             healthPosition = cameraPosition;
             health = (BossCurrentHealth / bossMaxHealth) * 200;
             if (bossIsAlive)
