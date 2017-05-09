@@ -21,30 +21,30 @@ namespace LethalWeapon
         Vector2 weaponOrigin;
         InputManager input = new InputManager();
         Texture2D bulletTexture;
+        List<Rectangle> tempList = new List<Rectangle>();
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
         bool shotRemoved = false;
         bool canShot = true;
         double shotTimer;
+        double shotLife;
         public List<Bullet> bullets = new List<Bullet>();
-        public List<Bullet> shouldBeDeleted = new List<Bullet>();
 
         public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content) : base (texture, position, sourceRect)
         {
             this.texture = texture;
             this.position = position;
-            bulletTexture = content.Load<Texture2D>("Bullet");
+            bulletTexture = content.Load<Texture2D>("PistolBullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
 
-        public void Update(Player player, List<Enemy> enemyList, Bullet bullet, Gui gui, GameTime gameTime)
+        public void Update(Player player, List<Enemy> enemyList, Bullet bullet, Gui gui, GameTime gameTime, LevelManager level)
 
         {
             input.Update();
-            shotIntervall();
             shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            if (player.playerHitboxVertical.Intersects(weaponHitbox))
+            if (player.playerHitbox.Intersects(weaponHitbox))
             {
                 weaponOnGround = false;
                 weaponPickedUp = true;
@@ -59,8 +59,7 @@ namespace LethalWeapon
                 position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= 500 || input.gamePad.Triggers.Right > 0 && canShot == true
-                || input.mousePosOld.LeftButton == ButtonState.Released && input.mousePosNew.LeftButton == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= 500 && weaponPickedUp || input.fire && shotTimer >= 500)
             {
                 while (shotTimer >= 500)
                 {
@@ -68,23 +67,29 @@ namespace LethalWeapon
                     shotTimer = 0;
                 }
                 Bullet b = new Bullet(bulletTexture);
-                b.bulletStartingPosition = player.Position;
+                b.bulletStartingPosition = player.Position + new Vector2(11, 19);
+                b.bulletRotation = weaponRotation;
                 bullets.Add(b);
                 canShot = false;
             }
-            else if(input.gamePad.Triggers.Right <= 0)
-            {
-                canShot = true;
-            }
             foreach (Bullet b in bullets.ToList())
             {
-                b.Update(player);
                 foreach (Enemy e in enemyList)
-                {                    
-                    if (e.HitBox.Intersects(b.HitBox))
+                {
+                    b.Update(player, e);
+                    tempList = level.hitBoxWall;
+                    foreach (Rectangle wall in level.hitBoxWall)
+                    {
+                        if (b.HitBox.Intersects(wall))
+                        {
+                            shotRemoved = true;
+                        }
+                    }
+                        if (e.HitBox.Intersects(b.HitBox))
                     {
                         e.TakeDamage();
                         shotRemoved = true;
+                        shotLife = 0;
                     }
                 }
                 if (shotRemoved == true)
@@ -92,20 +97,18 @@ namespace LethalWeapon
                     bullets.Remove(b);
                     shotRemoved = false;
                 }
-                if(Vector2.Distance(b.position, player.position) >= 500)
-                {
-                    bullets.Remove(b);
-                }
             }
         }
 
-        public void shotIntervall()
+        public void CheckCollision(LevelManager level)
         {
-
+           
+            {
+            }
         }
-
         public override void Draw(SpriteBatch sb)
         {
+
             sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
             foreach (Bullet b in bullets)
             {
