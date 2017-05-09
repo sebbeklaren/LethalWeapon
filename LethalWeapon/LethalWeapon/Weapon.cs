@@ -33,7 +33,7 @@ namespace LethalWeapon
         {
             this.texture = texture;
             this.position = position;
-            bulletTexture = content.Load<Texture2D>("Bullet");
+            bulletTexture = content.Load<Texture2D>("PistolBullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
 
@@ -42,7 +42,10 @@ namespace LethalWeapon
         {
             input.Update();
             shotIntervall();
-            shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (weaponPickedUp)
+            {
+                shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (player.playerHitboxVertical.Intersects(weaponHitbox))
             {
@@ -69,6 +72,7 @@ namespace LethalWeapon
                 }
                 Bullet b = new Bullet(bulletTexture);
                 b.bulletStartingPosition = player.Position;
+                b.startRotation = weaponRotation;
                 bullets.Add(b);
                 canShot = false;
             }

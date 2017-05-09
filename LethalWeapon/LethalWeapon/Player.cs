@@ -190,7 +190,7 @@ namespace LethalWeapon
         public override void Draw(SpriteBatch sb)
         {            
             sb.Draw(texture, position, Color.White);
-            sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(13,13), 1, SpriteEffects.None, 1f);
+            sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(-5,-5), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
             {
                 sb.Draw(texture, position, Color.Red);
