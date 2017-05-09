@@ -25,7 +25,11 @@ namespace LethalWeapon
         int screenHeight, screenWidth, randPosX, randPosY;
         double elapsedBulletTime = 0;
         Random randomPos;
-
+        double bossMaxHealth = 1000;
+        protected Texture2D healtBarTexture, borderTexture;
+        protected Vector2 healthPosition;
+        protected Rectangle healthRect;
+        protected double health;
 
         public double BossCurrentHealth { get; set; }
 
@@ -38,6 +42,8 @@ namespace LethalWeapon
             missileTexture = content.Load<Texture2D>(@"Missile");
             bulletTexture = content.Load<Texture2D>(@"BossBullet");
             tempText = content.Load<Texture2D>(@"PonchoBoy");
+            healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
+            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
@@ -46,13 +52,17 @@ namespace LethalWeapon
                
         }
 
-        public void Update(Player player, GameTime gameTime, Weapon weapon)
+        public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
         {
+            healthPosition = cameraPosition;
+            health = (BossCurrentHealth / bossMaxHealth) * 100;
             MissileAway(gameTime, player);
             BulletAway(gameTime, player);
             Move();
             hitBox = new Rectangle((int)position.X + 90,(int)position.Y + 90, tempText.Width, tempText.Height);
-            ProjectileCollision(player, weapon);           
+            ProjectileCollision(player, weapon);
+            healthRect = new Rectangle((int)healthPosition.X - 200, (int)healthPosition.Y,
+                   (int)health, healtBarTexture.Height / 4);
         }
 
         private void MissileAway(GameTime gameTime, Player player)
@@ -104,8 +114,8 @@ namespace LethalWeapon
             {
                 bullets.Draw(sb);
             }
-            
-            
+            sb.Draw(healtBarTexture, healthRect, Color.White);
+
         }
 
         public void ProjectileCollision(Player player, Weapon weapon)
@@ -151,6 +161,10 @@ namespace LethalWeapon
                 {
                     BossCurrentHealth -= 30;
                 }
+            }
+            if(BossCurrentHealth <= 0)
+            {
+
             }
         }
         public void Random()

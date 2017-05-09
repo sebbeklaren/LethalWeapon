@@ -103,7 +103,7 @@ namespace LethalWeapon
             weapon.Update(player, enemyList, bullet, gui, gameTime);
             player.Update(gameTime, tempEnemy);
             gui.Update(camera.GetPosition(), player, gameTime);
-            bossOne.Update(player, gameTime, weapon);
+            bossOne.Update(player, gameTime, weapon, camera.GetPosition());
             CheckForCollision();
         }
 
