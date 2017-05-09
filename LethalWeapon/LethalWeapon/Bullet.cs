@@ -14,9 +14,13 @@ namespace LethalWeapon
     {
         public Texture2D texture;
         public Vector2 position;
+<<<<<<< HEAD
         Rectangle hitBox;
         public float bulletRotation;
         public float startRotation;
+=======
+        public Rectangle hitBox;
+>>>>>>> origin/master
         public Rectangle HitBox
         {
             get { return hitBox; }
@@ -28,11 +32,15 @@ namespace LethalWeapon
         public Bullet(Texture2D texture)
         {
             this.texture = texture;
+<<<<<<< HEAD
             speed = 0.5f;
+=======
+            speed = 5;
+>>>>>>> origin/master
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
-        public void Update(Player player, Enemy enemy)
+        public void Update(Player player)
         {
             if (shotFired == false)
             {

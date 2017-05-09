@@ -22,7 +22,7 @@ namespace LethalWeapon
         public float activeWeaponRotation, activeWeaponScale;
         Vector2 weaponOrigin;
 
-        public bool WeaponIsPickedUp { get; set; } = false;
+        public bool WeaponIsPickedUp { get; set; } //= false;
 
         public Gui(ContentManager content, int health, int energy)
         {
@@ -39,8 +39,6 @@ namespace LethalWeapon
 
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
-            //health = 10; // för att testa så att det funkar att rita ut rätt storlek på mätarna   
-
             healthPosition = cameraPosition;
             activeWeaponBorderPosition = cameraPosition;
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
@@ -63,7 +61,7 @@ namespace LethalWeapon
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / 4), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
-                    healtBarTexture.Width / 4, healtBarTexture.Height / 4), Color.White);
+                    healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / 4), Color.White);
             sb.Draw(activeWeaponBorderTex, new Vector2(activeWeaponBorderRect.X, activeWeaponBorderRect.Y), null, Color.White, activeWeaponRotation,
                     new Vector2(0, 0), activeWeaponScale, SpriteEffects.None, 0f);
 

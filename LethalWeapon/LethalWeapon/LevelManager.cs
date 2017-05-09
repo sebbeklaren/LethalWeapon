@@ -12,7 +12,7 @@ namespace LethalWeapon
 {
     class LevelManager
     {
-        Texture2D currentLevelTex, wallTest;
+        Texture2D levelTiles, levelTwoTiles, wallTest;
         ContentManager content;
         public Tiles[,] tiles;
         int tileSize;
@@ -22,14 +22,13 @@ namespace LethalWeapon
         Rectangle tempRect; 
         public List<Rectangle> hitBoxWall = new List<Rectangle>();
 
-        public LevelManager(ContentManager content, string loadedLevel)
+        public LevelManager(ContentManager content, string loadedLevel, Texture2D texture)
         {            
             this.loadedLevel = loadedLevel;            
             this.content = content;
+            this.levelTiles = texture;
             lvlStrings = new List<string>();
             streamReader = new StreamReader(loadedLevel);
-            currentLevelTex = content.Load<Texture2D>(@"Tileset01");
-            wallTest = content.Load <Texture2D>( @"Bullet");
             tileSize = 32;
             TileBuilder();
             CreatehitBox();     
@@ -51,95 +50,95 @@ namespace LethalWeapon
                 {
                     if (lvlStrings[j][i] == 'A')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 0, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'B')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 0, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'C')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 0, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'D')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 0, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'F')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 32, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'H')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 32, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'K')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 32, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'J')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 32, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 32, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'E')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 0, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 0, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'X')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 128, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == '1')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 64, 32, 32), false);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 64, 32, 32), false);
                     }
                     else if (lvlStrings[j][i] == 'M')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 96, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 96, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == 'N')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 128, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 128, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == 'P')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 128, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 128, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '2')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 64, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 64, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '3')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 64, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 64, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '5')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 64, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 64, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '6')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 32, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(128, 32, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '7')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 96, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(0, 96, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '8')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 96, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(32, 96, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '9')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 96, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(64, 96, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '0')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 96, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 96, 32, 32), true);
                     }
                     else if (lvlStrings[j][i] == '4')
                     {
-                        tiles[i, j] = new Tiles(currentLevelTex, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 64, 32, 32), true);
+                        tiles[i, j] = new Tiles(levelTiles, new Vector2(tileSize * i, tileSize * j), new Rectangle(96, 64, 32, 32), true);
                     }
 
                 }
@@ -169,12 +168,6 @@ namespace LethalWeapon
                 {
                     tiles[i, j].Draw(spriteBatch);                    
                 }
-            }
-
-           // temporärt för att ha koll på hitboxar
-            foreach (Rectangle wall in hitBoxWall)
-            {
-                //spriteBatch.Draw(wallTest, new Vector2(wall.X, wall.Y), wall, Color.White);
             }
         }
     }

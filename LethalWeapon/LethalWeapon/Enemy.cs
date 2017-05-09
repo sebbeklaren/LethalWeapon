@@ -31,7 +31,7 @@ namespace LethalWeapon
         protected bool enemyIsNearPlayer;
         protected bool hasCorrectStartingPosition;
         protected Vector2 destination;
-        protected bool isAlive;
+        public bool isAlive;
 
         public double EnemyCurrentHealth
         {
@@ -56,7 +56,7 @@ namespace LethalWeapon
             enemyIsNearPlayer = false;
             hasCorrectStartingPosition = true;
             isAlive = true;
-            EnemyMaxHealth = 10000;
+            EnemyMaxHealth = 10;
             EnemyCurrentHealth = EnemyMaxHealth;
         }
 

@@ -20,9 +20,9 @@ namespace LethalWeapon
         MainMenu mainMenu;
         GamePlayManager gamePlayManager;
         OverWorld overWorld;
-
+        public bool boolOverWorld = false;
         bool gameOn;
-        enum GameState {  CityLevel, RuinsLevel, MainMenu, OverWorld }
+        enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld }
         GameState state;    
         
 
@@ -34,19 +34,19 @@ namespace LethalWeapon
    
         protected override void Initialize()
         {
-            gameOn = true;
+            gameOn = false;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice);
+            gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice, this);
+            mainMenu = new MainMenu(Content.Load<Texture2D>("MainMenuWall"), new Vector2(0,0));
             overWorld = new OverWorld(Content);
-           // mainMenu = new MainMenu()
             graphics.ApplyChanges();
             input = new InputManager();
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
             //if (!graphics.IsFullScreen)
             //{
             //    graphics.ToggleFullScreen();
@@ -61,15 +61,19 @@ namespace LethalWeapon
         protected void LoadOverWorld()
         {
             state = GameState.OverWorld;
-            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt");
+            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", Content.Load<Texture2D>(@"overworldmap"));
         }
 
         protected void LoadCityLevel()
         {
             state = GameState.CityLevel;
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt");
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
         }
-
+        protected void LoadRuinsLevel()
+        {
+            state = GameState.RuinsLevel;
+            gamePlayManager.CurrentLevel("Content/Map/map02.txt", Content.Load<Texture2D>(@"DesertTile"));
+        }
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -80,24 +84,23 @@ namespace LethalWeapon
             switch (state)
             {
                 case GameState.CityLevel:
+                    gamePlayManager.UpdateCityLevel(gameTime);
                     UpdateWorldMap();   
                     break;
 
-                case GameState.RuinsLevel:                    
-                //    gamePlayManager.CurrentLevel("Content/Map/map02.txt");
+                case GameState.RuinsLevel:
+                    gamePlayManager.UpdateRuinsLevel(gameTime);   
                     UpdateWorldMap();
                     break;
 
                 case GameState.MainMenu:
-                    // Test för mainmenu, världen ska vara en variabel
                     UpdateWorldMap();
                     break;
 
                 case GameState.OverWorld:
                     UpdateWorldMap();
                     break;
-            }
-            gamePlayManager.Update(gameTime);
+            }           
         }
 
         protected override void Draw(GameTime gameTime)
@@ -106,6 +109,10 @@ namespace LethalWeapon
 
             switch (state)
             {
+                case GameState.MainMenu:
+                    DrawCurrentState(gameTime);
+                    break;
+
                 case GameState.CityLevel:
                     DrawCurrentState(gameTime);
                     break;
@@ -118,10 +125,6 @@ namespace LethalWeapon
                     DrawCurrentState(gameTime);
                     break;
 
-                case GameState.MainMenu:
-                    gameOn = false;
-                    DrawCurrentState(gameTime);
-                    break;
             }
 
             base.Draw(gameTime);
@@ -129,63 +132,60 @@ namespace LethalWeapon
 
         public void UpdateWorldMap()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.O))
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
-                state = GameState.RuinsLevel;
-                gameOn = true;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.P))
-            {
+                state = GameState.CityLevel;
                 LoadCityLevel();
                 gameOn = true;
             }
-
-            else if (Keyboard.GetState().IsKeyDown(Keys.I))
+            
+            else if (Keyboard.GetState().IsKeyDown(Keys.I) || boolOverWorld)
             {
+                state = GameState.OverWorld;
                 LoadOverWorld();
-                gameOn = false;
+                gameOn = true; 
             }
+            else if (Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                state = GameState.RuinsLevel;
+                LoadRuinsLevel();
+                gameOn = true;
+            }
+
 
         }
 
         public void DrawCurrentState(GameTime gameTime)
         {
-
+          
+            spriteBatch.Begin();
+            mainMenu.DrawMainMenu(spriteBatch);
+            spriteBatch.End();
+            
             if (gameOn == true)
             {
+
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
+
+                if (state == GameState.CityLevel)
+                {
+                    gamePlayManager.DrawCityLevel(spriteBatch);
+                }
+
+                else if (state == GameState.RuinsLevel)
+                {
+                    gamePlayManager.DrawRuinsLevel(spriteBatch);
+                }
+
+                else if (state == GameState.OverWorld)
+                {
+                    overWorld.DrawOverWorld(spriteBatch);
+                }
+
+                spriteBatch.End();
             }
 
-            if (state == GameState.MainMenu)
-            {
-
-            }
-
-            else if (state == GameState.CityLevel)
-            {
-                
-                gamePlayManager.DrawCityLevel(spriteBatch);
-            }
-
-            else if (state == GameState.RuinsLevel)
-            {
-                gamePlayManager.DrawRuinsLevel(spriteBatch);
-            }
-
-            else if (state == GameState.OverWorld)
-            {
-                spriteBatch.Begin();
-                overWorld.DrawOverWorld(spriteBatch);
-            }
-
-
-            spriteBatch.End();
+           
         }
-
-        //public void CurrentLevel(string newLevel)
-        //{           
-        //    currentLevel = newLevel;
-        //    level = new LevelManager(Content, currentLevel);
-        //}
     }
 }
