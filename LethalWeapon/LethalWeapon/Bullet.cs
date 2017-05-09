@@ -26,11 +26,11 @@ namespace LethalWeapon
         public Bullet(Texture2D texture)
         {
             this.texture = texture;
-            speed = 2;
+            speed = 5;
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
-        public void Update(Player player, Enemy enemy)
+        public void Update(Player player)
         {
             if (shotFired == false)
             {

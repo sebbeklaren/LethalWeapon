@@ -78,9 +78,9 @@ namespace LethalWeapon
             }
             foreach (Bullet b in bullets.ToList())
             {
+                b.Update(player);
                 foreach (Enemy e in enemyList)
-                {
-                    b.Update(player, e);
+                {                    
                     if (e.HitBox.Intersects(b.HitBox))
                     {
                         e.TakeDamage();

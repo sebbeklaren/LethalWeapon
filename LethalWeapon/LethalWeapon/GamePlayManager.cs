@@ -112,14 +112,19 @@ namespace LethalWeapon
             weapon.Update(player, enemyList, bullet, gui, gameTime);
             player.Update(gameTime, tempEnemy);
             gui.Update(camera.GetPosition(), player, gameTime);
-            
-            for (int i = 0; i < enemyList.Count; i++)
+            if (!levelCleard)
             {
-                enemyList[i].Update(player);
-                enemyHealthBarList[i].UpdateBar(enemyList[i]);
-                if(!enemyList[i].isAlive)
+                for (int i = 0; i < enemyList.Count; i++)
                 {
-                    enemyList.Remove(enemyList[i]);
+                    enemyList[i].Update(player);
+                    enemyHealthBarList[i].UpdateBar(enemyList[i]);
+                }
+                for(int i = 0; i < enemyList.Count; i++)
+                {
+                    if (!enemyList[i].isAlive)
+                    {
+                        enemyList.Remove(enemyList[i]);
+                    }
                 }
             }
             if(enemyList.Count <= 0)
@@ -128,9 +133,14 @@ namespace LethalWeapon
             }
             if(levelCleard && player.position.X >= screenWidth || player.position.X <= 0 || player.position.Y >= screenHeight || player.position.Y <= 0 )
             {
-                game.boolOverWorld = true;
+                game.boolOverWorld = true;                
             }
             CheckForCollision();
+        }
+
+        public void UpdateOverWorld()
+        {
+
         }
 
         public void CurrentLevel(string newLevel, Texture2D texture)
