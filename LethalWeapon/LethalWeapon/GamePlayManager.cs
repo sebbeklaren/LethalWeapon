@@ -33,15 +33,18 @@ namespace LethalWeapon
         GraphicsDeviceManager graphics;
         CollisionDetection collision;
         Texture2D craterText;
+        public bool levelCleard = false;
+        Game1 game;
 
 
-        public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice)
+        public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice, Game1 game)
         {
             screenHeight = 32 * 24;
             screenWidth = 32 * 32;
             this.Content = Content;
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
+            this.game = game;
             craterText = Content.Load<Texture2D>(@"DesertBackground01");
             player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(250, 540), sourceRect, Content, screenWidth, screenHeight);
             for (int i = 0; i < 3; i++)
@@ -114,6 +117,18 @@ namespace LethalWeapon
             {
                 enemyList[i].Update(player);
                 enemyHealthBarList[i].UpdateBar(enemyList[i]);
+                if(!enemyList[i].isAlive)
+                {
+                    enemyList.Remove(enemyList[i]);
+                }
+            }
+            if(enemyList.Count <= 0)
+            {
+                levelCleard = true;
+            }
+            if(levelCleard && player.position.X >= screenWidth || player.position.X <= 0 || player.position.Y >= screenHeight || player.position.Y <= 0 )
+            {
+                game.boolOverWorld = true;
             }
             CheckForCollision();
         }

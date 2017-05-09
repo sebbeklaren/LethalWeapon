@@ -20,7 +20,7 @@ namespace LethalWeapon
         MainMenu mainMenu;
         GamePlayManager gamePlayManager;
         OverWorld overWorld;
-
+        public bool boolOverWorld = false;
         bool gameOn;
         enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld }
         GameState state;    
@@ -41,7 +41,7 @@ namespace LethalWeapon
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice);
+            gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice, this);
             mainMenu = new MainMenu(Content.Load<Texture2D>("MainMenuWall"), new Vector2(0,0));
             overWorld = new OverWorld(Content);
             graphics.ApplyChanges();
@@ -139,7 +139,7 @@ namespace LethalWeapon
                 gameOn = true;
             }
             
-            else if (Keyboard.GetState().IsKeyDown(Keys.I))
+            else if (Keyboard.GetState().IsKeyDown(Keys.I) || boolOverWorld)
             {
                 state = GameState.OverWorld;
                 LoadOverWorld();
