@@ -36,7 +36,8 @@ namespace LethalWeapon
             elapsedTime -= gameTime.ElapsedGameTime.TotalSeconds;
             if(elapsedTime <= 0)
             {
-                alphaV += fadeIncr;
+                int fadeTimer = 15;
+                alphaV += fadeIncr * fadeTimer ;
                 if(alphaV >= 255 )
                 {
                     fadeIncr *= -1;

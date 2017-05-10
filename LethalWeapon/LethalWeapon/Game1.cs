@@ -21,6 +21,7 @@ namespace LethalWeapon
         GamePlayManager gamePlayManager;
         OverWorld overWorld;
         public bool boolOverWorld = false;
+        public bool boolRuinslevel = false;
         bool gameOn;
         enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver }
         GameState state;    
@@ -156,7 +157,7 @@ namespace LethalWeapon
                 LoadOverWorld();
                 gameOn = true; 
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.P))
+            else if (Keyboard.GetState().IsKeyDown(Keys.P) || boolRuinslevel)
             {
                 state = GameState.RuinsLevel;
                 LoadRuinsLevel();

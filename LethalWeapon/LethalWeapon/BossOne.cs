@@ -25,7 +25,7 @@ namespace LethalWeapon
         int screenHeight, screenWidth, randPosX, randPosY;
         double elapsedBulletTime = 0;
         Random randomPos;
-        double bossMaxHealth = 1000;
+        double bossMaxHealth = 10;
         bool bossIsAlive = true;
         protected Texture2D healtBarTexture, borderTexture;
         protected Vector2 healthPosition;
@@ -48,7 +48,7 @@ namespace LethalWeapon
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(1, 0);
-            BossCurrentHealth = 1000;     
+            BossCurrentHealth = 10;     
                
         }
 
@@ -61,6 +61,11 @@ namespace LethalWeapon
                 MissileAway(gameTime, player);
                 BulletAway(gameTime, player);
                 Move();
+            }
+            else if(!bossIsAlive)
+            {
+                bulletList.Clear();
+                missileList.Clear();
             }
             hitBox = new Rectangle((int)position.X + 90,(int)position.Y + 90, 32, 48);
             ProjectileCollision(player, weapon);

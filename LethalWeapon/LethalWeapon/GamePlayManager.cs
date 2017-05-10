@@ -150,10 +150,11 @@ namespace LethalWeapon
                 
                 exitMap.ExitMapUpdate(gameTime, player.position);
             }
-            if(levelCleard && player.position.X >= screenWidth || player.position.X <= 0 && levelCleard || 
+            if(levelCleard && player.position.X >= screenWidth - player.texture.Width || player.position.X <= 0 && levelCleard || 
                 player.position.Y >= screenHeight && levelCleard || player.position.Y <= 0 && levelCleard)
             {
-                game.boolOverWorld = true;
+               // game.boolOverWorld = true;
+                game.boolRuinslevel = true;
                 player.position.X = 1;
             }
             CheckForCollision();
