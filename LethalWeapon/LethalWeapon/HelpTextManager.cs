@@ -21,14 +21,18 @@ namespace LethalWeapon
 
         public HelpTextManager(ContentManager content, Vector2 playerPos)
         {
+            int killAllRectPosOffset = 200;
+            int killAllRectWidthOffset = 2;
+            int killAllRectHeightOffset = 4;
+            int killDrawRectOffset = 2;
             this.killAllPos = playerPos;
             this.exitMapPos = playerPos;
             exitMapText = content.Load<Texture2D>(@"ExitMap");
             killAllEnemiesText = content.Load<Texture2D>(@"KillAllEnemies");
             exitMapDrawRect = new Rectangle(0, 0, exitMapText.Width, exitMapText.Height);
-            killAllRect = new Rectangle((int)killAllPos.X - 200, (int)killAllPos.Y - 200, 
-                                         killAllEnemiesText.Width / 2, killAllEnemiesText.Height / 4);
-            killDrawRect = new Rectangle(0, 0, killAllEnemiesText.Width, killAllEnemiesText.Height / 2);            
+            killAllRect = new Rectangle((int)killAllPos.X - killAllRectPosOffset, (int)killAllPos.Y - killAllRectPosOffset, 
+                                         killAllEnemiesText.Width / killAllRectWidthOffset, killAllEnemiesText.Height / killAllRectHeightOffset);
+            killDrawRect = new Rectangle(0, 0, killAllEnemiesText.Width, killAllEnemiesText.Height / killDrawRectOffset);            
         }
 
         public void UpdateKillAll(GameTime gameTime)
@@ -52,16 +56,22 @@ namespace LethalWeapon
 
         public void ExitMapUpdate(GameTime gameTime, Vector2 playerPos)
         {
-            exitMapRect = new Rectangle((int)playerPos.X - 240, (int)playerPos.Y - 130,
-                                        exitMapText.Width / 2, exitMapText.Height / 4);
+            int exitMapRectPosX = 240;
+            int exitMapRectPosY = 130;
+            int exitMapWidthOffset = 2;
+            int exitMapHeightOffset = 4;
+            exitMapRect = new Rectangle((int)playerPos.X - exitMapRectPosX, (int)playerPos.Y - exitMapRectPosY,
+                                        exitMapText.Width / exitMapWidthOffset, exitMapText.Height / exitMapHeightOffset);
 
             elapsedTimeMap -= gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTimeMap <= 0)
             {
                 int flashTimer = 100;
+                int maxAlpha = 255;
+                int minAlpha = 0;
                 elapsedTimeMap = 0.035;
                 alphaV += fadeIncr * flashTimer;
-                if (alphaV >= 255 || alphaV <= 0)
+                if (alphaV >= maxAlpha || alphaV <= minAlpha)
                 {
                     fadeIncr *= -1;
                 }

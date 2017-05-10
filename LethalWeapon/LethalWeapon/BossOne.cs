@@ -11,8 +11,7 @@ using Microsoft.Xna.Framework.Content;
 namespace LethalWeapon
 {
     class BossOne : GameObject
-    {
-        Vector2 playerPosition;
+    {        
         Vector2 bossVelocity;
         Rectangle bossRect, hitBox;
         Texture2D missileTexture, bulletTexture;
@@ -42,7 +41,7 @@ namespace LethalWeapon
             int bossRectY = 0;
             int bossRectMultiplyX = 2;
             int bossRectMultiplyY = 2;
-            int bossStartVelocityX = 1;
+            int bossStartVelocityX = -1;
             int bossStartVelocityY = 0;
             bossRect = new Rectangle(bossRectX, bossRectY, texture.Width * bossRectMultiplyX, texture.Height * bossRectMultiplyY);            
             missileTexture = content.Load<Texture2D>(@"Missile");
@@ -252,7 +251,7 @@ namespace LethalWeapon
                 }
                 bossVelocity = new Vector2(randPosX, randPosY);
             }
-            if(position.Y <= 0 || position.X <= 0)
+            if(position.Y <= 0)
             {
                 position.Y = 3;
                 int noValidSpeed = 0;

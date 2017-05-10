@@ -10,8 +10,7 @@ namespace LethalWeapon
 {
     class Missile : GameObject
     {
-        float rotation;
-       // float missileSpeed;
+        float rotation;       
         public Rectangle missileRect, hitBox;
         public Vector2 position;
 
@@ -25,9 +24,11 @@ namespace LethalWeapon
 
         public void Update(Vector2 playerPos)
         {
-            Vector2 difference = new Vector2(playerPos.X + 16, playerPos.Y + 24) - position;
+            int positionOffsetX = 16;
+            int positionOffsetY = 24;
+            Vector2 difference = new Vector2(playerPos.X + positionOffsetX, playerPos.Y + positionOffsetY) - position;
             difference.Normalize();
-            position += difference * 1f;
+            position += difference;
             rotation = (float)Math.Atan2(-difference.Y, -difference.X);
         }
 
