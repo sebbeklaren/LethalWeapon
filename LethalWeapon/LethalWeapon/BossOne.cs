@@ -25,7 +25,7 @@ namespace LethalWeapon
         int screenHeight, screenWidth, randPosX, randPosY;
         double elapsedBulletTime = 0;
         Random randomPos;
-        double bossMaxHealth = 10;
+        double bossMaxHealth = 100;
         bool bossIsAlive = true;
         protected Texture2D healtBarTexture, borderTexture;
         protected Vector2 healthPosition;
@@ -48,7 +48,7 @@ namespace LethalWeapon
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(1, 0);
-            BossCurrentHealth = 10;     
+            BossCurrentHealth = 100;     
                
         }
 
@@ -123,9 +123,10 @@ namespace LethalWeapon
             {
                 bullets.Draw(sb);
             }
-            sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, (int)health, healtBarTexture.Height /4  ), Color.White);
+            sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, 
+                                                (int)health, healtBarTexture.Height /4  ), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthRect.X + helthrectOffsetX, (int)healthRect.Y  - helthrectOffset,
-                 (int)bossMaxHealth / 5 , healtBarTexture.Height / 4), Color.White);
+                                                (int)bossMaxHealth * 2 , healtBarTexture.Height / 4), Color.White);
         }
 
         public void ProjectileCollision(Player player, Weapon weapon)
