@@ -62,7 +62,6 @@ namespace LethalWeapon
             int exitMapHeightOffset = 4;
             exitMapRect = new Rectangle((int)playerPos.X - exitMapRectPosX, (int)playerPos.Y - exitMapRectPosY,
                                         exitMapText.Width / exitMapWidthOffset, exitMapText.Height / exitMapHeightOffset);
-
             elapsedTimeMap -= gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTimeMap <= 0)
             {
