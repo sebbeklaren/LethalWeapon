@@ -174,7 +174,7 @@ namespace LethalWeapon
 
         private void CheckForCollision()
         {
-            collision.CheckBounds(player, screenHeight, screenWidth);
+            collision.CheckPlayerBounds(player, screenHeight, screenWidth);
             collision.CheckCollisionHorizontal(level, player);
             collision.CheckCollisionVertical(level, player);
             collision.CameraBoundCheck(player, camera);
