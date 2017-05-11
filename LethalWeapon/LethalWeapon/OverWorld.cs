@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,11 +15,11 @@ namespace LethalWeapon
         public Rectangle map1Rect, map2Rect, playerRect;
         Player player;
 
-        public OverWorld (ContentManager content)
+        public OverWorld ()
         {
-            player = new Player(overWorldPlayerTex, playerPos, playerRect, content, 500, 500);
-            overWorldTex = content.Load<Texture2D>(@"overworldmap");
-            overWorldPlayerTex = content.Load<Texture2D>(@"HoodyBoy");
+            player = new Player(overWorldPlayerTex, playerPos, playerRect, 500, 500);
+            overWorldTex = TextureManager.OverWorldtexture;
+            overWorldPlayerTex = TextureManager.PlayerTexture;
             playerPos = new Vector2(500, 500);
             map1Pos = new Vector2(300, 300);
             map2Pos = new Vector2(700, 700);

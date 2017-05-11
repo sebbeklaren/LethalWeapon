@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -29,11 +28,11 @@ namespace LethalWeapon
         public List<Bullet> bullets = new List<Bullet>();
         public List<Bullet> shouldBeDeleted = new List<Bullet>();
 
-        public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content) : base (texture, position, sourceRect)
+        public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect) : base (texture, position, sourceRect)
         {
             this.texture = texture;
             this.position = position;
-            bulletTexture = content.Load<Texture2D>("Bullet");
+            bulletTexture = TextureManager.Bullet01Texture;
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
 

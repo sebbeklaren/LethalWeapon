@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 namespace LethalWeapon
 {
     class Gui
@@ -23,15 +22,15 @@ namespace LethalWeapon
 
         public bool WeaponIsPickedUp { get; set; } //= false;
 
-        public Gui(ContentManager content, int health, int energy)
+        public Gui(int health, int energy)
         {
             this.health = health;
             this.energy = energy;
-            healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
-            energyBarTexture = content.Load<Texture2D>(@"Gui/EnergyBar");
-            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
-            activeWeaponBorderTex = content.Load<Texture2D>(@"Gui/MetalBorder");
-            activeWeaponTex = content.Load<Texture2D>("PlaceHolderUzi");
+            healtBarTexture = TextureManager.HealtBarTexture;
+            energyBarTexture = TextureManager.EnergyBarTexture;
+            borderTexture = TextureManager.HealthBorderTexture;
+            activeWeaponBorderTex = TextureManager.ActiveWeaponBorderTexture;
+            activeWeaponTex = TextureManager.Weapon01Texture;
             activeWeaponScale = 2;
             weaponOrigin = new Vector2(activeWeaponTex.Bounds.Center.X / 2, borderTexture.Bounds.Center.Y);
         }

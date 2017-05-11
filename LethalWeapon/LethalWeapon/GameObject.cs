@@ -19,6 +19,7 @@ namespace LethalWeapon
             this.texture = texture;
             this.position = position;
             this.sourceRect = sourceRect;
+
         }
 
         public virtual void Draw(SpriteBatch sb)

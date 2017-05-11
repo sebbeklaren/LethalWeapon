@@ -24,31 +24,33 @@ namespace LethalWeapon
         public bool boolRuinslevel = false;
         bool gameOn;
         enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver }
-        GameState state;    
+        GameState state;
         
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
         }
    
         protected override void Initialize()
         {
             gameOn = false;
             state = GameState.MainMenu;
+            TextureManager.LoadTextures(Content);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice, this);
-            mainMenu = new MainMenu(Content.Load<Texture2D>("MainMenuWall"), new Vector2(0,0));
-            overWorld = new OverWorld(Content);
+            gamePlayManager = new GamePlayManager(graphics, GraphicsDevice, this);
+            mainMenu = new MainMenu(TextureManager.MainMenuTexture, new Vector2(0,0));
+            overWorld = new OverWorld();
             graphics.ApplyChanges();
             input = new InputManager();
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
+                     
             //if (!graphics.IsFullScreen)
             //{
             //    graphics.ToggleFullScreen();
@@ -63,18 +65,18 @@ namespace LethalWeapon
         protected void LoadOverWorld()
         {
             state = GameState.OverWorld;
-            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", Content.Load<Texture2D>(@"overworldmap"));
+            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", TextureManager.OverWorldtexture);
         }
 
         protected void LoadCityLevel()
         {
             state = GameState.CityLevel;
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt", TextureManager.Tileset01Texture);
         }
         protected void LoadRuinsLevel()
         {
             state = GameState.RuinsLevel;
-            gamePlayManager.CurrentLevel("Content/Map/map02.txt", Content.Load<Texture2D>(@"DesertTile"));
+            gamePlayManager.CurrentLevel("Content/Map/map02.txt", TextureManager.DesertTile);
         }
         protected override void Update(GameTime gameTime)
         {

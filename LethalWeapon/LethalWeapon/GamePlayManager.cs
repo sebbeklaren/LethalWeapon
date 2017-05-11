@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
+
 
 namespace LethalWeapon
 {
@@ -21,8 +21,7 @@ namespace LethalWeapon
         Weapon weapon;
         Gui gui;
         Bullet bullet;
-        BossOne bossOne;
-        ContentManager Content;
+        BossOne bossOne;        
         Rectangle sourceRect;
         LevelManager level;
         string currentLevel;
@@ -41,28 +40,29 @@ namespace LethalWeapon
         public bool isGameOver = false;
 
 
-        public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice, Game1 game)
+        public GamePlayManager(GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice, Game1 game)
         {
             screenHeight = 32 * 24;
             screenWidth = 32 * 32;
-            this.Content = Content;
+            
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
             this.game = game;
-            craterText = Content.Load<Texture2D>(@"DesertBackground01");
-            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(250, 540), sourceRect, Content, screenWidth, screenHeight);
+            gameOverTex = TextureManager.GameOverTexture;
+            craterText = TextureManager.DesertBackgroundTexture;
+            player = new Player(TextureManager.PlayerTexture, new Vector2(250, 540), sourceRect, screenWidth, screenHeight);
             for (int i = 0; i < 3; i++)
             {
-                tempEnemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240 + 50 * i), sourceRect);
+                tempEnemy = new Enemy(TextureManager.EnemyTexture, new Vector2(400, 240 + 50 * i), sourceRect);
                 enemyList.Add(tempEnemy);
-                tempEnemyHealthBar = new Bar(Content, (int)tempEnemy.EnemyMaxHealth, 0);
+                tempEnemyHealthBar = new Bar((int)tempEnemy.EnemyMaxHealth, 0);
                 enemyHealthBarList.Add(tempEnemyHealthBar);
             }
-            weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
-            bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
-            bossOne = new BossOne(Content.Load<Texture2D>(@"BossOne"), new Vector2(500, 300), sourceRect, Content, screenWidth, screenHeight);           
-            gui = new Gui(Content, 1, 1);
-            overWorldTex = Content.Load<Texture2D>(@"overworldmap");
+            weapon = new Weapon(TextureManager.Weapon01Texture, new Vector2(100, 300), sourceRect);
+            bullet = new Bullet(TextureManager.Bullet01Texture);
+            bossOne = new BossOne(TextureManager.BossOneTexture, new Vector2(500, 300), sourceRect, screenWidth, screenHeight);           
+            gui = new Gui(1, 1);
+            overWorldTex = TextureManager.OverWorldtexture;
             collision = new CollisionDetection();
             Viewport view = graphicsDevice.Viewport;
             camera = new Camera(view);
@@ -72,10 +72,10 @@ namespace LethalWeapon
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
-            gameOverTex = Content.Load<Texture2D>("Game Over");
+            
             gameOver = new GameOver(gameOverTex);
-            killAllEnemies = new HelpTextManager(Content, player.position);
-            exitMap = new HelpTextManager(Content, player.position);
+            killAllEnemies = new HelpTextManager(player.position);
+            exitMap = new HelpTextManager( player.position);
 
         }
 
@@ -169,7 +169,7 @@ namespace LethalWeapon
         public void CurrentLevel(string newLevel, Texture2D texture)
         {
             currentLevel = newLevel;
-            level = new LevelManager(Content, currentLevel, texture);
+            level = new LevelManager(currentLevel, texture);
         }        
 
         private void CheckForCollision()

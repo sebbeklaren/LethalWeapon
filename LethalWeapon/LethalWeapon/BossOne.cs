@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
 
 namespace LethalWeapon
 {
@@ -34,7 +33,7 @@ namespace LethalWeapon
         public double BossCurrentHealth { get; set; }
 
 
-        public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, int screenWidth, int screenHeight): 
+        public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
         {
             int bossRectX = 0;
@@ -44,10 +43,10 @@ namespace LethalWeapon
             int bossStartVelocityX = -1;
             int bossStartVelocityY = 0;
             bossRect = new Rectangle(bossRectX, bossRectY, texture.Width * bossRectMultiplyX, texture.Height * bossRectMultiplyY);            
-            missileTexture = content.Load<Texture2D>(@"Missile");
-            bulletTexture = content.Load<Texture2D>(@"BossBullet");            
-            healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
-            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
+            missileTexture = TextureManager.BossMissileTexture;
+            bulletTexture = TextureManager.BossBulletTexture;            
+            healtBarTexture = TextureManager.HealtBarTexture;
+            borderTexture = TextureManager.HealthBorderTexture;
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;

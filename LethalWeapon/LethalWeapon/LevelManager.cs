@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
+
 
 namespace LethalWeapon
 {
     class LevelManager
     {
         Texture2D levelTiles, levelTwoTiles, wallTest;
-        ContentManager content;
+        
         public Tiles[,] tiles;
         int tileSize;
         StreamReader streamReader;
@@ -22,10 +22,9 @@ namespace LethalWeapon
         Rectangle tempRect; 
         public List<Rectangle> hitBoxWall = new List<Rectangle>();
 
-        public LevelManager(ContentManager content, string loadedLevel, Texture2D texture)
+        public LevelManager( string loadedLevel, Texture2D texture)
         {            
-            this.loadedLevel = loadedLevel;            
-            this.content = content;
+            this.loadedLevel = loadedLevel;                        
             this.levelTiles = texture;
             lvlStrings = new List<string>();
             streamReader = new StreamReader(loadedLevel);

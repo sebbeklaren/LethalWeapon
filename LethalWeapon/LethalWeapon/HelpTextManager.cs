@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
+
 
 namespace LethalWeapon
 {
@@ -19,7 +19,7 @@ namespace LethalWeapon
         int fadeIncr = 1;     
         double elapsedTimeMap = 0.035;
 
-        public HelpTextManager(ContentManager content, Vector2 playerPos)
+        public HelpTextManager(Vector2 playerPos)
         {
             int killAllRectPosOffset = 200;
             int killAllRectWidthOffset = 2;
@@ -27,8 +27,8 @@ namespace LethalWeapon
             int killDrawRectOffset = 2;
             this.killAllPos = playerPos;
             this.exitMapPos = playerPos;
-            exitMapText = content.Load<Texture2D>(@"ExitMap");
-            killAllEnemiesText = content.Load<Texture2D>(@"KillAllEnemies");
+            exitMapText = TextureManager.ExitMapTexture;
+            killAllEnemiesText = TextureManager.KillAllEnemiesTexture;
             exitMapDrawRect = new Rectangle(0, 0, exitMapText.Width, exitMapText.Height);
             killAllRect = new Rectangle((int)killAllPos.X - killAllRectPosOffset, (int)killAllPos.Y - killAllRectPosOffset, 
                                          killAllEnemiesText.Width / killAllRectWidthOffset, killAllEnemiesText.Height / killAllRectHeightOffset);
