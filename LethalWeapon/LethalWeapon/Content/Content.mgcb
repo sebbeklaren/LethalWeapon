@@ -241,3 +241,39 @@
 /processorParam:TextureFormat=Color
 /build:Game Over.jpg
 
+#begin SoundEffects/Laser01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Laser01.wav
+
+#begin SoundEffects/BossHoverHum.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/BossHoverHum.wav
+
+#begin SoundEffects/Missile.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Missile.wav
+
+#begin SoundEffects/BossBulletSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/BossBulletSound.wav
+
+#begin SoundEffects/BossAimbientHum02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/BossAimbientHum02.wav
+
+#begin SoundEffects/Robot01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Robot01.wav
+

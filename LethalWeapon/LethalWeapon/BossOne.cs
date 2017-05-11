@@ -66,12 +66,13 @@ namespace LethalWeapon
             {
                 MissileAway(gameTime, player);
                 BulletAway(gameTime, player);
-                Movement();
+                Movement();                
+                SoundManager.BossAmbientHover.Play();
             }
             else if(!bossIsAlive)
             {
                 bulletList.Clear();
-                missileList.Clear();
+                missileList.Clear();               
             }
             int hitBoxOffset = 90;
             int hitBoxWidth = 32;
@@ -93,11 +94,13 @@ namespace LethalWeapon
             int missileTimerLeft = 8;
             if (timeMissileRight >= missileTimerRight)
             {
+                SoundManager.BossMissile.Play();
                 ShootMissile(startPosOffsetRight);
                 timeMissileRight = 0;
             }
             else if (timeMissileLeft >= missileTimerLeft)
             {
+                SoundManager.BossMissile.Play();
                 ShootMissile(startPosOffsetLeft);
                 timeMissileLeft = 0;
             }
@@ -115,6 +118,7 @@ namespace LethalWeapon
             {
                 ShootBullets(startPos, player);
                 elapsedBulletTime = 0;
+                SoundManager.BossBullets.Play();
             }
             foreach(BossOneBullets bullets in bulletList)
             {

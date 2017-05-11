@@ -128,6 +128,7 @@ namespace LethalWeapon
                 hasCorrectStartingPosition = false;
                 speed.X = 0;
                 speed.Y = 0;
+                SoundManager.RobotEnemy01.Play();
             }
             else
                 enemyIsNearPlayer = false;

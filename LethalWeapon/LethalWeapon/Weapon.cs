@@ -80,6 +80,7 @@ namespace LethalWeapon
                 b.startRotation = weaponRotation;
                 bullets.Add(b);
                 canShot = false;
+                SoundManager.Bullet01Sound.Play();
             }
             else if(input.gamePad.Triggers.Right <= 0)
             {
