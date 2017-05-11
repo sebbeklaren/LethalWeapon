@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Textures\GUI\barBorder.png
+#begin Tileset01.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\GUI\barBorder.png
+/build:Tileset01.png
 
-#begin Textures\GUI\crosshair.png
+#begin Cyclop.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,9 +35,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\GUI\crosshair.png
+/build:Cyclop.png
 
-#begin Textures\GUI\EnergyBar.png
+#begin Elderly_Dragon_Head_Gray.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,9 +47,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\GUI\EnergyBar.png
+/build:Elderly_Dragon_Head_Gray.png
 
-#begin Textures\GUI\HealthBar.png
+#begin HoodyBoy.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,9 +59,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\GUI\HealthBar.png
+/build:HoodyBoy.png
 
-#begin Textures\GUI\MetalBorder.png
+#begin crosshair.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\GUI\MetalBorder.png
+/build:crosshair.png
 
-#begin Textures/BossTextures/TheEye/BossBullet.png
+#begin Bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,9 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures/BossTextures/TheEye/BossBullet.png
+/build:Bullet.png
 
-#begin Textures/BossTextures/TheEye/BossOne.png
+#begin Gui/HealthBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,9 +95,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures/BossTextures/TheEye/BossOne.png
+/build:Gui/HealthBar.png
 
-#begin Textures/BossTextures/TheEye/Missile.png
+#begin Gui/EnergyBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -107,9 +107,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures/BossTextures/TheEye/Missile.png
+/build:Gui/EnergyBar.png
 
-#begin Textures\PlayerBulletTextures\Bullet.png
+#begin Gui/barBorder.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -119,9 +119,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\PlayerBulletTextures\Bullet.png
+/build:Gui/barBorder.png
 
-#begin Textures\PlayerTextures\HoodyBoy.png
+#begin Gui/MetalBorder.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -131,9 +131,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\PlayerTextures\HoodyBoy.png
+/build:Gui/MetalBorder.png
 
-#begin Textures\TemporaryTextures\Elderly_Dragon_Head_Gray.png
+#begin PlaceHolderUzi.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -143,9 +143,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\TemporaryTextures\Elderly_Dragon_Head_Gray.png
+/build:PlaceHolderUzi.png
 
-#begin Textures\TemporaryTextures\MainMenuWall.png
+#begin DesertBackground01.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -155,9 +155,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\TemporaryTextures\MainMenuWall.png
+/build:DesertBackground01.png
 
-#begin Textures\TemporaryTextures\overworldmap.png
+#begin DesertTile.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -167,9 +167,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\TemporaryTextures\overworldmap.png
+/build:DesertTile.png
 
-#begin Textures\TemporaryTextures\Pistol.jpg
+#begin MainMenuWall.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -179,9 +179,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\TemporaryTextures\Pistol.jpg
+/build:MainMenuWall.png
 
-#begin Textures\TemporaryTextures\PlaceHolderUzi.png
+#begin Missile.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -191,9 +191,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\TemporaryTextures\PlaceHolderUzi.png
+/build:Missile.png
 
-#begin Textures\TemporaryTextures\PonchoBoy.png
+#begin overworldmap.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -203,9 +203,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\TemporaryTextures\PonchoBoy.png
+/build:overworldmap.png
 
-#begin Textures\Tilesets\DesertBackground01.png
+#begin Tileset02.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -215,9 +215,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\Tilesets\DesertBackground01.png
+/build:Tileset02.png
 
-#begin Textures\Tilesets\DesertTile.png
+#begin BossOne.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -227,19 +227,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures\Tilesets\DesertTile.png
-
-#begin Textures\Tilesets\LethalWeapon_RoadsAndWalls.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures\Tilesets\LethalWeapon_RoadsAndWalls.png
+/build:BossOne.png
 
 #begin Game Over.jpg
 /importer:TextureImporter

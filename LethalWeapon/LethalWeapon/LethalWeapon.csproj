@@ -66,25 +66,14 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GUI\Bar.cs" />
-    <Compile Include="Boss\The Eye\BossOne.cs" />
-    <Compile Include="Boss\The Eye\BossOneBullets.cs" />
-    <Compile Include="Player Interactives\Bullet.cs" />
-    <Compile Include="Gameplay\Camera.cs" />
-    <Compile Include="Gameplay\CollisionDetection.cs" />
-    <Compile Include="Enemy Interactives\Enemy.cs" />
+    <Compile Include="Bar.cs" />
+    <Compile Include="BossOne.cs" />
+    <Compile Include="BossOneBullets.cs" />
+    <Compile Include="Bullet.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="CollisionDetection.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />
-<<<<<<< HEAD
-    <Compile Include="Gameplay\GameObject.cs" />
-    <Compile Include="Gameplay\GamePlayManager.cs" />
-    <Compile Include="GUI\Gui.cs" />
-    <Compile Include="Gameplay\InputManager.cs" />
-    <Compile Include="Gameplay\LevelManager.cs" />
-    <Compile Include="Maps, Menus and States\MainMenu.cs" />
-    <Compile Include="Boss\The Eye\Missile.cs" />
-    <Compile Include="Maps, Menus and States\OverWorld.cs" />
-    <Compile Include="Player Interactives\Player.cs" />
-=======
     <Compile Include="GameObject.cs" />
     <Compile Include="GameOver.cs" />
     <Compile Include="GamePlayManager.cs" />
@@ -96,11 +85,10 @@
     <Compile Include="Missile.cs" />
     <Compile Include="OverWorld.cs" />
     <Compile Include="Player.cs" />
->>>>>>> origin/master
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Gameplay\Tiles.cs" />
-    <Compile Include="Player Interactives\Weapon.cs" />
+    <Compile Include="Tiles.cs" />
+    <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -110,68 +98,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Textures\BossTextures\TheEye\BossBullet.png">
+    <Content Include="Content\BossBullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\BossTextures\TheEye\BossOne.png">
+    <Content Include="Content\BossOne.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\TemporaryTextures\Cyclop.png">
+    <Content Include="Content\Bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\TemporaryTextures\Octopus.png" />
-    <Content Include="Content\Textures\PlayerBulletTextures\Bullet.png">
+    <Content Include="Content\crosshair.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\GUI\crosshair.png">
+    <Content Include="Content\DesertBackground01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\TemporaryTextures\Rocketguy.png" />
-    <Content Include="Content\Textures\TemporaryTextures\Swarm.png">
+    <Content Include="Content\DesertTile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tilesets\DesertBackground01.png">
+    <Content Include="Content\Elderly_Dragon_Head_Gray.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-<<<<<<< HEAD
-    <Content Include="Content\Textures\Tilesets\DesertTile.png">
-=======
     <Content Include="Content\ExitMap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Gui\barBorder.png">
->>>>>>> origin/master
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\TemporaryTextures\Elderly_Dragon_Head_Gray.png">
+    <Content Include="Content\Gui\EnergyBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\GUI\barBorder.png">
+    <Content Include="Content\Gui\HealthBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\GUI\EnergyBar.png">
+    <Content Include="Content\Gui\MetalBorder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\GUI\HealthBar.png">
+    <Content Include="Content\HoodyBoy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-<<<<<<< HEAD
-    <Content Include="Content\Textures\GUI\MetalBorder.png">
-=======
     <Content Include="Content\KillAllEnemies.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\LethalWeapon_RoadsAndWalls.png">
->>>>>>> origin/master
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlayerTextures\HoodyBoy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Textures\Tilesets\LethalWeapon_RoadsAndWalls.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Textures\TemporaryTextures\MainMenuWall.png">
+    <Content Include="Content\MainMenuWall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Map\map01.txt">
@@ -183,26 +155,22 @@
     <Content Include="Content\Map\nullmap.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\BossTextures\TheEye\Missile.png">
+    <Content Include="Content\Missile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\TemporaryTextures\overworldmap.png">
+    <Content Include="Content\overworldmap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\TemporaryTextures\Pistol.jpg">
+    <Content Include="Content\Pistol.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-<<<<<<< HEAD
-    <Content Include="Content\Textures\TemporaryTextures\PlaceHolderUzi.png">
-=======
     <Content Include="Content\PistolBullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PlaceHolderUzi.png">
->>>>>>> origin/master
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\TemporaryTextures\PonchoBoy.png">
+    <Content Include="Content\PonchoBoy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Railgun.png">
