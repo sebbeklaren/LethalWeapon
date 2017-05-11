@@ -33,7 +33,7 @@ namespace LethalWeapon
         {
             this.texture = texture;
             this.position = position;
-            bulletTexture = content.Load<Texture2D>("Bullet");
+            bulletTexture = content.Load<Texture2D>("Textures/PlayerBulletTextures/Bullet");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
 

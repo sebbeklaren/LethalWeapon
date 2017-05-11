@@ -28,11 +28,11 @@ namespace LethalWeapon
         {
             this.health = health;
             this.energy = energy;
-            healtBarTexture = content.Load<Texture2D>(@"Gui/HealthBar");
-            energyBarTexture = content.Load<Texture2D>(@"Gui/EnergyBar");
-            borderTexture = content.Load<Texture2D>(@"Gui/barBorder");
-            activeWeaponBorderTex = content.Load<Texture2D>(@"Gui/MetalBorder");
-            activeWeaponTex = content.Load<Texture2D>("PlaceHolderUzi");
+            healtBarTexture = content.Load<Texture2D>(@"Textures/GUI/HealthBar");
+            energyBarTexture = content.Load<Texture2D>(@"Textures/GUI/EnergyBar");
+            borderTexture = content.Load<Texture2D>(@"Textures/GUI/barBorder");
+            activeWeaponBorderTex = content.Load<Texture2D>(@"Textures/GUI/MetalBorder");
+            activeWeaponTex = content.Load<Texture2D>("Textures/TemporaryTextures/PlaceHolderUzi");
             activeWeaponScale = 2;
             weaponOrigin = new Vector2(activeWeaponTex.Bounds.Center.X / 2, borderTexture.Bounds.Center.Y);
         }

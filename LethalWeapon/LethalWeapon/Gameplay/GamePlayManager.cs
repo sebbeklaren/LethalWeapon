@@ -35,6 +35,7 @@ namespace LethalWeapon
         Texture2D craterText;
         public bool levelCleard = false;
         Game1 game;
+        OverWorld overWorld;
 
 
         public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice, Game1 game)
@@ -45,21 +46,22 @@ namespace LethalWeapon
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
             this.game = game;
-            craterText = Content.Load<Texture2D>(@"DesertBackground01");
-            player = new Player(Content.Load<Texture2D>(@"HoodyBoy"), new Vector2(250, 540), sourceRect, Content, screenWidth, screenHeight);
+            craterText = Content.Load<Texture2D>(@"Textures/Tilesets/DesertBackground01");
+            player = new Player(Content.Load<Texture2D>(@"Textures/PlayerTextures/HoodyBoy"), new Vector2(250, 540), sourceRect, Content, screenWidth, screenHeight);
             for (int i = 0; i < 3; i++)
             {
-                tempEnemy = new Enemy(Content.Load<Texture2D>(@"Cyclop"), new Vector2(400, 240 + 50 * i), sourceRect);
+                tempEnemy = new Enemy(Content.Load<Texture2D>(@"Textures/TemporaryTextures/Cyclop"), new Vector2(400, 240 + 50 * i), sourceRect);
                 enemyList.Add(tempEnemy);
                 tempEnemyHealthBar = new Bar(Content, (int)tempEnemy.EnemyMaxHealth, 0);
                 enemyHealthBarList.Add(tempEnemyHealthBar);
             }
-            weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
-            bullet = new Bullet(Content.Load<Texture2D>(@"Bullet"));
+            weapon = new Weapon(Content.Load<Texture2D>(@"Textures/TemporaryTextures/PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
+            bullet = new Bullet(Content.Load<Texture2D>(@"Textures/PlayerBulletTextures/Bullet"));
             bossOne = new BossOne(Content.Load<Texture2D>(@"BossOne"), new Vector2(500, 300), sourceRect, Content, screenWidth, screenHeight);           
             gui = new Gui(Content, 1, 1);
-            overWorldTex = Content.Load<Texture2D>(@"overworldmap");
+            overWorldTex = Content.Load<Texture2D>(@"Textures/TemporaryTextures/overworldmap");
             collision = new CollisionDetection();
+            overWorld = new OverWorld(Content, game);
             Viewport view = graphicsDevice.Viewport;
             camera = new Camera(view);
             cameraOffset = new Vector2(35, 65);            
@@ -139,9 +141,9 @@ namespace LethalWeapon
             CheckForCollision();
         }
 
-        public void UpdateOverWorld()
+        public void UpdateOverWorld(GameTime gameTime)
         {
-
+            overWorld.UpdateOverWorld(gameTime);
         }
 
         public void CurrentLevel(string newLevel, Texture2D texture)

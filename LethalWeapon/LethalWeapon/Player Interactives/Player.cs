@@ -74,8 +74,8 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = content.Load<Texture2D>(@"crosshair"); 
-            tempText = content.Load<Texture2D>(@"Bullet");
+            aimTexture = content.Load<Texture2D>(@"Textures/GUI/crosshair"); 
+            tempText = content.Load<Texture2D>(@"Textures/PlayerBulletTextures/Bullet");
             
         }
 

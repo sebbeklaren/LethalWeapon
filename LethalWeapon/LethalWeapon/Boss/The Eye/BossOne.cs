@@ -35,9 +35,9 @@ namespace LethalWeapon
         {
             bossRect = new Rectangle(0, 0, texture.Width * 2, texture.Height * 2);
             
-            missileTexture = content.Load<Texture2D>(@"Missile");
-            bulletTexture = content.Load<Texture2D>(@"BossBullet");
-            tempText = content.Load<Texture2D>(@"PonchoBoy");
+            missileTexture = content.Load<Texture2D>(@"Textures/BossTextures/TheEye/Missile");
+            bulletTexture = content.Load<Texture2D>(@"Textures/BossTextures/TheEye/BossBullet");
+            tempText = content.Load<Texture2D>(@"Textures/TemporaryTextures/PonchoBoy");
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
