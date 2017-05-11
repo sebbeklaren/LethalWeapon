@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,9 @@ namespace LethalWeapon
        
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
+        
+        Texture2D tempText;
+        LevelManager Level;
         public Rectangle checkRec;
 
         public Vector2 AimPosition
@@ -55,7 +59,7 @@ namespace LethalWeapon
             get { return position; }           
         }
 
-        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
+        public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, ContentManager content, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
         {
             
@@ -70,8 +74,8 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = TextureManager.PlayerAimTexture;
-            
+            aimTexture = content.Load<Texture2D>(@"Textures/GUI/crosshair"); 
+            tempText = content.Load<Texture2D>(@"Textures/PlayerBulletTextures/Bullet");
             
         }
 
