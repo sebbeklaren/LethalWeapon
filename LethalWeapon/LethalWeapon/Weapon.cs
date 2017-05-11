@@ -14,13 +14,17 @@ namespace LethalWeapon
     class Weapon : GameObject
     {
         Rectangle weaponHitbox;
+        Rectangle railgunHitbox;
         //Behandling av utritning
         public float weaponRotation;
         public float weaponScale = 1;
         Vector2 dPos; 
         Vector2 weaponOrigin;
+        Vector2 railPos;
         InputManager input = new InputManager();
         Texture2D bulletTexture;
+        Texture2D railgunTexture;
+        Texture2D uziTexture;
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
         bool shotRemoved = false;
@@ -33,7 +37,10 @@ namespace LethalWeapon
         {
             this.texture = texture;
             this.position = position;
+            railPos = new Vector2(350, 400);
             bulletTexture = content.Load<Texture2D>("PistolBullet");
+            railgunTexture = content.Load<Texture2D>("Railgun");
+            uziTexture = content.Load<Texture2D>("PlaceholderUzi");
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
 
@@ -41,7 +48,6 @@ namespace LethalWeapon
 
         {
             input.Update();
-            shotIntervall();
             if (weaponPickedUp)
             {
                 shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -103,10 +109,6 @@ namespace LethalWeapon
             }
         }
 
-        public void shotIntervall()
-        {
-
-        }
 
         public override void Draw(SpriteBatch sb)
         {
