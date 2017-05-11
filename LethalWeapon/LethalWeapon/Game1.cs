@@ -21,8 +21,11 @@ namespace LethalWeapon
         GamePlayManager gamePlayManager;
         OverWorld overWorld;
         public bool boolOverWorld = false;
+        public bool boolRuinsLevel = false;
+        public bool boolCityLevel = false;
         bool gameOn;
         enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld }
+        Game1 game;
         GameState state;    
         
 
@@ -42,11 +45,11 @@ namespace LethalWeapon
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gamePlayManager = new GamePlayManager(graphics, Content, GraphicsDevice, this);
-            mainMenu = new MainMenu(Content.Load<Texture2D>("MainMenuWall"), new Vector2(0,0));
-            overWorld = new OverWorld(Content);
+            mainMenu = new MainMenu(Content.Load<Texture2D>("Textures/TemporaryTextures/MainMenuWall"), new Vector2(0,0));
+            overWorld = new OverWorld(Content, game);
             graphics.ApplyChanges();
             input = new InputManager();
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
+        //    gamePlayManager.CurrentLevel("MapTextFiles/map01.txt", Content.Load<Texture2D>(@"Textures/Tilesets/LethalWeapon_RoadsAndWalls"));
             //if (!graphics.IsFullScreen)
             //{
             //    graphics.ToggleFullScreen();
@@ -61,18 +64,18 @@ namespace LethalWeapon
         protected void LoadOverWorld()
         {
             state = GameState.OverWorld;
-            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", Content.Load<Texture2D>(@"overworldmap"));
+            gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", Content.Load<Texture2D>(@"Textures/TemporaryTextures/overworldmap"));
         }
 
         protected void LoadCityLevel()
         {
             state = GameState.CityLevel;
-            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Tileset01"));
+            gamePlayManager.CurrentLevel("Content/Map/map01.txt", Content.Load<Texture2D>(@"Textures/Tilesets/LethalWeapon_RoadsAndWalls"));
         }
         protected void LoadRuinsLevel()
         {
             state = GameState.RuinsLevel;
-            gamePlayManager.CurrentLevel("Content/Map/map02.txt", Content.Load<Texture2D>(@"DesertTile"));
+            gamePlayManager.CurrentLevel("Content/Mapmap02.txt", Content.Load<Texture2D>(@"Textures/Tilesets/DesertTile"));
         }
         protected override void Update(GameTime gameTime)
         {
@@ -132,7 +135,7 @@ namespace LethalWeapon
 
         public void UpdateWorldMap()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) || boolCityLevel)
             {
                 state = GameState.CityLevel;
                 LoadCityLevel();
@@ -145,14 +148,12 @@ namespace LethalWeapon
                 LoadOverWorld();
                 gameOn = true; 
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.P))
+            else if (Keyboard.GetState().IsKeyDown(Keys.P) || boolRuinsLevel)
             {
                 state = GameState.RuinsLevel;
                 LoadRuinsLevel();
                 gameOn = true;
             }
-
-
         }
 
         public void DrawCurrentState(GameTime gameTime)
@@ -189,3 +190,5 @@ namespace LethalWeapon
         }
     }
 }
+
+//Fixa movement till player på Overworld
