@@ -21,11 +21,17 @@ namespace LethalWeapon
         GamePlayManager gamePlayManager;
         OverWorld overWorld;
         public bool boolOverWorld = false;
+<<<<<<< HEAD
         public bool boolRuinsLevel = false;
         public bool boolCityLevel = false;
         bool gameOn;
         enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld }
         Game1 game;
+=======
+        public bool boolRuinslevel = false;
+        bool gameOn;
+        enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver }
+>>>>>>> origin/master
         GameState state;    
         
 
@@ -38,6 +44,7 @@ namespace LethalWeapon
         protected override void Initialize()
         {
             gameOn = false;
+            state = GameState.MainMenu;
             base.Initialize();
         }
 
@@ -103,7 +110,13 @@ namespace LethalWeapon
                 case GameState.OverWorld:
                     UpdateWorldMap();
                     break;
-            }           
+            }
+
+            gamePlayManager.Update(gameTime);
+
+            if (gamePlayManager.isGameOver)
+                state = GameState.GameOver;
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -128,6 +141,10 @@ namespace LethalWeapon
                     DrawCurrentState(gameTime);
                     break;
 
+                case GameState.GameOver:
+                    DrawCurrentState(gameTime);
+                    break;
+
             }
 
             base.Draw(gameTime);
@@ -148,7 +165,11 @@ namespace LethalWeapon
                 LoadOverWorld();
                 gameOn = true; 
             }
+<<<<<<< HEAD
             else if (Keyboard.GetState().IsKeyDown(Keys.P) || boolRuinsLevel)
+=======
+            else if (Keyboard.GetState().IsKeyDown(Keys.P) || boolRuinslevel)
+>>>>>>> origin/master
             {
                 state = GameState.RuinsLevel;
                 LoadRuinsLevel();
@@ -158,11 +179,20 @@ namespace LethalWeapon
 
         public void DrawCurrentState(GameTime gameTime)
         {
-          
+
             spriteBatch.Begin();
-            mainMenu.DrawMainMenu(spriteBatch);
+            if (state == GameState.MainMenu)
+            {
+                
+                mainMenu.DrawMainMenu(spriteBatch);
+                
+            }
+            else if(state == GameState.GameOver)
+            {
+                gamePlayManager.DrawGameOver(spriteBatch);
+            }
             spriteBatch.End();
-            
+
             if (gameOn == true)
             {
 

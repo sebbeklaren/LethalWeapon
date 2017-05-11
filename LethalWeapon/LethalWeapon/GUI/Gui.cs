@@ -11,11 +11,10 @@ namespace LethalWeapon
     class Gui
     {
         protected Texture2D healtBarTexture, energyBarTexture, borderTexture, activeWeaponBorderTex, activeWeaponTex;
-        protected Vector2 healthPosition, energyPosition, borderPosition, activeWeaponBorderPosition;
-        Rectangle healthSourceRect, energySourceRect;
+        protected Vector2 healthPosition, activeWeaponBorderPosition;        
         protected Rectangle healthRect, energyRect, activeWeaponBorderRect;
         protected double health, energy;
-        protected int healthBarOffset = 230; // sätta rätt position för hp och energi 
+        protected int healthBarOffset = 230;
         protected int energyBarOffset = 250;
         protected int activeWeaponBorderOffsetX = 200;
         protected int activeWeaponBorderOffsetY = 100;
@@ -39,10 +38,11 @@ namespace LethalWeapon
 
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
         {
+            int healthMultiplier = 100;
             healthPosition = cameraPosition;
             activeWeaponBorderPosition = cameraPosition;
-            health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * 100;
-            energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * 100;
+            health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * healthMultiplier;
+            energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * healthMultiplier;
             healthRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     (int)health, healtBarTexture.Height / 4);
             energyRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
@@ -55,19 +55,25 @@ namespace LethalWeapon
         public virtual void Draw(SpriteBatch sb)
         {
             int borderOffset = 3;
+            int heightOffset = 4;
             sb.Draw(healtBarTexture, healthRect, Color.White);
             sb.Draw(energyBarTexture, energyRect, Color.White);
 
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
-                    healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / 4), Color.White);
+                    healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / heightOffset), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
-                    healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / 4), Color.White);
+                    healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / heightOffset), Color.White);
             sb.Draw(activeWeaponBorderTex, new Vector2(activeWeaponBorderRect.X, activeWeaponBorderRect.Y), null, Color.White, activeWeaponRotation,
                     new Vector2(0, 0), activeWeaponScale, SpriteEffects.None, 0f);
 
             if (WeaponIsPickedUp == true)
             {
-                sb.Draw(activeWeaponTex, new Vector2(activeWeaponBorderRect.X + 20, activeWeaponBorderRect.Y + 20), null, Color.White, 0f, weaponOrigin, 1.5f, SpriteEffects.None, 1f);
+                int offset = 20;
+                float rotation = 0f;
+                float scale = 1.5f;
+                float depth = 1f;
+                Vector2 weaponPos = new Vector2(activeWeaponBorderRect.X + offset, activeWeaponBorderRect.Y + offset);
+                sb.Draw(activeWeaponTex, weaponPos, null, Color.White, rotation, weaponOrigin, scale, SpriteEffects.None, depth);
             }
         }
     }

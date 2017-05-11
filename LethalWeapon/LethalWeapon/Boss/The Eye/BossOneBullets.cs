@@ -16,25 +16,30 @@ namespace LethalWeapon
         Vector2 targetPosition;
         Vector2 startPos;
         Vector2 difference;
-
+        Vector2 origin;
         public BossOneBullets(Texture2D texture, Vector2 position, Rectangle sourceRect, Player player, int spread)
             : base(texture, position, sourceRect)
         {
+            Vector2 vectorTargetOffset = new Vector2(0, -200);
+            origin = new Vector2(texture.Width / 2, texture.Height / 2);
             bulletRect = new Rectangle(0, 0, texture.Width, texture.Height);
             this.position = position;
             startPos = position;
-            targetPosition = new Vector2(player.position.X + spread  , player.position.Y + spread) + new Vector2(0, -200);
+            targetPosition = new Vector2(player.position.X + spread  , player.position.Y + spread) + vectorTargetOffset;
             difference = targetPosition - position;            
             difference.Normalize();
         }
         public void Update(GameTime gameTime)
         {
-            position = position + difference * 2f ;
+            int positionMultiplier = 2;
+            position = position + difference * positionMultiplier;
             rotation = 0f;
         }
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, bulletRect, Color.White, rotation, new Vector2(texture.Width / 2, texture.Height / 2), 1f, SpriteEffects.None, 1f);
+            float scale = 1f;
+            float layerDepth = 1f;
+            sb.Draw(texture, position, bulletRect, Color.White, rotation, origin, scale, SpriteEffects.None, layerDepth);
         }
 
     }

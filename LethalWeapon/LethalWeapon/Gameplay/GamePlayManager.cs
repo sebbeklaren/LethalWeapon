@@ -28,14 +28,21 @@ namespace LethalWeapon
         string currentLevel;
         public Camera camera;
         Vector2 cameraOffset;
-       public int screenHeight, screenWidth;
+        public int screenHeight, screenWidth;
         GraphicsDevice graphicsDevice;
         GraphicsDeviceManager graphics;
         CollisionDetection collision;
         Texture2D craterText;
         public bool levelCleard = false;
         Game1 game;
+<<<<<<< HEAD:LethalWeapon/LethalWeapon/Gameplay/GamePlayManager.cs
         OverWorld overWorld;
+=======
+        GameOver gameOver;
+        HelpTextManager killAllEnemies, exitMap;
+        Texture2D gameOverTex;
+        public bool isGameOver = false;
+>>>>>>> origin/master:LethalWeapon/LethalWeapon/GamePlayManager.cs
 
 
         public GamePlayManager(GraphicsDeviceManager graphics, ContentManager Content, GraphicsDevice graphicsDevice, Game1 game)
@@ -55,8 +62,13 @@ namespace LethalWeapon
                 tempEnemyHealthBar = new Bar(Content, (int)tempEnemy.EnemyMaxHealth, 0);
                 enemyHealthBarList.Add(tempEnemyHealthBar);
             }
+<<<<<<< HEAD:LethalWeapon/LethalWeapon/Gameplay/GamePlayManager.cs
             weapon = new Weapon(Content.Load<Texture2D>(@"Textures/TemporaryTextures/PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
             bullet = new Bullet(Content.Load<Texture2D>(@"Textures/PlayerBulletTextures/Bullet"));
+=======
+            weapon = new Weapon(Content.Load<Texture2D>(@"PlaceHolderUzi"), new Vector2(100, 300), sourceRect, Content);
+            bullet = new Bullet(Content.Load<Texture2D>(@"PistolBullet"));
+>>>>>>> origin/master:LethalWeapon/LethalWeapon/GamePlayManager.cs
             bossOne = new BossOne(Content.Load<Texture2D>(@"BossOne"), new Vector2(500, 300), sourceRect, Content, screenWidth, screenHeight);           
             gui = new Gui(Content, 1, 1);
             overWorldTex = Content.Load<Texture2D>(@"Textures/TemporaryTextures/overworldmap");
@@ -70,11 +82,18 @@ namespace LethalWeapon
             camera.ZoomX = 1.7f;
             camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
+            gameOverTex = Content.Load<Texture2D>("Game Over");
+            gameOver = new GameOver(gameOverTex);
+            killAllEnemies = new HelpTextManager(Content, player.position);
+            exitMap = new HelpTextManager(Content, player.position);
+
         }
 
         public void Update(GameTime gameTime)
         {
-
+            if (player.PlayerCurrentHealth <= 0)
+                isGameOver = true;
+                
         }
 
         public void DrawCityLevel(SpriteBatch spriteBatch)
@@ -88,6 +107,12 @@ namespace LethalWeapon
                 enemyHealthBarList[i].Draw(spriteBatch);
             }
             gui.Draw(spriteBatch);
+            killAllEnemies.KillAllDraw(spriteBatch);
+            if (levelCleard)
+            {
+                exitMap.ExitMapDraw(spriteBatch);
+            }
+            
         }
 
         public void DrawRuinsLevel(SpriteBatch spriteBatch)
@@ -105,7 +130,7 @@ namespace LethalWeapon
             weapon.Update(player, enemyList, bullet, gui, gameTime);
             player.Update(gameTime, tempEnemy);
             gui.Update(camera.GetPosition(), player, gameTime);
-            bossOne.Update(player, gameTime, weapon);
+            bossOne.Update(player, gameTime, weapon, camera.GetPosition());
             CheckForCollision();
         }
 
@@ -132,13 +157,18 @@ namespace LethalWeapon
             if(enemyList.Count <= 0)
             {
                 levelCleard = true;
+                
+                exitMap.ExitMapUpdate(gameTime, player.position);
             }
-            if(levelCleard && player.position.X >= screenWidth || player.position.X <= 0 || player.position.Y >= screenHeight || player.position.Y <= 0 )
+            if(levelCleard && player.position.X >= screenWidth - player.texture.Width || player.position.X <= 0 && levelCleard || 
+                player.position.Y >= screenHeight - player.texture.Height && levelCleard || player.position.Y <= 0 && levelCleard)
             {
-                game.boolOverWorld = true;
+               // game.boolOverWorld = true;
+                game.boolRuinslevel = true;
                 player.position.X = 1;
             }
             CheckForCollision();
+            killAllEnemies.UpdateKillAll(gameTime);
         }
 
         public void UpdateOverWorld(GameTime gameTime)
@@ -154,10 +184,15 @@ namespace LethalWeapon
 
         private void CheckForCollision()
         {
-            collision.CheckBounds(player, screenHeight, screenWidth);
+            collision.CheckPlayerBounds(player, screenHeight, screenWidth);
             collision.CheckCollisionHorizontal(level, player);
             collision.CheckCollisionVertical(level, player);
             collision.CameraBoundCheck(player, camera);
+        }
+
+        public void DrawGameOver(SpriteBatch spriteBatch)
+        {
+            gameOver.Draw(spriteBatch);
         }
     }
 }

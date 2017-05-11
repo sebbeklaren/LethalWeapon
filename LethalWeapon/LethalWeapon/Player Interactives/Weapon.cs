@@ -14,13 +14,17 @@ namespace LethalWeapon
     class Weapon : GameObject
     {
         Rectangle weaponHitbox;
+        Rectangle railgunHitbox;
         //Behandling av utritning
         public float weaponRotation;
         public float weaponScale = 1;
         Vector2 dPos; 
         Vector2 weaponOrigin;
+        Vector2 railPos;
         InputManager input = new InputManager();
         Texture2D bulletTexture;
+        Texture2D railgunTexture;
+        Texture2D uziTexture;
         bool weaponOnGround = true;
         bool weaponPickedUp = false;
         bool shotRemoved = false;
@@ -33,7 +37,14 @@ namespace LethalWeapon
         {
             this.texture = texture;
             this.position = position;
+<<<<<<< HEAD:LethalWeapon/LethalWeapon/Player Interactives/Weapon.cs
             bulletTexture = content.Load<Texture2D>("Textures/PlayerBulletTextures/Bullet");
+=======
+            railPos = new Vector2(350, 400);
+            bulletTexture = content.Load<Texture2D>("PistolBullet");
+            railgunTexture = content.Load<Texture2D>("Railgun");
+            uziTexture = content.Load<Texture2D>("PlaceholderUzi");
+>>>>>>> origin/master:LethalWeapon/LethalWeapon/Weapon.cs
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
         }
 
@@ -41,8 +52,10 @@ namespace LethalWeapon
 
         {
             input.Update();
-            shotIntervall();
-            shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (weaponPickedUp)
+            {
+                shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
             weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (player.playerHitboxVertical.Intersects(weaponHitbox))
             {
@@ -69,6 +82,7 @@ namespace LethalWeapon
                 }
                 Bullet b = new Bullet(bulletTexture);
                 b.bulletStartingPosition = player.Position;
+                b.startRotation = weaponRotation;
                 bullets.Add(b);
                 canShot = false;
             }
@@ -99,10 +113,6 @@ namespace LethalWeapon
             }
         }
 
-        public void shotIntervall()
-        {
-
-        }
 
         public override void Draw(SpriteBatch sb)
         {

@@ -11,19 +11,21 @@ using Microsoft.Xna.Framework.Content;
 namespace LethalWeapon
 {
     class CollisionDetection
-    {    
-        List<Rectangle> tempList = new List<Rectangle>();
-
-        public void CheckBounds(Player player, int screenHeight, int screenWidth)
+    {  
+        public void CheckPlayerBounds(Player player, int screenHeight, int screenWidth)
         {
+            int screenHeightCheckOffset = 45;
+            int screenHeightPosOffset = 46;
+            int screenWidthCheckOffset = 32;
+            int screenWidthPosOffset = 32;
             if (player.position.Y <= 0)
             {
                 player.position.Y = 1;
                 player.canMove = false;
             }
-            else if (player.position.Y >= screenHeight - 45)
+            else if (player.position.Y >= screenHeight - screenHeightCheckOffset)
             {
-                player.position.Y = screenHeight - 46;
+                player.position.Y = screenHeight - screenHeightPosOffset;
                 player.canMove = false;
             }
             else
@@ -35,9 +37,9 @@ namespace LethalWeapon
                 player.position.X = 1;
                 player.canMove = false;
             }
-            else if (player.position.X >= screenWidth - 32)
+            else if (player.position.X >= screenWidth - screenWidthCheckOffset)
             {
-                player.position.X = screenWidth - 33;
+                player.position.X = screenWidth - screenWidthPosOffset;
                 player.canMove = false;
             }
             else
@@ -45,25 +47,25 @@ namespace LethalWeapon
                 player.canMove = true;
             }
         }
+
         public void CheckCollisionVertical(LevelManager level, Player player)
         {
-            
-            tempList = level.hitBoxWall;
-
             foreach (Rectangle wall in level.hitBoxWall)
             {
-                int hitOffset = 10;
-                //check uppe och nere
-                if (player.playerHitboxHorizontal.Bottom >= wall.Top - 5 && player.playerHitboxHorizontal.Bottom <= wall.Top &&
+                int wallBottomHitOffset = 10;
+                int wallBottomPosOffset = 47;
+                int wallTopHitOffset = 5;
+                int wallTopPosOffset = 6;
+                if (player.playerHitboxHorizontal.Bottom >= wall.Top - wallTopHitOffset && player.playerHitboxHorizontal.Bottom <= wall.Top &&
                     player.playerHitboxHorizontal.Right >= wall.Left && player.playerHitboxHorizontal.Left <= wall.Right)
                 {
-                    player.position.Y = wall.Top - player.texture.Height - 6;
+                    player.position.Y = wall.Top - player.texture.Height - wallTopPosOffset;
                     player.canMove = false;
                 }
-                else if (player.playerHitboxHorizontal.Top <= wall.Bottom && player.playerHitboxHorizontal.Top >= wall.Bottom - hitOffset &&
-                    player.playerHitboxHorizontal.Right >= wall.Left && player.playerHitboxHorizontal.Left <= wall.Right)
+                else if (player.playerHitboxHorizontal.Top <= wall.Bottom && player.playerHitboxHorizontal.Top >= wall.Bottom - wallBottomHitOffset &&
+                        player.playerHitboxHorizontal.Right >= wall.Left && player.playerHitboxHorizontal.Left <= wall.Right)
                 {
-                    player.position.Y = wall.Bottom + player.texture.Height - 47;
+                    player.position.Y = wall.Bottom + player.texture.Height - wallBottomPosOffset;
                     player.canMove = false;
                 }
                 else
@@ -77,18 +79,21 @@ namespace LethalWeapon
         {           
             foreach (Rectangle wall in level.hitBoxWall)
             {
-                //check från sidorna
-                if (player.playerHitboxVertical.Right >= wall.Left - 7 && player.playerHitboxVertical.Right <= wall.Left &&
+                int wallLeftHitOffset = 7;
+                int wallLeftPosOffset = 12;
+                int wallRightHitOffset = 6;
+                int wallRightPosOffset = 24;
+                if (player.playerHitboxVertical.Right >= wall.Left - wallLeftHitOffset && player.playerHitboxVertical.Right <= wall.Left &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Left - player.texture.Width -12;
+                    player.position.X = wall.Left - player.texture.Width - wallLeftPosOffset;
                     
                     player.canMove = false;
                 }
-                else if (player.playerHitboxVertical.Left <= wall.Right + 12 && player.playerHitboxVertical.Left >= wall.Right - 6 &&
+                else if (player.playerHitboxVertical.Left <= wall.Right && player.playerHitboxVertical.Left >= wall.Right - wallRightHitOffset &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Right + player.texture.Width  - 15;
+                    player.position.X = wall.Right + player.texture.Width  - wallRightPosOffset;
                     player.canMove = false;
                 }
                 else
@@ -102,45 +107,53 @@ namespace LethalWeapon
         {
             Vector2 cameraOffset = new Vector2(35, 65);
             int inputCameraMultiplier = 10;
-            if (player.Position.X < 270)
+            int haltCameraPosCheckX = 270;
+            int haltCameraPosX = 235;
+            int haltCameraPosCheckY = 565;
+            int haltCameraPosY = 505;
+            int haltCameraPosCheckLesserX = 180;
+            int haltCameraPoskLesserX = 120;
+            int haltCameraPosCheckGreaterX = 684;
+            int haltCameraPoskGreaterX = 658;
+            if (player.Position.X < haltCameraPosCheckX)
             {
-                camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
+                camera.SetPosition(new Vector2(haltCameraPosX - player.input.position.X * inputCameraMultiplier,
                                               (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
-                if (player.Position.Y > 565)
+                if (player.Position.Y > haltCameraPosCheckY)
                 {
-                    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
-                                                    505 - player.input.position.Y * inputCameraMultiplier));
+                    camera.SetPosition(new Vector2(haltCameraPosX - player.input.position.X * inputCameraMultiplier,
+                                                    haltCameraPosY - player.input.position.Y * inputCameraMultiplier));
                 }
-                else if (player.Position.Y < 180)
+                else if (player.Position.Y < haltCameraPosCheckLesserX)
                 {
-                    camera.SetPosition(new Vector2(235 - player.input.position.X * inputCameraMultiplier,
-                                                   120 - player.input.position.Y * inputCameraMultiplier));
+                    camera.SetPosition(new Vector2(haltCameraPosX - player.input.position.X * inputCameraMultiplier,
+                                                   haltCameraPoskLesserX - player.input.position.Y * inputCameraMultiplier));
                 }
             }
-            else if (player.Position.X > 684)
+            else if (player.Position.X > haltCameraPosCheckGreaterX)
             {
-                camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
+                camera.SetPosition(new Vector2(haltCameraPoskGreaterX - player.input.position.X * inputCameraMultiplier,
                                             (player.Position.Y - cameraOffset.Y) - player.input.position.Y * inputCameraMultiplier));
-                if (player.Position.Y > 565)
+                if (player.Position.Y > haltCameraPosCheckY)
                 {
-                    camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
-                                                  505 - player.input.position.Y * inputCameraMultiplier));
+                    camera.SetPosition(new Vector2(haltCameraPoskGreaterX - player.input.position.X * inputCameraMultiplier,
+                                                  haltCameraPosY - player.input.position.Y * inputCameraMultiplier));
                 }
-                else if (player.Position.Y < 180)
+                else if (player.Position.Y < haltCameraPosCheckLesserX)
                 {
-                    camera.SetPosition(new Vector2(658 - player.input.position.X * inputCameraMultiplier,
-                                                   120 - player.input.position.Y * inputCameraMultiplier));
+                    camera.SetPosition(new Vector2(haltCameraPoskGreaterX - player.input.position.X * inputCameraMultiplier,
+                                                   haltCameraPoskLesserX - player.input.position.Y * inputCameraMultiplier));
                 }
             }
-            else if (player.Position.Y > 565)
+            else if (player.Position.Y > haltCameraPosCheckY)
             {
                 camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
-                                               505 - player.input.position.Y * inputCameraMultiplier));
+                                               haltCameraPosY - player.input.position.Y * inputCameraMultiplier));
             }
-            else if (player.Position.Y < 180)
+            else if (player.Position.Y < haltCameraPosCheckLesserX)
             {
                 camera.SetPosition(new Vector2((player.Position.X - cameraOffset.X) - player.input.position.X * inputCameraMultiplier,
-                                               120 - player.input.position.Y * inputCameraMultiplier));
+                                               haltCameraPoskLesserX - player.input.position.Y * inputCameraMultiplier));
             }
             else
             {
