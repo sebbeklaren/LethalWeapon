@@ -54,7 +54,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>92BB35B47766C71DFA90ADB73E23DA1002887755</ManifestCertificateThumbprint>
@@ -66,7 +66,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
@@ -81,6 +81,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="CollisionDetection.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="EnemyBullet.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameOver.cs" />

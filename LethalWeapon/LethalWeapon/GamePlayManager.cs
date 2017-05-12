@@ -134,7 +134,7 @@ namespace LethalWeapon
             {
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    enemyList[i].Update(player);
+                    enemyList[i].Update(player, gameTime);
                     enemyHealthBarList[i].UpdateBar(enemyList[i]);
                 }
                 for(int i = 0; i < enemyList.Count; i++)
