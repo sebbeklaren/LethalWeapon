@@ -13,8 +13,8 @@ namespace LethalWeapon
     {
         private int healthYPositionOffset;
 
-        public Bar(ContentManager content, int maxHealth, int maxEnergy)
-            : base(content, maxHealth, maxEnergy)
+        public Bar(int maxHealth, int maxEnergy)
+            : base(maxHealth, maxEnergy)
         {
             health = maxHealth;
             energy = maxEnergy;

@@ -73,33 +73,33 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Bar.cs" />
-    <Compile Include="BossLaser.cs" />
-    <Compile Include="BossOne.cs" />
-    <Compile Include="BossOneBullets.cs" />
-    <Compile Include="Bullet.cs" />
-    <Compile Include="Camera.cs" />
-    <Compile Include="CollisionDetection.cs" />
-    <Compile Include="Enemy.cs" />
-    <Compile Include="EnemyBullet.cs" />
+    <Compile Include="GUI\Bar.cs" />
+    <Compile Include="Boss1_The Eye\BossLaser.cs" />
+    <Compile Include="Boss1_The Eye\BossOne.cs" />
+    <Compile Include="Boss1_The Eye\BossOneBullets.cs" />
+    <Compile Include="Player\Bullet.cs" />
+    <Compile Include="Game Managers\Camera.cs" />
+    <Compile Include="Game Managers\CollisionDetection.cs" />
+    <Compile Include="Enemy\Enemy.cs" />
+    <Compile Include="Enemy\EnemyBullet.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="GameOver.cs" />
-    <Compile Include="GamePlayManager.cs" />
-    <Compile Include="Gui.cs" />
-    <Compile Include="HelpTextManager.cs" />
-    <Compile Include="InputManager.cs" />
-    <Compile Include="LevelManager.cs" />
-    <Compile Include="MainMenu.cs" />
-    <Compile Include="Missile.cs" />
-    <Compile Include="OverWorld.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Game Objects\GameObject.cs" />
+    <Compile Include="Maps and States\GameOver.cs" />
+    <Compile Include="Game Managers\GamePlayManager.cs" />
+    <Compile Include="GUI\Gui.cs" />
+    <Compile Include="Game Managers\HelpTextManager.cs" />
+    <Compile Include="Game Managers\InputManager.cs" />
+    <Compile Include="Game Managers\LevelManager.cs" />
+    <Compile Include="Maps and States\MainMenu.cs" />
+    <Compile Include="Boss1_The Eye\Missile.cs" />
+    <Compile Include="Maps and States\OverWorld.cs" />
+    <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoundManager.cs" />
-    <Compile Include="TextureManager.cs" />
-    <Compile Include="Tiles.cs" />
-    <Compile Include="Weapon.cs" />
+    <Compile Include="Game Managers\SoundManager.cs" />
+    <Compile Include="Game Managers\TextureManager.cs" />
+    <Compile Include="Game Objects\Tiles.cs" />
+    <Compile Include="Game Objects\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -109,58 +109,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\BossBullet.png">
+    <Content Include="Content\Textures\Enemy_Textures\Cyclop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BossOne.png">
+    <Content Include="Content\Textures\Temporary_Textures\desert_map.jpg" />
+    <Content Include="Content\Textures\Boss1_Textures\BossBullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Bullet.png">
+    <Content Include="Content\Textures\Boss1_Textures\BossOne.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\crosshair.png">
+    <Content Include="Content\Textures\Weapon_Textures\Default_Weapon_Textures\Bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\DesertBackground01.png">
+    <Content Include="Content\Textures\GUI_Textures\crosshair.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\DesertTile.png">
+    <Content Include="Content\Textures\Map_Additions\Desert\DesertBackground01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Elderly_Dragon_Head_Gray.png">
+    <Content Include="Content\Textures\Tilesets\DesertTile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\ExitMap.png">
+    <Content Include="Content\Textures\Temporary_Textures\Elderly_Dragon_Head_Gray.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Game Over.jpg">
+    <Content Include="Content\Textures\GUI_Textures\ExitMap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Gui\barBorder.png">
+    <Content Include="Content\Textures\Temporary_Textures\Game Over.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Gui\EnergyBar.png">
+    <Content Include="Content\Textures\GUI_Textures\barBorder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Gui\HealthBar.png">
+    <Content Include="Content\Textures\GUI_Textures\EnergyBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Gui\MetalBorder.png">
+    <Content Include="Content\Textures\GUI_Textures\HealthBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\HoodyBoy.png">
+    <Content Include="Content\Textures\GUI_Textures\MetalBorder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\KillAllEnemies.png">
+    <Content Include="Content\Textures\Player_Textures\HoodyBoy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LaserSpriteSheet.png">
+    <Content Include="Content\Textures\GUI_Textures\KillAllEnemies.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LethalWeapon_RoadsAndWalls.png">
+    <Content Include="Content\Textures\Boss1_Textures\LaserSpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\MainMenuWall.png">
+    <Content Include="Content\Textures\Tilesets\LethalWeapon_RoadsAndWalls.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Temporary_Textures\MainMenuWall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Map\map01.txt">
@@ -172,30 +176,32 @@
     <Content Include="Content\Map\nullmap.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Missile.png">
+    <Content Include="Content\Textures\Boss1_Textures\Missile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\overworldmap.png">
+    <Content Include="Content\Textures\Temporary_Textures\overworldmap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Pistol.jpg">
+    <Content Include="Content\Textures\Temporary_Textures\Pistol.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PistolBullet.png">
+    <Content Include="Content\Textures\Weapon_Textures\Railgun_Textures\PistolBullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PlaceHolderUzi.png">
+    <Content Include="Content\Textures\Temporary_Textures\PlaceHolderUzi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PonchoBoy.png">
+    <Content Include="Content\Textures\Temporary_Textures\PonchoBoy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Railgun.png">
+    <Content Include="Content\Textures\Weapon_Textures\Railgun_Textures\Railgun.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SoundEffects\Laser01.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\Tilesets\Tileset01.png" />
+    <Content Include="Content\Textures\Tilesets\Tileset02.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +219,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
