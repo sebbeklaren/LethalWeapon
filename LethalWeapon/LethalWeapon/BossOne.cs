@@ -13,9 +13,11 @@ namespace LethalWeapon
     {        
         Vector2 bossVelocity;
         Rectangle bossRect, hitBox;
-        Texture2D missileTexture, bulletTexture;
+        Texture2D missileTexture, bulletTexture, laserTexture;
         Missile missile;
         BossOneBullets bullet;
+        BossLaser bossLaser;
+        List<BossLaser> laserList = new List<BossLaser>();
         List<Missile> missileList = new List<Missile>();
         List<BossOneBullets> bulletList = new List<BossOneBullets>();
         InputManager input;
@@ -29,7 +31,7 @@ namespace LethalWeapon
         protected Vector2 healthPosition;
         protected Rectangle healthRect;
         protected double health;
-
+        int bulletSpreadX, bulletSpreadY;
         public double BossCurrentHealth { get; set; }
 
 
@@ -47,16 +49,18 @@ namespace LethalWeapon
             bulletTexture = TextureManager.BossBulletTexture;            
             healtBarTexture = TextureManager.HealtBarTexture;
             borderTexture = TextureManager.HealthBorderTexture;
+            laserTexture = TextureManager.BossLaserTexture;
             input = new InputManager();
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(bossStartVelocityX, bossStartVelocityY);
-            BossCurrentHealth = 100;     
-               
+            BossCurrentHealth = 100;
+           // bossLaser = new BossLaser(laserTexture, position, sourceRect);
+
         }
 
         public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
-        {
+        {            
             int healthBarMultiplier = 200;
             int healthRectOffset = 200;
             int healthRectHeightOffset = 4;
@@ -64,8 +68,10 @@ namespace LethalWeapon
             health = (BossCurrentHealth / bossMaxHealth) * healthBarMultiplier;
             if (bossIsAlive)
             {
+                LaserAway(gameTime, player);
                 MissileAway(gameTime, player);
                 BulletAway(gameTime, player);
+                ShootLaser(player);
                 Movement();                
                 SoundManager.BossAmbientHover.Play();
             }
@@ -125,8 +131,33 @@ namespace LethalWeapon
                 bullets.Update(gameTime);
             }
         }
+        private void LaserAway(GameTime gameTime, Player player)
+        {
+            
+            if(Vector2.Distance(player.position, position + new Vector2(100, 100)) <= 200)
+            {
+                ShootLaser(player);
+            }
+            else if(Vector2.Distance(player.position, position + new Vector2(100, 100)) >= 200)
+            {
+                for (int i = 0; i < laserList.Count; i++)
+                {
+                    laserList.Remove(laserList[i]);
+                }
+            }
+            //for(int i = 0; i < laserList.Count; i++)
+            foreach (BossLaser laser in laserList)
+            {
+               //// while (laser.frame >= 18)
+               // {
+                    laser.Update(gameTime, position, player.position);
+                //}
+            }
+        }
+
         public override void Draw(SpriteBatch sb)
         {
+            
             int helthrectOffset = 100;
             int helthrectOffsetX = 200;
             sb.Draw(texture, position, bossRect, Color.White);         
@@ -138,12 +169,18 @@ namespace LethalWeapon
             {
                 bullets.Draw(sb);
             }
+            for(int i = 0; i < laserList.Count; i++)
+            //foreach(BossLaser laser in laserList)
+            {
+                laserList[0].Draw(sb);
+            }
             int healtBarHeightOffset = 4;
             int borderWidthOffset = 2;
             sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, 
                                                 (int)health, healtBarTexture.Height / healtBarHeightOffset), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthRect.X + helthrectOffsetX, (int)healthRect.Y  - helthrectOffset,
                                                 (int)bossMaxHealth * borderWidthOffset, healtBarTexture.Height / 4), Color.White);
+            
         }
 
         public void ProjectileCollision(Player player, Weapon weapon)
@@ -178,7 +215,7 @@ namespace LethalWeapon
                     && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
-                    player.PlayerCurrentHealth -= 30;
+                   // player.PlayerCurrentHealth -= 30;
                 }
             }
             //träff mellan bossbullets och spelare
@@ -190,7 +227,7 @@ namespace LethalWeapon
                 if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets && bulletList.Count >= 1)
                 {
                     bulletList.Remove(bulletList[i]);
-                    player.PlayerCurrentHealth -= 10;
+                   // player.PlayerCurrentHealth -= 10;
                 }
             }
             //träff mellan playerbullets och boss
@@ -208,63 +245,46 @@ namespace LethalWeapon
                 bossIsAlive = false;
             }
         }
-        public void Random()
+        public void Random(int x, int y)
         {
              calculateRandomPos = new Random();
-             randPosX = calculateRandomPos.Next(-2, 2);
-             randPosY = calculateRandomPos.Next(-2, 2);
+             randPosX = calculateRandomPos.Next(x, y);
+             randPosY = calculateRandomPos.Next(x, y);
         }
         public void Movement()
         {
-            Random();
-            
-            if(position.X >= screenWidth - texture.Width)
-            {
-                position.X = screenWidth - texture.Width ;
-                int noValidSpeed = 0;
-                if (randPosX == noValidSpeed || randPosY == noValidSpeed)
-                {
-                    Random();
-                }
-                bossVelocity = new Vector2(randPosX, randPosY);                
-            }
+            Random(-2, 2);
             int screenWidthBegining = 0;
             int screenHeightBegining = 0;
-            if (position.X <= screenWidthBegining)
+            if (position.X >= screenWidth - texture.Width)
             {
-                if(position.Y <= screenHeightBegining)
-                {
-                    bossVelocity = new Vector2(randPosX, randPosY);
-                }
+                position.X = screenWidth - texture.Width ;
+                bossVelocity = new Vector2(randPosX, randPosY);                
+            }
+            if (position.X <= screenWidthBegining)
+            {                
                 position.X = 3;
-                int noValidSpeed = 0;
-                if (randPosX == noValidSpeed || randPosY == noValidSpeed)
-                {
-                    Random();
-                }
                 bossVelocity = new Vector2(randPosX, randPosY);
             }
             if(position.Y >= screenHeight - texture.Height)
             {
                 position.Y = screenHeight - texture.Height;
-                int noValidSpeed = 0;
-                if (randPosX == noValidSpeed || randPosY == noValidSpeed)
-                {
-                    Random();
-                }
                 bossVelocity = new Vector2(randPosX, randPosY);
             }
-            if(position.Y <= 0)
+            if(position.Y <= screenHeightBegining)
             {
                 position.Y = 3;
-                int noValidSpeed = 0;
-                if (randPosX == noValidSpeed || randPosY == noValidSpeed)
-                {
-                    Random();
-                }
                 bossVelocity = new Vector2(randPosX, randPosY);
             }
             position += bossVelocity;
+            int noValidSpeed = 0;
+
+            if (bossVelocity.X == noValidSpeed && bossVelocity.Y== noValidSpeed)
+            {
+                Random(-2, 2);
+                position += bossVelocity;
+            }
+
         }
 
         private void ShootMissile(int startPos)
@@ -282,17 +302,41 @@ namespace LethalWeapon
         {
             Rectangle bulletRect = new Rectangle(0, 0, bulletTexture.Width, bulletTexture.Height);
             Vector2 bulletPosition = new Vector2(position.X + startPos, position.Y + startPos);
-            int bulletSpread = 30;
+            if (player.position.Y <= position.Y && player.position.X <= position.X)
+            {
+                bulletSpreadX = -100;
+                bulletSpreadY = -5;
+            }
+            else if(player.position.Y >= position.Y &&player.position.X <= position.X)
+            {
+                bulletSpreadX = 30;
+                bulletSpreadY = 30;
+            }
+            else if(player.position.X >= position.X && player.position.Y <= position.Y)
+            {
+                bulletSpreadX = 100;
+                bulletSpreadY = 5;
+            }
+            else if(player.position.Y >= position.Y && player.position.X >= position.X)
+            {
+                bulletSpreadX = -30;
+                bulletSpreadY = 30;
+            }
+
             for (int i = 0; i <= 10; i++)
             {
-                bullet = new BossOneBullets(bulletTexture, new Vector2(bulletPosition.X , bulletPosition.Y), bulletRect, player, (bulletSpread * i));
+                bullet = new BossOneBullets(bulletTexture, new Vector2(bulletPosition.X , bulletPosition.Y), bulletRect, player, (bulletSpreadX * i), (bulletSpreadY * i));
                 bulletList.Add(bullet);
             }
         }
 
-        private void ShootLaser()
+        public void ShootLaser(Player player)
         {
-
+            for (int i = 0; i <= 0; i++)
+            {
+                bossLaser = new BossLaser(laserTexture, position, sourceRect, player.position);
+                laserList.Add(bossLaser);
+            }
         }
     }
 }

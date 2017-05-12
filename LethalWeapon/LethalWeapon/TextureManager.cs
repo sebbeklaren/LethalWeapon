@@ -37,6 +37,8 @@ namespace LethalWeapon
         public static Texture2D DesertTile { get; private set; }
         public static Texture2D DesertBackgroundTexture { get; private set; }
 
+        public static Texture2D BossLaserTexture { get; private set; }
+
         public static void LoadTextures(ContentManager content)
         {
             MainMenuTexture = content.Load<Texture2D>("MainMenuWall");
@@ -64,6 +66,7 @@ namespace LethalWeapon
             GameOverTexture = content.Load<Texture2D>(@"Game Over");
 
             PlayerAimTexture = content.Load<Texture2D>(@"crosshair");
+            BossLaserTexture = content.Load<Texture2D>(@"LaserSpriteSheet");
         }        
     }
 }

@@ -51,7 +51,7 @@ namespace LethalWeapon
             overWorld = new OverWorld();
             graphics.ApplyChanges();
             input = new InputManager();
-           
+
             //if (!graphics.IsFullScreen)
             //{
             //    graphics.ToggleFullScreen();

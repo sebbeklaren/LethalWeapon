@@ -74,6 +74,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bar.cs" />
+    <Compile Include="BossLaser.cs" />
     <Compile Include="BossOne.cs" />
     <Compile Include="BossOneBullets.cs" />
     <Compile Include="Bullet.cs" />
@@ -150,6 +151,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\KillAllEnemies.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\LaserSpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\LethalWeapon_RoadsAndWalls.png">
