@@ -14,12 +14,13 @@ namespace LethalWeapon
         protected Vector2 overWorldPos, map1Pos, map2Pos, playerPos;
         public Rectangle map1Rect, map2Rect, playerRect;
         Player player;
-
-        public OverWorld ()
+        Enemy tempEnemy;
+        public OverWorld()
         {
-            player = new Player(overWorldPlayerTex, playerPos, playerRect, 500, 500);
             overWorldTex = TextureManager.OverWorldtexture;
             overWorldPlayerTex = TextureManager.PlayerTexture;
+            player = new Player(overWorldPlayerTex, playerPos, playerRect, 500, 500);
+            tempEnemy = new Enemy(overWorldPlayerTex, new Vector2(1, 1) , new Rectangle(1, 1, 1, 1));
             playerPos = new Vector2(500, 500);
             map1Pos = new Vector2(300, 300);
             map2Pos = new Vector2(700, 700);
@@ -27,16 +28,16 @@ namespace LethalWeapon
             map2Rect = new Rectangle((int)map2Pos.X, (int)map2Pos.Y, 100, 100);
         }
 
-        public void UpdateOverWorld(GameTime gametime)
+        public void UpdateOverWorld(GameTime gameTime)
         {
             playerRect = new Rectangle((int)playerPos.X, (int)playerPos.Y, overWorldTex.Width, overWorldTex.Height);
+            player.Update(gameTime, tempEnemy);
         }
-
 
         public void DrawOverWorld(SpriteBatch spriteBatch)
         {
+            player.Draw(spriteBatch);
             spriteBatch.Draw(overWorldTex, Vector2.Zero, Color.White);
-            spriteBatch.Draw(overWorldPlayerTex, playerPos, Color.White);
         }
             
            

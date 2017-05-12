@@ -23,13 +23,11 @@ namespace LethalWeapon
       
         }
 
-        public void Update(GameTime gameTinme) {  }
+        public void Update() {  }
 
         public virtual void DrawMainMenu(SpriteBatch spriteBatch)
-        {
-           
+        {  
             spriteBatch.Draw(texture, position, Color.White);
-        
         }
     }
 }

@@ -184,11 +184,15 @@ namespace LethalWeapon
             {
                 gamePlayManager.DrawGameOver(spriteBatch);
             }
+            else if(state == GameState.OverWorld)
+            {
+                gamePlayManager.DrawOverWorld(spriteBatch);
+            }
+
             spriteBatch.End();
 
             if (gameOn == true)
             {
-
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, gamePlayManager.camera.GetTransform());
 
                 if (state == GameState.CityLevel)

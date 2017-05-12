@@ -38,7 +38,7 @@ namespace LethalWeapon
         HelpTextManager killAllEnemies, exitMap;
         Texture2D gameOverTex;
         public bool isGameOver = false;
-
+        OverWorld overWorld;
 
         public GamePlayManager(GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice, Game1 game)
         {
@@ -64,6 +64,7 @@ namespace LethalWeapon
             bossOne = new BossOne(TextureManager.BossOneTexture, new Vector2(500, 300), sourceRect, screenWidth, screenHeight);           
             gui = new Gui(1, 1);
             overWorldTex = TextureManager.OverWorldtexture;
+            overWorld = new OverWorld();
             collision = new CollisionDetection();
             Viewport view = graphicsDevice.Viewport;
             camera = new Camera(view);
@@ -162,9 +163,9 @@ namespace LethalWeapon
             killAllEnemies.UpdateKillAll(gameTime);
         }
 
-        public void UpdateOverWorld()
+        public void UpdateOverWorld(GameTime gameTime)
         {
-
+            overWorld.UpdateOverWorld(gameTime);
         }
 
         public void CurrentLevel(string newLevel, Texture2D texture)
@@ -184,6 +185,11 @@ namespace LethalWeapon
         public void DrawGameOver(SpriteBatch spriteBatch)
         {
             gameOver.Draw(spriteBatch);
+        }
+
+        public void DrawOverWorld(SpriteBatch spriteBatch)
+        {
+            overWorld.DrawOverWorld(spriteBatch);
         }
     }
 }
