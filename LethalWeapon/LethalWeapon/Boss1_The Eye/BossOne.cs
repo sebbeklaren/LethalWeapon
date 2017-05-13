@@ -55,7 +55,7 @@ namespace LethalWeapon
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(bossStartVelocityX, bossStartVelocityY);
             BossCurrentHealth = 100;
-           // bossLaser = new BossLaser(laserTexture, position, sourceRect);
+          
 
         }
 
@@ -70,8 +70,7 @@ namespace LethalWeapon
             {
                 LaserAway(gameTime, player);
                 MissileAway(gameTime, player);
-                BulletAway(gameTime, player);
-                ShootLaser(player);
+                BulletAway(gameTime, player);                
                 Movement();                
                 SoundManager.BossAmbientHover.Play();
             }
@@ -137,6 +136,15 @@ namespace LethalWeapon
             if(Vector2.Distance(player.position, position + new Vector2(100, 100)) <= 200)
             {
                 ShootLaser(player);
+
+                foreach (BossLaser laser in laserList)
+                {
+                    if (laser.frame >= 0)
+                    {
+                        laser.Update(gameTime, position, player.position);
+                    }
+
+                }
             }
             else if(Vector2.Distance(player.position, position + new Vector2(100, 100)) >= 200)
             {
@@ -144,15 +152,7 @@ namespace LethalWeapon
                 {
                     laserList.Remove(laserList[i]);
                 }
-            }
-            //for(int i = 0; i < laserList.Count; i++)
-            foreach (BossLaser laser in laserList)
-            {
-               //// while (laser.frame >= 18)
-               // {
-                    laser.Update(gameTime, position, player.position);
-                //}
-            }
+            }           
         }
 
         public override void Draw(SpriteBatch sb)
@@ -169,8 +169,7 @@ namespace LethalWeapon
             {
                 bullets.Draw(sb);
             }
-            for(int i = 0; i < laserList.Count; i++)
-            //foreach(BossLaser laser in laserList)
+            for(int i = 0; i < laserList.Count; i++)            
             {
                 laserList[0].Draw(sb);
             }
@@ -215,7 +214,7 @@ namespace LethalWeapon
                     && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
-                   // player.PlayerCurrentHealth -= 30;
+                    // player.PlayerCurrentHealth -= 30;
                 }
             }
             //träff mellan bossbullets och spelare
