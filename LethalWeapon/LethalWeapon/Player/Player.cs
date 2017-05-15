@@ -107,15 +107,16 @@ namespace LethalWeapon
             if (isDodging == true)
             {
                 dodgeTimer += gameTime.ElapsedGameTime.Milliseconds;
-                speed = 5;
+                speed = 7;
             }
             if (playerIsHit == true)
             {
                 hitTimer += gameTime.ElapsedGameTime.TotalSeconds;
             }
+
             if (dodgeTimer > 300 || input.gamePadState.Triggers.Left <= 0)
             {
-                //speed = 2;
+                speed = 4.0f;
                 isDodging = false;
                 dodgeTimer = 0;
             }

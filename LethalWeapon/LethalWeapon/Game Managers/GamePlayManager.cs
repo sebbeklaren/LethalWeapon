@@ -119,18 +119,18 @@ namespace LethalWeapon
 
         public void UpdateRuinsLevel(GameTime gameTime)
         {
-            weapon.Update(player, enemyList, bullet, gui, gameTime);
+            weapon.Update(player, enemyList, bullet, gui, gameTime, level);
             player.Update(gameTime, tempEnemy);
-            gui.Update(camera.GetPosition(), player, gameTime);
+            gui.Update(camera.GetPosition(), player, gameTime, weapon);
             bossOne.Update(player, gameTime, weapon, camera.GetPosition());
             CheckForCollision();
         }
 
         public void UpdateCityLevel(GameTime gameTime)
         {
-            weapon.Update(player, enemyList, bullet, gui, gameTime);
+            weapon.Update(player, enemyList, bullet, gui, gameTime, level);
             player.Update(gameTime, tempEnemy);
-            gui.Update(camera.GetPosition(), player, gameTime);
+            gui.Update(camera.GetPosition(), player, gameTime, weapon);
             if (!levelCleard)
             {
                 for (int i = 0; i < enemyList.Count; i++)
