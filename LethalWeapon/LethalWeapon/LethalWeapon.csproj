@@ -202,6 +202,9 @@
     </Content>
     <Content Include="Content\Textures\Tilesets\Tileset01.png" />
     <Content Include="Content\Textures\Tilesets\Tileset02.png" />
+    <Content Include="Content\Textures\Weapon_Textures\Railgun_Textures\Railicon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

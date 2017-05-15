@@ -17,6 +17,8 @@ namespace LethalWeapon
         public static Texture2D PlayerTexture { get; private set; }
         public static Texture2D EnemyTexture { get; private set; }
         public static Texture2D Weapon01Texture { get; private set; }
+        public static Texture2D Weapon02Texture { get; private set; }
+        public static Texture2D Weapon02IconTexture { get; private set; }
         public static Texture2D Bullet01Texture { get; private set; }
 
         public static Texture2D BossOneTexture { get; private set; }        
@@ -50,6 +52,8 @@ namespace LethalWeapon
             OverWorldtexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/overworldmap");
             Weapon01Texture = content.Load<Texture2D>(@"Textures/Temporary_Textures/PlaceHolderUzi");
             Bullet01Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Default_Weapon_Textures/Bullet");
+            Weapon02Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railgun");
+            Weapon02IconTexture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railicon");
             BossOneTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossOne");
             BossBulletTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossBullet");
 
