@@ -50,7 +50,7 @@ namespace LethalWeapon
             DesertTile = content.Load<Texture2D>(@"Textures/Tilesets/DesertTile");
 
             OverWorldtexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/overworldmap");
-            Weapon01Texture = content.Load<Texture2D>(@"Textures/Temporary_Textures/PlaceHolderUzi");
+            Weapon01Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Default_Weapon_Textures/Deagle2000");
             Bullet01Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Default_Weapon_Textures/Bullet");
             Weapon02Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railgun");
             Weapon02IconTexture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railicon");

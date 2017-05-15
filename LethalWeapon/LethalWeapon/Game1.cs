@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.Xna.Framework.Media;
 
 namespace LethalWeapon
 {
@@ -22,6 +22,7 @@ namespace LethalWeapon
         OverWorld overWorld;
         public bool boolOverWorld = false;
         public bool boolRuinslevel = false;
+        public bool boolCityLevel = false;
         bool gameOn;
         enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver }
         GameState state;
@@ -65,6 +66,7 @@ namespace LethalWeapon
 
         protected void LoadOverWorld()
         {
+            MediaPlayer.Stop();
             state = GameState.OverWorld;
             gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", TextureManager.OverWorldtexture);
         }
@@ -73,11 +75,13 @@ namespace LethalWeapon
         {
             state = GameState.CityLevel;
             gamePlayManager.CurrentLevel("Content/Map/map01.txt", TextureManager.Tileset01Texture);
+            MediaPlayer.Play(SoundManager.CityLevelBGM);
         }
         protected void LoadRuinsLevel()
         {
             state = GameState.RuinsLevel;
             gamePlayManager.CurrentLevel("Content/Map/map02.txt", TextureManager.DesertTile);
+            MediaPlayer.Play(SoundManager.BossLevelBGM);
         }
         protected override void Update(GameTime gameTime)
         {
@@ -103,6 +107,7 @@ namespace LethalWeapon
                     break;
 
                 case GameState.OverWorld:
+                    gamePlayManager.UpdateOverWorld(gameTime);
                     UpdateWorldMap();
                     break;
             }
@@ -111,7 +116,6 @@ namespace LethalWeapon
 
             if (gamePlayManager.isGameOver)
                 state = GameState.GameOver;
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -147,9 +151,11 @@ namespace LethalWeapon
 
         public void UpdateWorldMap()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) || boolCityLevel)
             {
                 state = GameState.CityLevel;
+                boolOverWorld = false;
+                boolRuinslevel = false;
                 LoadCityLevel();
                 gameOn = true;
             }
@@ -157,12 +163,16 @@ namespace LethalWeapon
             else if (Keyboard.GetState().IsKeyDown(Keys.I) || boolOverWorld)
             {
                 state = GameState.OverWorld;
+                boolRuinslevel = false;
+                boolCityLevel = false;
                 LoadOverWorld();
-                gameOn = true; 
+                gameOn = false; 
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.P) || boolRuinslevel)
             {
                 state = GameState.RuinsLevel;
+                boolOverWorld = false;
+                boolCityLevel = false;
                 LoadRuinsLevel();
                 gameOn = true;
             }
@@ -176,9 +186,7 @@ namespace LethalWeapon
             spriteBatch.Begin();
             if (state == GameState.MainMenu)
             {
-                
                 mainMenu.DrawMainMenu(spriteBatch);
-                
             }
             else if(state == GameState.GameOver)
             {
@@ -204,12 +212,6 @@ namespace LethalWeapon
                 {
                     gamePlayManager.DrawRuinsLevel(spriteBatch);
                 }
-
-                else if (state == GameState.OverWorld)
-                {
-                    overWorld.DrawOverWorld(spriteBatch);
-                }
-
                 spriteBatch.End();
             }
 

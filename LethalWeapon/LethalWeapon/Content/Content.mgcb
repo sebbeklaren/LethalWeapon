@@ -397,3 +397,15 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Weapon_Textures/Railgun_Textures/Railgun.png
 
+#begin BackgroundMusic\Birth_Of_A_Wish.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BackgroundMusic\Birth_Of_A_Wish.mp3
+
+#begin BackgroundMusic\End_Of_The_Unknown.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BackgroundMusic\End_Of_The_Unknown.mp3
+
