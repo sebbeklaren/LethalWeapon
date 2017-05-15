@@ -17,7 +17,7 @@ namespace LethalWeapon
         double elapsedTime;
         public int frame = 0;
         double delayTime = 50;
-
+        
 
         public BossLaser(Texture2D texture, Vector2 position, Rectangle sourceRect, Vector2 playerPosition)
             : base(texture, position, sourceRect)
@@ -46,11 +46,11 @@ namespace LethalWeapon
 
                 if (frame >= 18)
                 {
-                    frame = 0;
+                    frame = 0;                    
                 }
                 else
                 {
-                    frame++;
+                    frame++;                   
                 }
                 elapsedTime = 0;
             }

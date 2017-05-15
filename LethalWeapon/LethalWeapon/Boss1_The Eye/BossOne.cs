@@ -12,7 +12,7 @@ namespace LethalWeapon
     class BossOne : GameObject
     {        
         Vector2 bossVelocity;
-        Rectangle bossRect, hitBox;
+        Rectangle bossRect, hitBox, checkForLaserRect;
         Texture2D missileTexture, bulletTexture, laserTexture;
         Missile missile;
         BossOneBullets bullet;
@@ -33,7 +33,9 @@ namespace LethalWeapon
         protected double health;
         int bulletSpreadX, bulletSpreadY;
         public double BossCurrentHealth { get; set; }
-
+        bool insideLaserRect;
+        bool laserHasFired;
+        double toCloseTimer = 4;
 
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
@@ -44,7 +46,7 @@ namespace LethalWeapon
             int bossRectMultiplyY = 2;
             int bossStartVelocityX = -1;
             int bossStartVelocityY = 0;
-            bossRect = new Rectangle(bossRectX, bossRectY, texture.Width * bossRectMultiplyX, texture.Height * bossRectMultiplyY);            
+            bossRect = new Rectangle(bossRectX, bossRectY, texture.Width * bossRectMultiplyX, texture.Height * bossRectMultiplyY);                        
             missileTexture = TextureManager.BossMissileTexture;
             bulletTexture = TextureManager.BossBulletTexture;            
             healtBarTexture = TextureManager.HealtBarTexture;
@@ -68,6 +70,14 @@ namespace LethalWeapon
             health = (BossCurrentHealth / bossMaxHealth) * healthBarMultiplier;
             if (bossIsAlive)
             {
+                if (checkForLaserRect.Contains(player.playerHitboxVertical))
+                {
+                    insideLaserRect = true;
+                }
+                else
+                {
+                    insideLaserRect = false;
+                }
                 LaserAway(gameTime, player);
                 MissileAway(gameTime, player);
                 BulletAway(gameTime, player);                
@@ -77,12 +87,14 @@ namespace LethalWeapon
             else if(!bossIsAlive)
             {
                 bulletList.Clear();
-                missileList.Clear();               
+                missileList.Clear();
+                SoundManager.BossAmbientHover.Dispose();              
             }
             int hitBoxOffset = 90;
             int hitBoxWidth = 32;
             int hitBoxHeight = 48;
             hitBox = new Rectangle((int)position.X + hitBoxOffset, (int)position.Y + hitBoxOffset, hitBoxWidth, hitBoxHeight);
+            checkForLaserRect = new Rectangle((int)position.X - 50 , (int)position.Y  - 50, TextureManager.BossOneTexture.Width + 100, TextureManager.BossOneTexture.Height +100);
             ProjectileCollision(player, weapon);
             ProjectileCollision(player, weapon);
             healthRect = new Rectangle((int)healthPosition.X - healthRectOffset, (int)healthPosition.Y,
@@ -132,27 +144,40 @@ namespace LethalWeapon
         }
         private void LaserAway(GameTime gameTime, Player player)
         {
-            
-            if(Vector2.Distance(player.position, position + new Vector2(100, 100)) <= 200)
-            {
-                ShootLaser(player);
 
+            toCloseTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (!laserHasFired && toCloseTimer <= 0)
+            {
+                if (laserList.Count < 1)
+                {
+                    ShootLaser(player);
+                }
                 foreach (BossLaser laser in laserList)
                 {
-                    if (laser.frame >= 0)
+                    if (laser.frame <= 18)
                     {
                         laser.Update(gameTime, position, player.position);
+                        if (laser.frame >= 18)
+                        {
+                            laserHasFired = true;
+                            toCloseTimer = 4;
+                        }
                     }
-
                 }
             }
-            else if(Vector2.Distance(player.position, position + new Vector2(100, 100)) >= 200)
+
+            if (laserHasFired)
             {
                 for (int i = 0; i < laserList.Count; i++)
                 {
+                    //if (laserHasFired)
+                    //{
                     laserList.Remove(laserList[i]);
+                    laserHasFired = false;
+                    
+                    // }
                 }
-            }           
+            }
         }
 
         public override void Draw(SpriteBatch sb)
@@ -160,7 +185,10 @@ namespace LethalWeapon
             
             int helthrectOffset = 100;
             int helthrectOffsetX = 200;
-            sb.Draw(texture, position, bossRect, Color.White);         
+            sb.Draw(TextureManager.HealtBarTexture, new Vector2(checkForLaserRect.X, checkForLaserRect.Y), checkForLaserRect, Color.White);
+            sb.Draw(texture, position, bossRect, Color.White);
+            
+
             foreach (Missile projectile in missileList)
             {
                 projectile.Draw(sb);
@@ -169,6 +197,7 @@ namespace LethalWeapon
             {
                 bullets.Draw(sb);
             }
+
             for(int i = 0; i < laserList.Count; i++)            
             {
                 laserList[0].Draw(sb);
