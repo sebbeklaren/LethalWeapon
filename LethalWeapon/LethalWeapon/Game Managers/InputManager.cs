@@ -14,15 +14,15 @@ namespace LethalWeapon
         public Vector2 position, aimDirection;
         public bool isConnected;
         public MouseState mousePosOld, mousePosNew;
-        public GamePadState gamePad;
-
+        public GamePadState gamePadState;    
+        public bool vibrate;    
         public InputManager()
         {
         }
 
         public void Update()
         {           
-            gamePad = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+            gamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
 
             mousePosOld = mousePosNew;
             mousePosNew = Mouse.GetState();
@@ -30,15 +30,24 @@ namespace LethalWeapon
             aimDirection.X = mousePosNew.X;
             aimDirection.Y = mousePosNew.Y;
 
-            if (gamePad.IsConnected)
+            if (gamePadState.IsConnected)
             {
                 isConnected = true;
-                position = gamePad.ThumbSticks.Left;
+                position = gamePadState.ThumbSticks.Left;
                 position.Y *= -1;
 
-                aimDirection = gamePad.ThumbSticks.Right;
+                aimDirection = gamePadState.ThumbSticks.Right;
                 aimDirection.Y *= -1;
-                GamePad.SetVibration(PlayerIndex.One, gamePad.Triggers.Right, gamePad.Triggers.Right);
+                GamePad.SetVibration(PlayerIndex.One, gamePadState.Triggers.Right, gamePadState.Triggers.Right);
+                if (vibrate)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 1.0f, 1.0f);
+                }
+                else
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                }
+
             }
             else
             {

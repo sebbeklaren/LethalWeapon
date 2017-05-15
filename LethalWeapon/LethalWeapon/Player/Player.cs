@@ -99,7 +99,7 @@ namespace LethalWeapon
                     position.X += speed;
             }
 
-                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePad.Triggers.Left > 0 && PlayerCurrentEnergi >= 20)
+                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePadState.Triggers.Left > 0 && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
@@ -113,7 +113,7 @@ namespace LethalWeapon
             {
                 hitTimer += gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (dodgeTimer > 300 || input.gamePad.Triggers.Left <= 0)
+            if (dodgeTimer > 300 || input.gamePadState.Triggers.Left <= 0)
             {
                 //speed = 2;
                 isDodging = false;

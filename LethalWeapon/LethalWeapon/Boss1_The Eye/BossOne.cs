@@ -35,7 +35,7 @@ namespace LethalWeapon
         public double BossCurrentHealth { get; set; }
         bool insideLaserRect;
         bool laserHasFired;
-        double toCloseTimer = 4;
+        double toCloseTimer = 2;
 
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
@@ -62,7 +62,8 @@ namespace LethalWeapon
         }
 
         public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
-        {            
+        {
+            input.Update();
             int healthBarMultiplier = 200;
             int healthRectOffset = 200;
             int healthRectHeightOffset = 4;
@@ -144,9 +145,10 @@ namespace LethalWeapon
         }
         private void LaserAway(GameTime gameTime, Player player)
         {
-
+            
             toCloseTimer -= gameTime.ElapsedGameTime.TotalSeconds;
-            if (!laserHasFired && toCloseTimer <= 0)
+            //räkna ut när den ska skjuta öaser och när den inte ska göra det
+            if (insideLaserRect && !laserHasFired && toCloseTimer <= 0)
             {
                 if (laserList.Count < 1)
                 {
@@ -160,22 +162,36 @@ namespace LethalWeapon
                         if (laser.frame >= 18)
                         {
                             laserHasFired = true;
-                            toCloseTimer = 4;
+                            toCloseTimer = 2;
                         }
                     }
                 }
-            }
-
-            if (laserHasFired)
+            }           
+            if (!insideLaserRect && laserList.Count == 1)
             {
                 for (int i = 0; i < laserList.Count; i++)
                 {
-                    //if (laserHasFired)
-                    //{
+                    laserList[i].Update(gameTime, position, player.position);
+                    if (laserList[i].frame >= 18)
+                    {
+                        laserHasFired = true;
+                    }
+                        if (laserList[i].frame >= 18 && laserHasFired && !insideLaserRect)
+                    {
+                        laserList.Remove(laserList[i]);
+                        toCloseTimer = 2;
+                        laserHasFired = false;
+                    }       
+                }
+            }
+
+            if (laserHasFired && insideLaserRect && laserList.Count != 0)
+            {
+                for (int i = 0; i < laserList.Count; i++)
+                {
                     laserList.Remove(laserList[i]);
+                    toCloseTimer = 2;
                     laserHasFired = false;
-                    
-                    // }
                 }
             }
         }
@@ -185,7 +201,8 @@ namespace LethalWeapon
             
             int helthrectOffset = 100;
             int helthrectOffsetX = 200;
-            sb.Draw(TextureManager.HealtBarTexture, new Vector2(checkForLaserRect.X, checkForLaserRect.Y), checkForLaserRect, Color.White);
+            //För att se hitboxen som känner av när spelaren är för nära 
+            //sb.Draw(TextureManager.HealtBarTexture, new Vector2(checkForLaserRect.X, checkForLaserRect.Y), checkForLaserRect, Color.White);
             sb.Draw(texture, position, bossRect, Color.White);
             
 
@@ -213,15 +230,14 @@ namespace LethalWeapon
 
         public void ProjectileCollision(Player player, Weapon weapon)
         {
-            //träff mellan playerbullets och misiler
-            int distancePlayerBulletsMissile = 10;
+            //träff mellan playerbullets och misiler           
             for (int i = 0; i < missileList.Count; i++)
             {
                 for (int j = 0; j < weapon.bullets.Count; j++)
                 {
                     if (i <= missileList.Count -1)
                     {
-                        if (Vector2.Distance(weapon.bullets[j].position, missileList[i].position) < distancePlayerBulletsMissile && missileList.Count >= 1)
+                        if (missileList[i].hitBox.Intersects(weapon.bullets[j].HitBox) && missileList.Count >= 1)
                         {
                             missileList.Remove(missileList[i]);
                             weapon.bullets.Remove(weapon.bullets[j]);
@@ -236,14 +252,11 @@ namespace LethalWeapon
             //träff mellan misiler och player
             for (int i = 0; i < missileList.Count; i++)
             {
-                int playerHitOffsetX = 12;
-                int playerHitOffsetY = 24;
-                int distancePlayerMissile = 50;
-                if (Vector2.Distance(missileList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerMissile
+                if (player.playerHitboxVertical.Intersects(missileList[i].hitBox)
                     && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
-                    // player.PlayerCurrentHealth -= 30;
+                     player.PlayerCurrentHealth -= 30;
                 }
             }
             //träff mellan bossbullets och spelare
@@ -255,7 +268,7 @@ namespace LethalWeapon
                 if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets && bulletList.Count >= 1)
                 {
                     bulletList.Remove(bulletList[i]);
-                   // player.PlayerCurrentHealth -= 10;
+                    player.PlayerCurrentHealth -= 10;
                 }
             }
             //träff mellan playerbullets och boss
@@ -265,6 +278,20 @@ namespace LethalWeapon
                 {
                     BossCurrentHealth -= 30;
                     weapon.bullets.Remove(weapon.bullets[i]);
+                }
+            }
+
+            //träff mellan spelare och laser
+            for(int i = 0; i < laserList.Count; i++)
+            {
+                if (laserList[i].HitBox.Intersects(player.playerHitboxVertical)) 
+                {
+                    input.vibrate = true;
+                    player.PlayerCurrentHealth -= 1;
+                }
+                else
+                {
+                    input.vibrate = false;
                 }
             }
             

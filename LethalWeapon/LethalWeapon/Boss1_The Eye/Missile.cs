@@ -18,7 +18,7 @@ namespace LethalWeapon
             : base(texture, position, sourceRect)
         {            
             missileRect = new Rectangle(0, 0, texture.Width, texture.Height);
-            hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);    
+               
             this.position = position;        
         }
 
@@ -27,6 +27,7 @@ namespace LethalWeapon
             int positionOffsetX = 16;
             int positionOffsetY = 24;
             Vector2 difference = new Vector2(playerPos.X + positionOffsetX, playerPos.Y + positionOffsetY) - position;
+            hitBox = new Rectangle((int)position.X - 15, (int)position.Y - 20, texture.Width - 20, texture.Height / 2);
             difference.Normalize();
             position += difference;
             rotation = (float)Math.Atan2(-difference.Y, -difference.X);
@@ -34,7 +35,9 @@ namespace LethalWeapon
 
         public override void Draw(SpriteBatch sb)
         {
+            
             sb.Draw(texture, position, missileRect, Color.White, rotation, new Vector2(texture.Width/2, texture.Height/2), 1f, SpriteEffects.None, 1f);
+            //sb.Draw(TextureManager.HealtBarTexture, new Vector2(hitBox.X, hitBox.Y), hitBox, Color.White);
         }
 
     }
