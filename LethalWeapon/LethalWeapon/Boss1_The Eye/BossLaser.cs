@@ -47,7 +47,7 @@ namespace LethalWeapon
             elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             int positionOffsetX = 110;
             int positionOffsetY = 120;
-            destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 250, 48);
+            destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 350, 48);
             
             hitBoxPosition = hitBoxPosition + difference * 6;
             hitBox = new Rectangle((int)hitBoxPosition.X - 20, (int)hitBoxPosition.Y - 20, 30, 30);
