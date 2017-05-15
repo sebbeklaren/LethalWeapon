@@ -35,8 +35,16 @@ namespace LethalWeapon
             weaponOrigin = new Vector2(activeWeaponTex.Bounds.Center.X / 2, borderTexture.Bounds.Center.Y);
         }
 
-        public void Update(Vector2 cameraPosition, Player player, GameTime gameTime)
+        public void Update(Vector2 cameraPosition, Player player, GameTime gameTime, Weapon weapon)
         {
+            if (weapon.currentWeapon == 1)
+            {
+                activeWeaponTex = TextureManager.Weapon01Texture;
+            }
+            if (weapon.currentWeapon == 2)
+            {
+                activeWeaponTex = TextureManager.Weapon02IconTexture;
+            }
             int healthMultiplier = 100;
             healthPosition = cameraPosition;
             activeWeaponBorderPosition = cameraPosition;
