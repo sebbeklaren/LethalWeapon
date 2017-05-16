@@ -25,7 +25,7 @@ namespace LethalWeapon
         int screenHeight, screenWidth, randPosX, randPosY;
         double elapsedBulletTime = 0;
         Random calculateRandomPos;
-        double bossMaxHealth = 100;
+        double bossMaxHealth = 500;
         bool bossIsAlive = true;
         protected Texture2D healtBarTexture, borderTexture;
         protected Vector2 healthPosition;
@@ -56,7 +56,7 @@ namespace LethalWeapon
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(bossStartVelocityX, bossStartVelocityY);
-            BossCurrentHealth = 100;
+            BossCurrentHealth = 500;
           
 
         }
@@ -89,6 +89,7 @@ namespace LethalWeapon
             {
                 bulletList.Clear();
                 missileList.Clear();
+                laserList.Clear();
                 SoundManager.BossAmbientHover.Dispose();              
             }
             int hitBoxOffset = 90;
@@ -221,11 +222,11 @@ namespace LethalWeapon
                 laserList[0].Draw(sb);
             }
             int healtBarHeightOffset = 4;
-            int borderWidthOffset = 2;
+            int borderWidthOffset = 3;
             sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, 
                                                 (int)health, healtBarTexture.Height / healtBarHeightOffset), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthRect.X + helthrectOffsetX, (int)healthRect.Y  - helthrectOffset,
-                                                (int)bossMaxHealth * borderWidthOffset, healtBarTexture.Height / 4), Color.White);
+                                                200, healtBarTexture.Height / 4), Color.White);
             
         }
 

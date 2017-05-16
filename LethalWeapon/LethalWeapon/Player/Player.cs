@@ -131,7 +131,7 @@ namespace LethalWeapon
             else
             {
                 aimSpeed = 10f;
-                aimPosition += input.aimDirection * aimSpeed;
+                aimPosition += input.aimDirection * (aimSpeed + speed);
             }
             double maxAimDistYBot= 170;
             double maxAimDistYTop = 185;
