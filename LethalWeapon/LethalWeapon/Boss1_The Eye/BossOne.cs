@@ -257,7 +257,7 @@ namespace LethalWeapon
                     && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
-                    //player.PlayerCurrentHealth -= 30;
+                    player.PlayerCurrentHealth -= 20;
                 }
             }
             //träff mellan bossbullets och spelare
@@ -269,7 +269,7 @@ namespace LethalWeapon
                 if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets && bulletList.Count >= 1)
                 {
                     bulletList.Remove(bulletList[i]);
-                //    player.PlayerCurrentHealth -= 10;
+                    player.PlayerCurrentHealth -= 10;
                 }
             }
             //träff mellan playerbullets och boss
@@ -285,14 +285,17 @@ namespace LethalWeapon
             //träff mellan spelare och laser
             for(int i = 0; i < laserList.Count; i++)
             {
-                if (laserList[i].HitBox.Intersects(player.playerHitboxVertical)) 
+                for (int j = 0; j < laserList[i].beemList.Count; j++)
                 {
-                    input.vibrate = true;
-            //        player.PlayerCurrentHealth -= 1;
-                }
-                else
-                {
-                    input.vibrate = false;
+                    if (Vector2.Distance(laserList[i].beemList[j], player.position) <= 20)
+                    {
+                        input.vibrate = true;
+                         player.PlayerCurrentHealth -= 1;
+                    }
+                    else
+                    {
+                        input.vibrate = false;
+                    }
                 }
             }
             

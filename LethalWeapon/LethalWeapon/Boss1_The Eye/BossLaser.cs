@@ -18,7 +18,7 @@ namespace LethalWeapon
         }
         Vector2 position, aimPosition, origin, hitBoxPosition, difference;
         Vector2 laserBeemPos;
-        List<Vector2> beemList = new List<Vector2>();
+        public List<Vector2> beemList = new List<Vector2>();
         float rotation;
         double elapsedTime;
         public int frame = 0;
@@ -84,10 +84,10 @@ namespace LethalWeapon
         public override void Draw(SpriteBatch sb)
         {
             float layerDepth = 0f;
-            for (int i = 0; i < beemList.Count; i++)
-            {
-                sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y, 48, 48), Color.White);
-            }
+            //for (int i = 0; i < beemList.Count; i++)
+            //{
+            //    sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y, 48, 48), Color.White);
+            //}
             // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
             sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);
            
