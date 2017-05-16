@@ -35,7 +35,7 @@ namespace LethalWeapon
         public double BossCurrentHealth { get; set; }
         bool insideLaserRect;
         bool laserHasFired;
-        double toCloseTimer = 2;
+        double toCloseTimer = 0;
 
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
@@ -164,7 +164,7 @@ namespace LethalWeapon
                         if (laser.frame >= 18)
                         {
                             laserHasFired = true;
-                            toCloseTimer = 2;
+                            toCloseTimer = 0;
                         }
                     }
                 }
@@ -181,7 +181,7 @@ namespace LethalWeapon
                         if (laserList[i].frame >= 18 && laserHasFired && !insideLaserRect)
                     {
                         laserList.Remove(laserList[i]);
-                        toCloseTimer = 2;
+                        toCloseTimer = 0;
                         laserHasFired = false;
                     }       
                 }
@@ -192,7 +192,7 @@ namespace LethalWeapon
                 for (int i = 0; i < laserList.Count; i++)
                 {
                     laserList.Remove(laserList[i]);
-                    toCloseTimer = 2;
+                    toCloseTimer = 0;
                     laserHasFired = false;
                 }
             }
