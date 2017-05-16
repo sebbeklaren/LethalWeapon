@@ -24,8 +24,8 @@ namespace LethalWeapon
         public bool boolRuinslevel = false;
         public bool boolCityLevel = false;
         bool gameOn;
-        enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver }
-        GameState state;
+        public enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver }
+       public GameState state;
         
 
         public Game1()
@@ -195,7 +195,11 @@ namespace LethalWeapon
             {
                 gamePlayManager.DrawOverWorld(spriteBatch);
             }
-
+            else if(gameOn == false)
+            {
+                    gamePlayManager.camera.ZoomX = 1f;
+                    gamePlayManager.camera.ZoomY = 1f;
+            }
             spriteBatch.End();
 
             if (gameOn == true)
@@ -205,12 +209,17 @@ namespace LethalWeapon
                 if (state == GameState.CityLevel)
                 {
                     gamePlayManager.DrawCityLevel(spriteBatch);
+                    gamePlayManager.camera.ZoomX = 1.7f;
+                    gamePlayManager.camera.ZoomY = 2.0f;
                 }
 
                 else if (state == GameState.RuinsLevel)
                 {
                     gamePlayManager.DrawRuinsLevel(spriteBatch);
+                    gamePlayManager.camera.ZoomX = 1.7f;
+                    gamePlayManager.camera.ZoomY = 2.0f;
                 }
+               
                 spriteBatch.End();
             }
 

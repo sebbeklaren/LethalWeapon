@@ -71,10 +71,7 @@ namespace LethalWeapon
             cameraOffset = new Vector2(35, 65);            
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.PreferredBackBufferWidth = screenWidth;
-            camera.ZoomX = 1.7f;
-            camera.ZoomY = 2.0f;
             camera.Rotation = 0f;
-            
             gameOver = new GameOver(gameOverTex);
             killAllEnemies = new HelpTextManager(player.position);
             exitMap = new HelpTextManager( player.position);
