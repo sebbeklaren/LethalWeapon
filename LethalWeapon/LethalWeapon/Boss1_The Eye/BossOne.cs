@@ -95,7 +95,8 @@ namespace LethalWeapon
             int hitBoxWidth = 32;
             int hitBoxHeight = 48;
             hitBox = new Rectangle((int)position.X + hitBoxOffset, (int)position.Y + hitBoxOffset, hitBoxWidth, hitBoxHeight);
-            checkForLaserRect = new Rectangle((int)position.X - 50 , (int)position.Y  - 50, TextureManager.BossOneTexture.Width + 100, TextureManager.BossOneTexture.Height +100);
+            checkForLaserRect = new Rectangle((int)position.X - 100, (int)position.Y  - 75, TextureManager.BossOneTexture.Width + 200, 
+                                               TextureManager.BossOneTexture.Height +150);
             ProjectileCollision(player, weapon);
             ProjectileCollision(player, weapon);
             healthRect = new Rectangle((int)healthPosition.X - healthRectOffset, (int)healthPosition.Y,
@@ -256,7 +257,7 @@ namespace LethalWeapon
                     && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
-                     player.PlayerCurrentHealth -= 30;
+                    //player.PlayerCurrentHealth -= 30;
                 }
             }
             //träff mellan bossbullets och spelare
@@ -268,7 +269,7 @@ namespace LethalWeapon
                 if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets && bulletList.Count >= 1)
                 {
                     bulletList.Remove(bulletList[i]);
-                    player.PlayerCurrentHealth -= 10;
+                //    player.PlayerCurrentHealth -= 10;
                 }
             }
             //träff mellan playerbullets och boss
@@ -287,7 +288,7 @@ namespace LethalWeapon
                 if (laserList[i].HitBox.Intersects(player.playerHitboxVertical)) 
                 {
                     input.vibrate = true;
-                    player.PlayerCurrentHealth -= 1;
+            //        player.PlayerCurrentHealth -= 1;
                 }
                 else
                 {

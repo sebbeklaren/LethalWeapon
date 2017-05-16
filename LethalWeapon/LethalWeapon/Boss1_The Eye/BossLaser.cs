@@ -17,6 +17,8 @@ namespace LethalWeapon
             get { return hitBox; }
         }
         Vector2 position, aimPosition, origin, hitBoxPosition, difference;
+        Vector2 laserBeemPos;
+        List<Vector2> beemList = new List<Vector2>();
         float rotation;
         double elapsedTime;
         public int frame = 0;
@@ -39,7 +41,11 @@ namespace LethalWeapon
             difference =  aimPosition- position;
             difference.Normalize();            
             rotation = (float)Math.Atan2(-difference.Y, -difference.X);
-            
+            for(int i = 1; i < 8; i++)
+            {
+                laserBeemPos = hitBoxPosition + difference * 50 * i;
+                beemList.Add(laserBeemPos);
+            }
         }
 
         public void Update(GameTime gameTime, Vector2 bossPosition, Vector2 playerPosition)
@@ -49,8 +55,13 @@ namespace LethalWeapon
             int positionOffsetY = 120;
             destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 350, 48);
             
-            hitBoxPosition = hitBoxPosition + difference * 6;
+           // hitBoxPosition = hitBoxPosition + difference * 6;
             hitBox = new Rectangle((int)hitBoxPosition.X - 20, (int)hitBoxPosition.Y - 20, 30, 30);
+            //koll för vilken position vectorn har
+            //for (int i = 1; i < beemList.Count; i++)
+            //{
+            //    Console.WriteLine("X:" + i + " " + beemList[i].X + " Y:" + i + " " + beemList[i].Y );
+            //}
             if (elapsedTime >= delayTime)
             {
 
@@ -72,7 +83,11 @@ namespace LethalWeapon
 
         public override void Draw(SpriteBatch sb)
         {
-            float layerDepth = 0f;           
+            float layerDepth = 0f;
+            for (int i = 0; i < beemList.Count; i++)
+            {
+                sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y,48,48 ), Color.White);
+            }         
            // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
             sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);
            
