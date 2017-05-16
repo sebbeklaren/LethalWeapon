@@ -86,9 +86,9 @@ namespace LethalWeapon
             float layerDepth = 0f;
             for (int i = 0; i < beemList.Count; i++)
             {
-                sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y,48,48 ), Color.White);
-            }         
-           // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
+                sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y, 48, 48), Color.White);
+            }
+            // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
             sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);
            
         }
