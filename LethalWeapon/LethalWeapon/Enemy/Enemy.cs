@@ -37,6 +37,7 @@ namespace LethalWeapon
 
         List<EnemyBullet> enemyBulletList = new List<EnemyBullet>();
         protected int attackRange;
+        public int weaponDamage;
         protected Texture2D bulletTexture;
         protected float shotInterval;
         protected float shotTimer;
@@ -68,7 +69,7 @@ namespace LethalWeapon
             enemyIsNearPlayer = false;
             hasCorrectStartingPosition = true;
             isAlive = true;
-            EnemyMaxHealth = 10;
+            EnemyMaxHealth = 100;
             EnemyCurrentHealth = EnemyMaxHealth;
             bulletTexture = TextureManager.Bullet01Texture;
             canShoot = true;
@@ -206,7 +207,7 @@ namespace LethalWeapon
 
         public void TakeDamage()
         {
-            EnemyCurrentHealth -= 50;
+            EnemyCurrentHealth -= weaponDamage;
         }
 
         protected void HasDied()
