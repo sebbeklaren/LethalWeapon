@@ -49,7 +49,6 @@ namespace LethalWeapon
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gamePlayManager = new GamePlayManager(graphics, GraphicsDevice, this);
             mainMenu = new MainMenu(TextureManager.MainMenuTexture, new Vector2(0,0));
-            overWorld = new OverWorld();
             graphics.ApplyChanges();
             input = new InputManager();
 
@@ -64,20 +63,20 @@ namespace LethalWeapon
             
         }
 
-        protected void LoadOverWorld()
+        public void LoadOverWorld()
         {
             MediaPlayer.Stop();
             state = GameState.OverWorld;
             gamePlayManager.CurrentLevel("Content/Map/nullmap.txt", TextureManager.OverWorldtexture);
         }
 
-        protected void LoadCityLevel()
+        public void LoadCityLevel()
         {
             state = GameState.CityLevel;
             gamePlayManager.CurrentLevel("Content/Map/map01.txt", TextureManager.Tileset01Texture);
             MediaPlayer.Play(SoundManager.CityLevelBGM);
         }
-        protected void LoadRuinsLevel()
+        public void LoadRuinsLevel()
         {
             state = GameState.RuinsLevel;
             gamePlayManager.CurrentLevel("Content/Map/map02.txt", TextureManager.DesertTile);

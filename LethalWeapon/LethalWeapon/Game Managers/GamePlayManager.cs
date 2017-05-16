@@ -64,7 +64,7 @@ namespace LethalWeapon
             bossOne = new BossOne(TextureManager.BossOneTexture, new Vector2(500, 300), sourceRect, screenWidth, screenHeight);           
             gui = new Gui(1, 1);
             overWorldTex = TextureManager.OverWorldtexture;
-            overWorld = new OverWorld();
+            overWorld = new OverWorld(game);
             collision = new CollisionDetection();
             Viewport view = graphicsDevice.Viewport;
             camera = new Camera(view);

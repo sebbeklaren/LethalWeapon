@@ -70,9 +70,7 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = TextureManager.PlayerAimTexture;
-            
-            
+            aimTexture = TextureManager.PlayerAimTexture;            
         }
 
         public void Update(GameTime gameTime, Enemy enemy)

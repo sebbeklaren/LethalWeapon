@@ -16,9 +16,9 @@ namespace LethalWeapon
         Player player;
         Game1 game1;
         Enemy tempEnemy;
-        public OverWorld()
+        public OverWorld(Game1 game)
         {
-            game1 = new Game1();
+            this.game1 = game;
             overWorldTex = TextureManager.OverWorldtexture;
             overWorldPlayerTex = TextureManager.PlayerTexture;
             playerPos = new Vector2(500, 500);
@@ -33,15 +33,14 @@ namespace LethalWeapon
 
         public void UpdateOverWorld(GameTime gameTime)
         {
-            playerRect = new Rectangle((int)playerPos.X, (int)playerPos.Y, 32, 48);
             player.Update(gameTime, tempEnemy);
 
-            if (playerRect.Intersects(map1Rect))
+            if (player.playerHitboxVertical.Intersects(map1Rect))
             {
                 game1.boolCityLevel = true;
-                
             }
-            else if (playerRect.Intersects(map2Rect))
+
+            else if (player.playerHitboxVertical.Intersects(map2Rect))
             {
                 game1.boolRuinslevel = true;
                 
