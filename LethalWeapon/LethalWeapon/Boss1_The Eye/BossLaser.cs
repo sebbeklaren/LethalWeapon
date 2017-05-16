@@ -11,20 +11,19 @@ namespace LethalWeapon
     class BossLaser : GameObject
     {
         Texture2D laserTexture;
-        public Rectangle destinationRect, sourceRect, hitBox;
-        public Rectangle HitBox
-        {
-            get { return hitBox; }
-        }
+        public Rectangle destinationRect;       
         Vector2 position, aimPosition, origin, hitBoxPosition, difference;
         Vector2 laserBeemPos;
         public List<Vector2> beemList = new List<Vector2>();
         float rotation;
-        double elapsedTime;
+        double elapsedTime, warningElapsedTime;
         public int frame = 0;
+        public int warningFrame = 0;
         double delayTime = 50;
         List<Rectangle> hitBoxList = new List<Rectangle>();
-        
+        Rectangle warningLaserDestRect, warningSourceRect;
+        bool laserIsReady = false;
+
 
         public BossLaser(Texture2D texture, Vector2 position, Rectangle sourceRect, Vector2 playerPosition)
             : base(texture, position, sourceRect)
@@ -33,10 +32,7 @@ namespace LethalWeapon
             aimPosition = playerPosition;                       
             origin = new Vector2(265, 24);
             int playerOffsetX = 100;
-            int playerOffsetY = 100;
-            int positionOffsetX = 100;
-            int positionOffsetY = 100;
-            hitBoxPosition = new Vector2(position.X +positionOffsetX, position.Y + positionOffsetY);
+            int playerOffsetY = 100;                 
             aimPosition = new Vector2(aimPosition.X - playerOffsetX, aimPosition.Y - playerOffsetY);
             difference =  aimPosition- position;
             difference.Normalize();            
@@ -48,49 +44,71 @@ namespace LethalWeapon
             }
         }
 
-        public void Update(GameTime gameTime, Vector2 bossPosition, Vector2 playerPosition)
+        private void LaserWarning(GameTime gameTime, Vector2 bossPosition)
         {
-            elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            warningElapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             int positionOffsetX = 110;
             int positionOffsetY = 120;
-            destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 350, 48);
-            
-           // hitBoxPosition = hitBoxPosition + difference * 6;
-            hitBox = new Rectangle((int)hitBoxPosition.X - 20, (int)hitBoxPosition.Y - 20, 30, 30);
-            //koll för vilken position vectorn har
-            //for (int i = 1; i < beemList.Count; i++)
-            //{
-            //    Console.WriteLine("X:" + i + " " + beemList[i].X + " Y:" + i + " " + beemList[i].Y );
-            //}
-            if (elapsedTime >= delayTime)
+            warningLaserDestRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 48, 48);
+            if (warningElapsedTime >= delayTime)
             {
-
-                if (frame >= 18)
+                if (warningFrame >= 18)
                 {
-                    frame = 0;                    
+                    //warningFrame = 0;
+                    laserIsReady = true;
                 }
                 else
                 {
-                  
-                    frame++;                   
+                    warningFrame++;
                 }
-                elapsedTime = 0;
+                warningElapsedTime = 0;
             }
+            warningSourceRect = new Rectangle(48 * warningFrame, 0, 48, 48);
+        }
 
-            sourceRect = new Rectangle(250 * frame, 0, 250, 48);
+        public void Update(GameTime gameTime, Vector2 bossPosition, Vector2 playerPosition)
+        {
+            LaserWarning(gameTime, bossPosition);
+            if (laserIsReady)
+            {
+                elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                int positionOffsetX = 110;
+                int positionOffsetY = 120;
+                destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 350, 48);
+                if (elapsedTime >= delayTime)
+                {
 
+                    if (frame >= 18)
+                    {
+                        frame = 0;
+                    }
+                    else
+                    {
+
+                        frame++;
+                    }
+                    elapsedTime = 0;
+                }
+
+                sourceRect = new Rectangle(250 * frame, 0, 250, 48);
+            }
+            else
+            {
+                laserIsReady = false;
+            }
         }
 
         public override void Draw(SpriteBatch sb)
         {
             float layerDepth = 0f;
+            //Koll för utskriften av vektorer
             //for (int i = 0; i < beemList.Count; i++)
             //{
             //    sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y, 48, 48), Color.White);
             //}
             // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
             sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);
-           
+            sb.Draw(TextureManager.BossEyeWarningLaser, warningLaserDestRect, warningSourceRect, Color.White, rotation, new Vector2(24,24), SpriteEffects.None, layerDepth);
         }
     }
 }

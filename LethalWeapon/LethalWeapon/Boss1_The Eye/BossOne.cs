@@ -222,11 +222,11 @@ namespace LethalWeapon
                 laserList[0].Draw(sb);
             }
             int healtBarHeightOffset = 4;
-            int borderWidthOffset = 3;
+            int borderWidthOffset = 200;
             sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, 
                                                 (int)health, healtBarTexture.Height / healtBarHeightOffset), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthRect.X + helthrectOffsetX, (int)healthRect.Y  - helthrectOffset,
-                                                200, healtBarTexture.Height / 4), Color.White);
+                                                borderWidthOffset, healtBarTexture.Height / 4), Color.White);
             
         }
 
