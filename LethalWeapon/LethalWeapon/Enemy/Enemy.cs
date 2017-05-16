@@ -61,8 +61,8 @@ namespace LethalWeapon
             startingPosition = position;
             isMoving = false;
             distanceLimit = 35;
-            aggroRange = 150;
-            attackRange = 120;
+            aggroRange = 200;
+            attackRange = 175;
             minDistanceToPlayer = 50;
             enemyTooCloseToPlayer = false;
             enemyIsNearPlayer = false;
