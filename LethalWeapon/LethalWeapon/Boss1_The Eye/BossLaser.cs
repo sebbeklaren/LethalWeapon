@@ -11,7 +11,11 @@ namespace LethalWeapon
     class BossLaser : GameObject
     {
         Texture2D laserTexture;
-        public Rectangle destinationRect;       
+        public Rectangle destinationRect, hitBox;
+        public Rectangle HitBox
+        {
+            get { return hitBox; }
+        }       
         Vector2 position, aimPosition, origin, hitBoxPosition, difference;
         Vector2 laserBeemPos;
         public List<Vector2> beemList = new List<Vector2>();
@@ -51,6 +55,7 @@ namespace LethalWeapon
                 int positionOffsetX = 110;
                 int positionOffsetY = 120;
                 destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 350, 48);
+                hitBox = new Rectangle((int)hitBoxPosition.X - 20, (int)hitBoxPosition.Y - 20, 30, 30);
                 if (elapsedTime >= delayTime)
                 {
 
@@ -90,7 +95,7 @@ namespace LethalWeapon
             //{
             //    sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y, 48, 48), Color.White);
             //}
-            // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
+           // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
             sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);         
         }
          private void LaserWarning(GameTime gameTime, Vector2 bossPosition)

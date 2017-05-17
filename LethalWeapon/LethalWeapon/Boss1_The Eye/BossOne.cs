@@ -82,7 +82,7 @@ namespace LethalWeapon
                 LaserAway(gameTime, player);
                 MissileAway(gameTime, player);
                 BulletAway(gameTime, player);                
-                Movement();                
+              //  Movement();                
                 SoundManager.BossAmbientHover.Play();
             }
             else if(!bossIsAlive)
@@ -258,7 +258,7 @@ namespace LethalWeapon
                     && missileList.Count >= 1)
                 {
                     missileList.Remove(missileList[i]);
-                    player.PlayerCurrentHealth -= 20;
+                   // player.PlayerCurrentHealth -= 20;
                 }
             }
             //träff mellan bossbullets och spelare
@@ -270,7 +270,7 @@ namespace LethalWeapon
                 if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets && bulletList.Count >= 1)
                 {
                     bulletList.Remove(bulletList[i]);
-                    player.PlayerCurrentHealth -= 10;
+                  //  player.PlayerCurrentHealth -= 10;
                 }
             }
             //träff mellan playerbullets och boss
@@ -291,7 +291,7 @@ namespace LethalWeapon
                     if (Vector2.Distance(laserList[i].beemList[j], player.position) <= 30)
                     {
                         input.vibrate = true;
-                        player.PlayerCurrentHealth -= 1;
+                       // player.PlayerCurrentHealth -= 1;
                     }
                     else
                     {
