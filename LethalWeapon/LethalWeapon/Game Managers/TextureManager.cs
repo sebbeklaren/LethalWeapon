@@ -39,8 +39,7 @@ namespace LethalWeapon
         public static Texture2D DesertTile { get; private set; }
         public static Texture2D DesertBackgroundTexture { get; private set; }
 
-        public static Texture2D BossLaserTexture { get; private set; }
-        public static Texture2D BossEyeWarningLaser { get; private set; }
+        public static Texture2D BossLaserTexture { get; private set; }       
 
         public static void LoadTextures(ContentManager content)
         {
@@ -72,7 +71,7 @@ namespace LethalWeapon
 
             PlayerAimTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/crosshair");
             BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet01");
-            BossEyeWarningLaser = content.Load<Texture2D>(@"Textures/Boss1_Textures/PreeFireAnimation");
+            
         }        
     }
 }

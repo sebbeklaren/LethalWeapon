@@ -73,30 +73,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Boss1_Textures/BossOne.png
 
-#begin Textures/Boss1_Textures/LaserSpriteSheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/Boss1_Textures/LaserSpriteSheet.png
-
-#begin Textures/Boss1_Textures/Missile.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/Boss1_Textures/Missile.png
-
 #begin Textures/Enemy_Textures/Cyclop.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -408,4 +384,28 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:BackgroundMusic\End_Of_The_Unknown.mp3
+
+#begin Textures/Boss1_Textures/LaserSpriteSheet01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Boss1_Textures/LaserSpriteSheet01.png
+
+#begin Textures/Boss1_Textures/MissileAnimation.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Boss1_Textures/MissileAnimation.png
 
