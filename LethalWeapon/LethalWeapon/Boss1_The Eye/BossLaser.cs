@@ -19,7 +19,8 @@ namespace LethalWeapon
         double elapsedTime, warningElapsedTime;
         public int frame = 0;
         public int warningFrame = 0;
-        double delayTime = 50;
+        double delayTime = 60;
+        double warningDelayTime = 0;
         List<Rectangle> hitBoxList = new List<Rectangle>();
         Rectangle warningLaserDestRect, warningSourceRect;
         bool laserIsReady = false;
@@ -28,46 +29,21 @@ namespace LethalWeapon
         public BossLaser(Texture2D texture, Vector2 position, Rectangle sourceRect, Vector2 playerPosition)
             : base(texture, position, sourceRect)
         {
+            //this.hitBoxPosition = position;
             laserTexture = texture;
             aimPosition = playerPosition;                       
-            origin = new Vector2(265, 24);
+            origin = new Vector2(274, 24);
             int playerOffsetX = 100;
             int playerOffsetY = 100;                 
             aimPosition = new Vector2(aimPosition.X - playerOffsetX, aimPosition.Y - playerOffsetY);
             difference =  aimPosition- position;
             difference.Normalize();            
             rotation = (float)Math.Atan2(-difference.Y, -difference.X);
-            for(int i = 1; i < 8; i++)
-            {
-                laserBeemPos = hitBoxPosition + difference * 50 * i;
-                beemList.Add(laserBeemPos);
-            }
         }
-
-        private void LaserWarning(GameTime gameTime, Vector2 bossPosition)
-        {
-            warningElapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-            int positionOffsetX = 110;
-            int positionOffsetY = 120;
-            warningLaserDestRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 48, 48);
-            if (warningElapsedTime >= delayTime)
-            {
-                if (warningFrame >= 18)
-                {
-                    //warningFrame = 0;
-                    laserIsReady = true;
-                }
-                else
-                {
-                    warningFrame++;
-                }
-                warningElapsedTime = 0;
-            }
-            warningSourceRect = new Rectangle(48 * warningFrame, 0, 48, 48);
-        }
-
+        
         public void Update(GameTime gameTime, Vector2 bossPosition, Vector2 playerPosition)
         {
+            hitBoxPosition = bossPosition;
             LaserWarning(gameTime, bossPosition);
             if (laserIsReady)
             {
@@ -78,24 +54,32 @@ namespace LethalWeapon
                 if (elapsedTime >= delayTime)
                 {
 
-                    if (frame >= 18)
+                    if (frame >= 26)
                     {
                         frame = 0;
                     }
                     else
                     {
-
                         frame++;
                     }
+                    if (frame >= 12)
+                    {
+                        for (int i = 1; i < 8; i++)
+                        {
+                            int laserPoOffset = 100;
+                            laserBeemPos = new Vector2(hitBoxPosition.X + laserPoOffset, hitBoxPosition.Y + laserPoOffset) + difference * 50 * i;
+                            beemList.Add(laserBeemPos);
+                        }
+                    }                   
                     elapsedTime = 0;
                 }
 
-                sourceRect = new Rectangle(250 * frame, 0, 250, 48);
+                sourceRect = new Rectangle(298 * frame, 0, 298, 48);
             }
             else
             {
                 laserIsReady = false;
-            }
+            }            
         }
 
         public override void Draw(SpriteBatch sb)
@@ -107,8 +91,24 @@ namespace LethalWeapon
             //    sb.Draw(TextureManager.HealtBarTexture, beemList[i], new Rectangle((int)beemList[i].X, (int)beemList[i].Y, 48, 48), Color.White);
             //}
             // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
-            sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);
-            sb.Draw(TextureManager.BossEyeWarningLaser, warningLaserDestRect, warningSourceRect, Color.White, rotation, new Vector2(24,24), SpriteEffects.None, layerDepth);
+            sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);         
+        }
+         private void LaserWarning(GameTime gameTime, Vector2 bossPosition)
+        {            
+            warningElapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;          
+            if (warningElapsedTime >= warningDelayTime)
+            {
+                if (warningFrame >= 18)
+                {                  
+                    laserIsReady = true;
+                }
+                else
+                {
+                    warningFrame++;
+                    laserIsReady = false;
+                }
+                warningElapsedTime = 0;
+            }
         }
     }
 }

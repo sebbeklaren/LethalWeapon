@@ -288,10 +288,10 @@ namespace LethalWeapon
             {
                 for (int j = 0; j < laserList[i].beemList.Count; j++)
                 {
-                    if (Vector2.Distance(laserList[i].beemList[j], player.position) <= 20)
+                    if (Vector2.Distance(laserList[i].beemList[j], player.position) <= 30)
                     {
                         input.vibrate = true;
-                         player.PlayerCurrentHealth -= 1;
+                        player.PlayerCurrentHealth -= 1;
                     }
                     else
                     {

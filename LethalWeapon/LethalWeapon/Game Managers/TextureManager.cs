@@ -71,7 +71,7 @@ namespace LethalWeapon
             GameOverTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/Game Over");
 
             PlayerAimTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/crosshair");
-            BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet");
+            BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet01");
             BossEyeWarningLaser = content.Load<Texture2D>(@"Textures/Boss1_Textures/PreeFireAnimation");
         }        
     }
