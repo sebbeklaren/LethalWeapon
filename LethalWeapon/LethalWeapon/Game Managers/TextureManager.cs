@@ -58,7 +58,7 @@ namespace LethalWeapon
             BossOneTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossOne");
             BossBulletTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossBullet");
 
-            BossMissileTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/Missile");
+            BossMissileTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/MissileAnimation");
             DesertBackgroundTexture = content.Load<Texture2D>(@"Textures/Map_Additions/Desert/DesertBackground01");
             DesertTile = content.Load<Texture2D>(@"Textures/Tilesets/DesertTile");
             HealtBarTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/HealthBar");

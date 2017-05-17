@@ -126,7 +126,7 @@ namespace LethalWeapon
             }
             foreach (Missile projectile in missileList)
             {
-                projectile.Update(player.position);
+                projectile.Update(player.position, gameTime);
             }
         }
         private void BulletAway(GameTime gameTime, Player player)
@@ -354,7 +354,7 @@ namespace LethalWeapon
             Rectangle missileRect = new Rectangle(0, 0, missileTexture.Width, missileTexture.Height);
             Vector2 missilePosition = new Vector2(position.X + missileStartOffsetX + startPos, position.Y+ missileStartOffsetY);
 
-            missile = new Missile(missileTexture, missilePosition, missileRect);
+            missile = new Missile(missileTexture, missilePosition, sourceRect);
             missileList.Add(missile);
         }
 
