@@ -38,14 +38,15 @@ namespace LethalWeapon
 
                 aimDirection = gamePadState.ThumbSticks.Right;
                 aimDirection.Y *= -1;
-                GamePad.SetVibration(PlayerIndex.One, gamePadState.Triggers.Right, gamePadState.Triggers.Right);
+                
                 if (vibrate)
                 {
-                    GamePad.SetVibration(PlayerIndex.One, 1.0f, 1.0f);
+                   // GamePad.SetVibration(PlayerIndex.One, 1.0f, 1.0f);
+                    GamePad.SetVibration(PlayerIndex.One, gamePadState.Triggers.Right, gamePadState.Triggers.Right);
                 }
                 else
                 {
-                    GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                    //GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
                 }
 
             }

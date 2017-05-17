@@ -115,6 +115,7 @@ namespace LethalWeapon
             }
             if (weaponOnGround == false && weaponPickedUp == true)
             {
+                input.vibrate = true;
                 int weaponOffsetX = 20;
                 int weaponOffsetY = 30;
 
