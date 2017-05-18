@@ -37,7 +37,6 @@ namespace LethalWeapon
 
         List<EnemyBullet> enemyBulletList = new List<EnemyBullet>();
         protected int attackRange;
-        public int weaponDamage;
         protected Texture2D bulletTexture;
         protected float shotInterval;
         protected float shotTimer;
@@ -69,7 +68,7 @@ namespace LethalWeapon
             enemyIsNearPlayer = false;
             hasCorrectStartingPosition = true;
             isAlive = true;
-            EnemyMaxHealth = 100;
+            EnemyMaxHealth = 10;
             EnemyCurrentHealth = EnemyMaxHealth;
             bulletTexture = TextureManager.Bullet01Texture;
             canShoot = true;
@@ -79,8 +78,6 @@ namespace LethalWeapon
 
         public void Update(Player player, GameTime gameTime)
         {
-            
-
             Movement();
 
             IsPlayerNear(player);
@@ -97,25 +94,24 @@ namespace LethalWeapon
                 canShoot = true;
             }
             
-
             if (canShoot)
             {
-                IsInShootingRange(player);
+                IsInShootingRange(player); //Erhåller playerns position och kollar om playern är inom robotens shooting range
             }
 
-            foreach(EnemyBullet e in enemyBulletList) //Uppdaterar fiendens skott
+            foreach(EnemyBullet bullet in enemyBulletList) //Uppdaterar fiendens skott
             {
-                e.UpdateEnemyBullet(player);
-                if (e.isActive)
+                bullet.UpdateEnemyBullet(player);
+                if (bullet.isActive)
                 {
-                    if (e.hitBox.Intersects(player.playerHitboxVertical))
+                    if (bullet.hitBox.Intersects(player.playerHitboxVertical)) //Kollar om playerns rektangel intersect med bullet rectangeln och om det gör, tar playern skada.
                     {
                         if (!player.isDodging && !player.playerIsHit)
                         {
                             player.PlayerCurrentHealth -= 20;
                             player.playerIsHit = true;
                         }
-                        e.isActive = false;
+                        bullet.isActive = false;
                     }
                 }
             }
@@ -131,7 +127,7 @@ namespace LethalWeapon
 
             HasDied();
 
-            if (!isAlive)
+            if (!isAlive) //Om roboten dör, försvinner all dess skott i listan.
             {
                 enemyBulletList.Clear();
             }
@@ -142,13 +138,13 @@ namespace LethalWeapon
             if (isAlive)
                 sb.Draw(texture, position, Color.White);
 
-            foreach(EnemyBullet e in enemyBulletList)
+            foreach(EnemyBullet bullet in enemyBulletList)
             {
-                e.DrawEnemyBullet(sb);
+                bullet.DrawEnemyBullet(sb);
             }
         }
 
-        private void Movement()
+        private void Movement() //Robotens rörelse
         {
             if (!isMoving)
             {
@@ -179,7 +175,7 @@ namespace LethalWeapon
             }
         }
 
-        private void IsPlayerNear(Player player)
+        private void IsPlayerNear(Player player) 
         {
             if (Vector2.Distance(player.Position, position) <= aggroRange)
             {
@@ -207,7 +203,7 @@ namespace LethalWeapon
 
         public void TakeDamage()
         {
-            EnemyCurrentHealth -= weaponDamage;
+            EnemyCurrentHealth -= 50;
         }
 
         protected void HasDied()
@@ -241,3 +237,4 @@ namespace LethalWeapon
         }
     }
 }
+//Ta bort blankrader och kommentera metoder. -Johnny

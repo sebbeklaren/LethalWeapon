@@ -31,8 +31,8 @@ namespace LethalWeapon
             BossAmbientHum02 = content.Load<SoundEffect>(@"SoundEffects/BossAimbientHum02");
             BossAmbientHover = content.Load<SoundEffect>(@"SoundEffects/BossHoverHum");
 
-            CityLevelBGM = content.Load<Song>(@"BackgroundMusic/Birth_Of_A_Wish");
-            BossLevelBGM = content.Load<Song>(@"BackgroundMusic/End_Of_The_Unknown");
+            CityLevelBGM = content.Load<Song>(@"BackgroundMusic/End_Of_The_Unknown"); 
+            BossLevelBGM = content.Load<Song>(@"BackgroundMusic/Birth_Of_A_Wish");
         }
     }
 }

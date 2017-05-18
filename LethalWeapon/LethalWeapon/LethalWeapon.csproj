@@ -194,9 +194,6 @@
     <Content Include="Content\Textures\Weapon_Textures\Default_Weapon_Textures\Deagle2000.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Weapon_Textures\Railgun_Textures\Lazeranimation.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Textures\Weapon_Textures\Railgun_Textures\PistolBullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -214,9 +211,6 @@
     </Content>
     <Content Include="Content\Textures\Tilesets\Tileset01.png" />
     <Content Include="Content\Textures\Tilesets\Tileset02.png" />
-    <Content Include="Content\Textures\Weapon_Textures\Railgun_Textures\Railgunanimation.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Textures\Weapon_Textures\Railgun_Textures\Railicon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
