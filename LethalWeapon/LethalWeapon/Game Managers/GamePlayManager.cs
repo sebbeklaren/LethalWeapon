@@ -39,9 +39,7 @@ namespace LethalWeapon
         Texture2D gameOverTex;
         public bool isGameOver = false;
         OverWorld overWorld;
-        Vector2 playerPosition = new Vector2(250, 540);
-        Vector2 weaponPos = new Vector2(100, 300);
-        Vector2 bossOnePos = new Vector2(500, 300);
+
         public GamePlayManager(GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice, Game1 game)
         {
             screenHeight = 32 * 24;
@@ -52,18 +50,18 @@ namespace LethalWeapon
             this.game = game;
             gameOverTex = TextureManager.GameOverTexture;
             craterText = TextureManager.DesertBackgroundTexture;
-            player = new Player(TextureManager.PlayerTexture, playerPosition, sourceRect, screenWidth, screenHeight);
+            player = new Player(TextureManager.PlayerTexture, new Vector2(250, 540), sourceRect, screenWidth, screenHeight);
             for (int i = 0; i < 3; i++)
             {
-                Vector2 enemyPos = new Vector2(400, 240 + 50 * i);
-                tempEnemy = new Enemy(TextureManager.EnemyTexture, enemyPos, sourceRect);
+                tempEnemy = new Enemy(TextureManager.EnemyTexture, new Vector2(400, 240 + 50 * i), sourceRect);
                 enemyList.Add(tempEnemy);
                 tempEnemyHealthBar = new Bar((int)tempEnemy.EnemyMaxHealth, 0);
                 enemyHealthBarList.Add(tempEnemyHealthBar);
             }
-            weapon = new Weapon(TextureManager.Weapon01Texture, weaponPos, sourceRect);
+
+            weapon = new Weapon(TextureManager.Weapon01Texture, new Vector2(100, 300), sourceRect);
             bullet = new Bullet(TextureManager.Bullet01Texture);
-            bossOne = new BossOne(TextureManager.BossOneTexture, bossOnePos, sourceRect, screenWidth, screenHeight);           
+            bossOne = new BossOne(TextureManager.BossOneTexture, new Vector2(500, 300), sourceRect, screenWidth, screenHeight);           
             gui = new Gui(1, 1);
             overWorldTex = TextureManager.OverWorldtexture;
             overWorld = new OverWorld(game);
@@ -83,7 +81,8 @@ namespace LethalWeapon
         public void Update(GameTime gameTime)
         {
             if (player.PlayerCurrentHealth <= 0)
-                isGameOver = true;                
+                isGameOver = true;
+                
         }
 
         public void DrawCityLevel(SpriteBatch spriteBatch)
@@ -101,14 +100,14 @@ namespace LethalWeapon
             if (levelCleard)
             {
                 exitMap.ExitMapDraw(spriteBatch);
-            }            
+            }
+            
         }
 
         public void DrawRuinsLevel(SpriteBatch spriteBatch)
         {
-            Vector2 craterTexturePosition = new Vector2(100, 0);
             level.Draw(spriteBatch);
-            spriteBatch.Draw(craterText, craterTexturePosition, Color.White);
+            spriteBatch.Draw(craterText, new Vector2(100, 0), Color.White);
             bossOne.Draw(spriteBatch);
             player.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
@@ -146,7 +145,8 @@ namespace LethalWeapon
             }
             if(enemyList.Count <= 0)
             {
-                levelCleard = true;                
+                levelCleard = true;
+                
                 exitMap.ExitMapUpdate(gameTime, player.position);
             }
             if(levelCleard && player.position.X >= screenWidth - player.texture.Width || player.position.X <= 0 && levelCleard || 
@@ -157,7 +157,6 @@ namespace LethalWeapon
                 player.position.X = 1;
             }
             CheckForCollision();
-            //Texten i början
             killAllEnemies.UpdateKillAll(gameTime);
         }
 

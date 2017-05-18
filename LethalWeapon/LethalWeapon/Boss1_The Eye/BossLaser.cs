@@ -47,29 +47,19 @@ namespace LethalWeapon
         
         public void Update(GameTime gameTime, Vector2 bossPosition, Vector2 playerPosition)
         {
-            int destRectWidth = 350;
-            int destRectHeight = 48;
-            int positionOffsetX = 110;
-            int positionOffsetY = 120;
-            int hitboxSize = 30;
-            int hiboxPosOffset = 20;
-            int maxFrame = 26;
-            int hitBoxStartFrame = 12;
-            int hitBoxPosSpacing = 50;
-            int sourceRectWidth = 298;
-            int sourceRectHeight = 48;
-            int numberOfhitboxes = 8;
             hitBoxPosition = bossPosition;
             LaserWarning(gameTime, bossPosition);
             if (laserIsReady)
             {
                 elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, destRectWidth, destRectHeight);
-                hitBox = new Rectangle((int)hitBoxPosition.X - hiboxPosOffset, (int)hitBoxPosition.Y - hiboxPosOffset, hitboxSize, hitboxSize);
+                int positionOffsetX = 110;
+                int positionOffsetY = 120;
+                destinationRect = new Rectangle((int)bossPosition.X + positionOffsetX, (int)bossPosition.Y + positionOffsetY, 350, 48);
+                hitBox = new Rectangle((int)hitBoxPosition.X - 20, (int)hitBoxPosition.Y - 20, 30, 30);
                 if (elapsedTime >= delayTime)
                 {
-                    if (frame >= maxFrame)
+
+                    if (frame >= 26)
                     {
                         frame = 0;
                     }
@@ -77,24 +67,26 @@ namespace LethalWeapon
                     {
                         frame++;
                     }
-                    if (frame >= hitBoxStartFrame)
+                    if (frame >= 12)
                     {
-                        for (int i = 1; i < numberOfhitboxes; i++)
+                        for (int i = 1; i < 8; i++)
                         {
-                            int laserPosOffset = 100;
-                            laserBeemPos = new Vector2(hitBoxPosition.X + laserPosOffset, hitBoxPosition.Y + laserPosOffset) + difference * hitBoxPosSpacing * i;
+                            int laserPoOffset = 100;
+                            laserBeemPos = new Vector2(hitBoxPosition.X + laserPoOffset, hitBoxPosition.Y + laserPoOffset) + difference * 50 * i;
                             beemList.Add(laserBeemPos);
                         }
                     }                   
                     elapsedTime = 0;
                 }
-                sourceRect = new Rectangle(sourceRectWidth * frame, 0, sourceRectWidth, sourceRectHeight);
+
+                sourceRect = new Rectangle(298 * frame, 0, 298, 48);
             }
             else
             {
                 laserIsReady = false;
             }            
         }
+
         public override void Draw(SpriteBatch sb)
         {
             float layerDepth = 0f;
@@ -106,14 +98,12 @@ namespace LethalWeapon
            // sb.Draw(TextureManager.HealtBarTexture, hitBoxPosition, hitBox, Color.White);
             sb.Draw(texture, destinationRect , sourceRect, Color.White, rotation, origin, SpriteEffects.None, layerDepth);         
         }
-        //Räknare för att bestämma när lasern ska börja naimeras
          private void LaserWarning(GameTime gameTime, Vector2 bossPosition)
-        {
-            int numberOfwarningframes = 18;
+        {            
             warningElapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;          
             if (warningElapsedTime >= warningDelayTime)
             {
-                if (warningFrame >= numberOfwarningframes)
+                if (warningFrame >= 18)
                 {                  
                     laserIsReady = true;
                 }
