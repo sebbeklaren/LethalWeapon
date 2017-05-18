@@ -103,7 +103,7 @@ namespace LethalWeapon
             {
                 hasTwoWeapons = true;
             }
-            if (current.IsKeyDown(Keys.LeftShift) && last.IsKeyUp(Keys.LeftShift) && hasTwoWeapons == true)
+            if (current.IsKeyDown(Keys.LeftShift) && last.IsKeyUp(Keys.LeftShift) && hasTwoWeapons == true || input.yIsPressed)
             {
                 currentWeapon = prevWeapon;
             }

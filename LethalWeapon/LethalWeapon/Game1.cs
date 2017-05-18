@@ -88,7 +88,7 @@ namespace LethalWeapon
                 Exit();
             
             base.Update(gameTime);
-            
+            input.Update();
             switch (currentGameState)
             {
                 case GameState.CityLevel:
@@ -170,15 +170,14 @@ namespace LethalWeapon
 
         public void UpdateWorldMap()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) || boolCityLevel)
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) || boolCityLevel || input.startIsPressed)
             {
                 currentGameState = GameState.CityLevel;
                 boolOverWorld = false;
                 boolRuinslevel = false;
                 LoadCityLevel();
                 gameOn = true;
-            }
-            
+            }           
             else if (Keyboard.GetState().IsKeyDown(Keys.I) || boolOverWorld)
             {
                 currentGameState = GameState.OverWorld;
@@ -195,6 +194,7 @@ namespace LethalWeapon
                 LoadRuinsLevel();
                 gameOn = true;
             }
+                
         }
 
         public void DrawCurrentState(GameTime gameTime)

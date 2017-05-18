@@ -283,7 +283,6 @@ namespace LethalWeapon
                     weapon.bullets.Remove(weapon.bullets[i]);
                 }
             }
-
             //träff mellan spelare och laser
             for(int i = 0; i < laserList.Count; i++)
             {
