@@ -14,14 +14,12 @@ namespace LethalWeapon
     {
         public Texture2D texture;
         public Vector2 position;
-        public Rectangle lazerSource;
         public Rectangle hitBox;
         public Rectangle HitBox
         {
             get { return hitBox; }
         }
         public int speed;
-        public int currentBullet;
         public Vector2 bulletStartingPosition;
         public Vector2 bulletDestination;
         public float bulletRotation;
@@ -32,12 +30,10 @@ namespace LethalWeapon
             this.texture = texture;
             speed = 5;
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            lazerSource = new Rectangle(0, 32, 32, 32);
         }
 
         public void Update(Player player)
         {
-            currentBullet = 2;
             if (shotFired == false)
             {
                 position = bulletStartingPosition + new Vector2(16, 24);
@@ -57,14 +53,7 @@ namespace LethalWeapon
         }
         public void Draw(SpriteBatch sb)
         {
-            //if (currentBullet == 1)
-            //{
-                sb.Draw(texture, position, null, Color.White, bulletRotation, new Vector2(5, 5), 1, SpriteEffects.None, 0f);
-            //}
-            //if (currentBullet == 2)
-            //{
-            //    sb.Draw(texture, position, lazerSource, Color.White, bulletRotation, new Vector2(5, 5), 1, SpriteEffects.None, 0f);
-            //}
-    }
+            sb.Draw(texture, position, null, Color.White, bulletRotation, new Vector2 (5,5), 1, SpriteEffects.None, 0f);
+        }
     }
 }
