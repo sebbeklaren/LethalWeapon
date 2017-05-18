@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace LethalWeapon
 {
- 
+ //v1.0
     public class Game1 : Game
     {
         public GraphicsDeviceManager graphics;
