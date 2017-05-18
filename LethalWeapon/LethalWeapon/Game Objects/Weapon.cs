@@ -64,8 +64,8 @@ namespace LethalWeapon
             uziPos = new Vector2(100, 300);
             uziTexture = TextureManager.Weapon01Texture;
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
-            //railOrigin = new Vector2(railgunTexture.Bounds.Center.X / 2, railgunTexture.Bounds.Center.Y / 10);
-            railOrigin = new Vector2(railgunOnGround.Bounds.Center.X / 2, railgunOnGround.Bounds.Center.Y);
+            railOrigin = new Vector2(railgunTexture.Bounds.Center.X / 2, railgunTexture.Bounds.Center.Y / 10);
+            //railOrigin = new Vector2(railgunOnGround.Bounds.Center.X / 2, railgunOnGround.Bounds.Center.Y);
             shotSpeed = 300;
             uziHitbox = new Rectangle((int)uziPos.X, (int)uziPos.Y, uziTexture.Width, uziTexture.Height);
             railgunHitbox = new Rectangle((int)railPos.X, (int)railPos.Y, railgunTexture.Width, railgunTexture.Height);
@@ -95,7 +95,7 @@ namespace LethalWeapon
                 prevWeapon = 1;
                 currentWeapon = 2;
                 //railPos = position;
-                texture = railgunOnGround;
+                texture = railgunTexture;
                 playerHasWeapon = true;
                 railgunHitbox = new Rectangle(0, 0, 0, 0);
             }
@@ -147,21 +147,21 @@ namespace LethalWeapon
                 {
                     railPos = position;
                 }
-                //if( frametimer <= 0)
-                //{
-                //    if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= shotSpeed
-                //    || input.gamePadState.Triggers.Right > 0
-                //    || animationTime <= 301)
-                //    {
-                //        if (animationTime >= 300)
-                //        {
-                //            frame = 0;
-                //        }
-                //        frametimer = frameinterval;
-                //        frame++;
-                //        railSource.Y = (frame % 10) * 64;
-                //    }
-                //}
+                if (frametimer <= 0)
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= shotSpeed
+                    || input.gamePadState.Triggers.Right > 0
+                    || animationTime <= 301)
+                    {
+                        if (animationTime >= 300)
+                        {
+                            frame = 0;
+                        }
+                        frametimer = frameinterval;
+                        frame++;
+                        railSource.Y = (frame % 10) * 64;
+                    }
+                }
             }
 
 
@@ -239,7 +239,7 @@ namespace LethalWeapon
             }
             if (currentWeapon == 2)
             {
-                sb.Draw(railgunOnGround, new Vector2(position.X, position.Y), null, Color.White, weaponRotation, railOrigin, weaponScale, SpriteEffects.None, 0f);
+                sb.Draw(texture, new Vector2(position.X, position.Y), railSource, Color.White, weaponRotation, railOrigin, weaponScale, SpriteEffects.None, 0f);
             }
             else if (hasTwoWeapons == false)
             {
