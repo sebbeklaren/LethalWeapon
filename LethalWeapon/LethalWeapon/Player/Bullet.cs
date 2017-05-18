@@ -27,6 +27,7 @@ namespace LethalWeapon
         public float bulletRotation;
         public float startRotation;
         public bool shotFired = false;
+
         public Bullet(Texture2D texture)
         {
             this.texture = texture;
@@ -38,23 +39,28 @@ namespace LethalWeapon
         public void Update(Player player)
         {
             currentBullet = 2;
+
             if (shotFired == false)
             {
                 position = bulletStartingPosition + new Vector2(16, 24);
                 bulletRotation = startRotation;
             }
+
             if (position == player.Position + new Vector2(16, 24))
             {
                 shotFired = true;
                 bulletDestination = player.AimPosition - player.Position;
             }
+
             if (shotFired == true)
             {
                 position += Vector2.Normalize(bulletDestination) * speed;
             }
+
             hitBox.X = (int)position.X;
             hitBox.Y = (int)position.Y;
         }
+
         public void Draw(SpriteBatch sb)
         {
             //if (currentBullet == 1)
