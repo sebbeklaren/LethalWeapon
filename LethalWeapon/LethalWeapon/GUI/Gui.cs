@@ -41,24 +41,19 @@ namespace LethalWeapon
             {
                 activeWeaponTex = TextureManager.Weapon01Texture;
             }
-
             if (weapon.currentWeapon == 2)
             {
                 activeWeaponTex = TextureManager.Weapon02IconTexture;
             }
-
             int healthMultiplier = 100;
             healthPosition = cameraPosition;
             activeWeaponBorderPosition = cameraPosition;
-
             health = (player.PlayerCurrentHealth / player.PlayerMaxHealth) * healthMultiplier;
             energy = (player.PlayerCurrentEnergi / player.PlayerMaxEnergi) * healthMultiplier;
-
             healthRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     (int)health, healtBarTexture.Height / 4);
             energyRect = new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
                     (int)energy, healtBarTexture.Height / 4);
-
             activeWeaponBorderRect = new Rectangle((int)activeWeaponBorderPosition.X - activeWeaponBorderOffsetX,
             (int)activeWeaponBorderPosition.Y - activeWeaponBorderOffsetY, activeWeaponBorderTex.Width,
                     activeWeaponBorderTex.Height);
@@ -68,9 +63,9 @@ namespace LethalWeapon
         {
             int borderOffset = 3;
             int heightOffset = 4;
-
             sb.Draw(healtBarTexture, healthRect, Color.White);
             sb.Draw(energyBarTexture, energyRect, Color.White);
+
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + healthBarOffset,
                     healtBarTexture.Width / 4 + borderOffset, healtBarTexture.Height / heightOffset), Color.White);
             sb.Draw(borderTexture, new Rectangle((int)healthPosition.X, (int)healthPosition.Y + energyBarOffset,
