@@ -31,8 +31,7 @@ namespace LethalWeapon
                 position += 2 * Vector2.Normalize(bulletDestination);
                 hitBox.X = (int)position.X;
                 hitBox.Y = (int)position.Y;
-            }
-            
+            }     
         }
 
         public void DrawEnemyBullet(SpriteBatch spriteBatch)

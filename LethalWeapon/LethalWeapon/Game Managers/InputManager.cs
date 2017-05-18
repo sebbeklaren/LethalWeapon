@@ -16,6 +16,7 @@ namespace LethalWeapon
         public MouseState mousePosOld, mousePosNew;
         public GamePadState gamePadState;    
         public bool vibrate;    
+
         public InputManager()
         {
         }
@@ -48,8 +49,8 @@ namespace LethalWeapon
                 {
                     //GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
                 }
-
             }
+
             else
             {
                 isConnected = false;
