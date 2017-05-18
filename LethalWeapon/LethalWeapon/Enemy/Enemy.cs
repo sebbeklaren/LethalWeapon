@@ -27,7 +27,8 @@ namespace LethalWeapon
         protected int direction;
         protected bool isMoving;
         protected int distanceLimit;
-        protected int aggroRange;       
+        protected int aggroRange;
+        public int damageTaken;     
         protected int minDistanceToPlayer;
         protected bool enemyTooCloseToPlayer;
         protected bool enemyIsNearPlayer;

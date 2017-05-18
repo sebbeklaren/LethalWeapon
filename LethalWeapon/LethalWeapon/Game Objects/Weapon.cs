@@ -202,7 +202,7 @@ namespace LethalWeapon
                 {
                     if (e.HitBox.Intersects(b.HitBox))
                     {
-                        e.weaponDamage = damage;
+                        e.damageTaken = damage;
                         e.TakeDamage();
                         shotRemoved = true;
                     }
