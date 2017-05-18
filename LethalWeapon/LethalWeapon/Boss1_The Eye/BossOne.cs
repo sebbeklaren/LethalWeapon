@@ -254,8 +254,8 @@ namespace LethalWeapon
             //träff mellan misiler och player
             for (int i = 0; i < missileList.Count; i++)
             {
-                if (player.playerHitboxVertical.Intersects(missileList[i].hitBox)
-                    && missileList.Count >= 1)
+                if (player.playerHitboxVertical.Intersects(missileList[i].hitBox )
+                    && missileList.Count >= 1 && !player.isDodging)
                 {
                     missileList.Remove(missileList[i]);
                    player.PlayerCurrentHealth -= 20;
@@ -267,7 +267,8 @@ namespace LethalWeapon
                 int playerHitOffsetX = 16;
                 int playerHitOffsetY = 24;
                 int distancePlayerBullets = 20;
-                if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets && bulletList.Count >= 1)
+                if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets 
+                    && bulletList.Count >= 1 && !player.isDodging)
                 {
                     bulletList.Remove(bulletList[i]);
                     player.PlayerCurrentHealth -= 10;
@@ -288,7 +289,7 @@ namespace LethalWeapon
             {
                 for (int j = 0; j < laserList[i].beemList.Count; j++)
                 {
-                    if (Vector2.Distance(laserList[i].beemList[j], player.position) <= 30)
+                    if (Vector2.Distance(laserList[i].beemList[j], player.position) <= 30 && !player.isDodging)
                     {
                         input.vibrate = true;
                         player.PlayerCurrentHealth -= 1;
