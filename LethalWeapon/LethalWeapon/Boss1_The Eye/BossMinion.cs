@@ -98,9 +98,9 @@ namespace LethalWeapon
                     position.Y = 1;
                     minionDirection = new Vector2(0, 0.5f);
                 }
-                if (position.X >= 1024)
+                if (position.X >= 991)
                 {
-                    position.X = 991;
+                    position.X = 990;
                     minionDirection = new Vector2(-0.5f, 0);
                 }
                 if (position.X <= 0)

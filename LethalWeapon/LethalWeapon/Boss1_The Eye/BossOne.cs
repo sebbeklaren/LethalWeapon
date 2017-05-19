@@ -14,6 +14,7 @@ namespace LethalWeapon
         Vector2 bossVelocity;
         Rectangle bossRect, hitBox, checkForLaserRect;
         Texture2D missileTexture, bulletTexture, laserTexture;
+        RandomNumbers random;
         Missile missile;
         BossOneBullets bullet;
         BossLaser bossLaser;
@@ -60,12 +61,13 @@ namespace LethalWeapon
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(bossStartVelocityX, bossStartVelocityY);
             BossCurrentHealth = 500;
-          
+            random = new RandomNumbers();
 
         }
 
         public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
         {
+            random.Update();
             //if (minionList.Count <= 2)
             //{
                 CreateMinion(player, gameTime);
@@ -90,10 +92,10 @@ namespace LethalWeapon
                 {
                     insideLaserRect = false;
                 }
-               // LaserAway(gameTime, player);
+                //LaserAway(gameTime, player);
                 //MissileAway(gameTime, player);
-                //BulletAway(gameTime, player);                
-               // Movement();                
+                //BulletAway(gameTime, player);
+                //Movement();
                 SoundManager.BossAmbientHover.Play();
             }
             else if(!bossIsAlive)
@@ -413,11 +415,11 @@ namespace LethalWeapon
                 laserList.Add(bossLaser);
             }
         }
-        private void RandomDirection()
-        {
-            randomSelect = new Random();
-            randSelect = randomSelect.Next(0, 100);
-        }
+        //private void RandomDirection()
+        //{
+        //    randomSelect = new Random();
+        //    randSelect = randomSelect.Next(0, 100);
+        //}
         public void CreateMinion(Player player, GameTime gameTime)
         {
             minionTimer += gameTime.ElapsedGameTime.TotalSeconds;
@@ -429,9 +431,9 @@ namespace LethalWeapon
             {
                 for (int i = 1; i <= 1; i++)
                 {
-                    RandomDirection();
-                    Vector2 minionStartPos = new Vector2(100 * i, 400);
-                    minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, player.position, randSelect);
+                    random.RandomDirection();
+                    Vector2 minionStartPos = new Vector2(random.posX, random.posY);
+                    minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, player.position, random.randDirect);
                     minionList.Add(minion);
                 }
             }
