@@ -69,7 +69,7 @@ namespace LethalWeapon
             enemyIsNearPlayer = false;
             hasCorrectStartingPosition = true;
             isAlive = true;
-            EnemyMaxHealth = 10;
+            EnemyMaxHealth = 100;
             EnemyCurrentHealth = EnemyMaxHealth;
             bulletTexture = TextureManager.Bullet01Texture;
             canShoot = true;
@@ -204,7 +204,7 @@ namespace LethalWeapon
 
         public void TakeDamage()
         {
-            EnemyCurrentHealth -= 50;
+            EnemyCurrentHealth -= damageTaken;
         }
 
         protected void HasDied()
