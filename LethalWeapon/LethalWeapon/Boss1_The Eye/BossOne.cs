@@ -41,6 +41,9 @@ namespace LethalWeapon
         bool laserHasFired;
         double toCloseTimer = 0;
         double minionTimer = 0;
+        double minionListTimer = 0;
+        int maxMinions = 0;
+
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
         {
@@ -68,10 +71,16 @@ namespace LethalWeapon
         public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
         {
             random.Update();
-            //if (minionList.Count <= 2)
-            //{
+            minionListTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            if (maxMinions <= 5)
+            {
                 CreateMinion(player, gameTime);
-          //  }
+                minionListTimer = 0;
+            }
+            if(maxMinions >= 5 && minionListTimer >= 10)
+            {
+                maxMinions = 0;
+            }    
             input.Update();
             int healthBarMultiplier = 200;
             int healthRectOffset = 200;
@@ -92,10 +101,10 @@ namespace LethalWeapon
                 {
                     insideLaserRect = false;
                 }
-                //LaserAway(gameTime, player);
+                LaserAway(gameTime, player);
                 //MissileAway(gameTime, player);
                 //BulletAway(gameTime, player);
-                //Movement();
+                Movement();
                 SoundManager.BossAmbientHover.Play();
             }
             else if(!bossIsAlive)
@@ -142,6 +151,7 @@ namespace LethalWeapon
                 projectile.Update(player.position, gameTime);
             }
         }
+
         private void BulletAway(GameTime gameTime, Player player)
         {            
             elapsedBulletTime += gameTime.ElapsedGameTime.TotalSeconds;
@@ -158,9 +168,9 @@ namespace LethalWeapon
                 bullets.Update(gameTime);
             }
         }
+
         private void LaserAway(GameTime gameTime, Player player)
-        {
-            
+        {            
             toCloseTimer -= gameTime.ElapsedGameTime.TotalSeconds;
             //räkna ut när den ska skjuta öaser och när den inte ska göra det
             if (insideLaserRect && !laserHasFired && toCloseTimer <= 0)
@@ -316,6 +326,18 @@ namespace LethalWeapon
                     }
                 }
             }
+            //
+            for(int i = 0; i < minionList.Count; i++)
+            {
+                for(int j = 0; j < weapon.bullets.Count; j++)
+                {
+                    if(minionList[i].HitBox.Intersects(weapon.bullets[j].HitBox) && minionList.Count >= 1)
+                    {
+                        minionList.Remove(minionList[i]);
+                        weapon.bullets.Remove(weapon.bullets[j]);
+                    }
+                }
+            }
             
             if (BossCurrentHealth <= 0)
             {
@@ -415,11 +437,6 @@ namespace LethalWeapon
                 laserList.Add(bossLaser);
             }
         }
-        //private void RandomDirection()
-        //{
-        //    randomSelect = new Random();
-        //    randSelect = randomSelect.Next(0, 100);
-        //}
         public void CreateMinion(Player player, GameTime gameTime)
         {
             minionTimer += gameTime.ElapsedGameTime.TotalSeconds;
@@ -427,18 +444,17 @@ namespace LethalWeapon
             {
                 minionTimer = 0;
             }
-             if(minionTimer <=0)
+             if(minionTimer <=0 && minionList.Count <= 4)
             {
                 for (int i = 1; i <= 1; i++)
                 {
                     random.RandomDirection();
                     Vector2 minionStartPos = new Vector2(random.posX, random.posY);
                     minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, player.position, random.randDirect);
-                    minionList.Add(minion);
+                    minionList.Add(minion);                   
                 }
-            }
-            
-            
+                maxMinions++;
+            }        
         }
     }
 }

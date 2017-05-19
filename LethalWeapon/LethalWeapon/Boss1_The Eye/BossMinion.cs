@@ -8,9 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace LethalWeapon
 {
     class BossMinion : GameObject
-    {
-        Random randomPositive, randomNegative, randomSelect;
-        int randPositive, randNegative, randSelect;
+    {       
+        int randSelect;
         Vector2 minionDirection, aimVector, difference;
         protected Rectangle hitBox, minionPosRect, drawtRect;
         Texture2D animationTexture;
@@ -41,7 +40,7 @@ namespace LethalWeapon
             this.animationTexture = animationTexture;
             this.randSelect = randSelect;
             MinionCurrentHealth = minionMaxHealth;
-           // RandomDirection();
+           
             if (randSelect <= 25)
             {
                 minionDirection = new Vector2(0, 0.5f);
@@ -85,7 +84,6 @@ namespace LethalWeapon
 
         private void Movement()
         {
-           // RandomDirection();
             if (teleportDone)
             {                
                 if(position.Y >= 736)
@@ -111,11 +109,6 @@ namespace LethalWeapon
                 position += minionDirection;
             }
         }
-        //private void RandomDirection()
-        //{
-        //    randomSelect = new Random();
-        //    randSelect = randomSelect.Next(0, 100);
-        //}
 
         private void Fire()
         {
