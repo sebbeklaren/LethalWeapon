@@ -15,6 +15,7 @@ namespace LethalWeapon
         Rectangle weaponHitbox;
         Rectangle railgunHitbox;
         Rectangle uziHitbox;
+        Rectangle uziSource;
         Rectangle railSource;
         private int frame;
         double frameinterval = 30, frametimer = 30;
@@ -66,10 +67,10 @@ namespace LethalWeapon
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
             railOrigin = new Vector2(railgunTexture.Bounds.Center.X / 2, railgunTexture.Bounds.Center.Y / 10);
             //railOrigin = new Vector2(railgunOnGround.Bounds.Center.X / 2, railgunOnGround.Bounds.Center.Y);
-            shotSpeed = 300;
             uziHitbox = new Rectangle((int)uziPos.X, (int)uziPos.Y, uziTexture.Width, uziTexture.Height);
             railgunHitbox = new Rectangle((int)railPos.X, (int)railPos.Y, railgunTexture.Width, railgunTexture.Height);
             railSource = new Rectangle(0, 64, 64, 64);
+            uziSource = new Rectangle(0, 0, 34, 34);
         }
 
         public void checkWeapon(Player player) // Kollar vilken av vapnena som spelaren plockade upp
@@ -80,9 +81,9 @@ namespace LethalWeapon
             }
             if (player.playerHitboxVertical.Intersects(uziHitbox) || currentWeapon == 1)
             {
-                damage = 10;
                 prevWeapon = 2;
                 currentWeapon = 1;
+                shotSpeed = 300;
                 //uziPos = position;
                 texture = uziTexture;
                 playerHasWeapon = true;
@@ -91,9 +92,9 @@ namespace LethalWeapon
             }
             if (player.playerHitboxVertical.Intersects(railgunHitbox) || currentWeapon == 2)
             {
-                damage = 30;
                 prevWeapon = 1;
                 currentWeapon = 2;
+                shotSpeed = 1200;
                 //railPos = position;
                 texture = railgunTexture;
                 playerHasWeapon = true;
@@ -174,12 +175,20 @@ namespace LethalWeapon
                     canShot = true;
                     shotTimer = 0;
                 }
+                if(currentWeapon == 1)
+                {
+                    damage = 10;
+                }
+                else if (currentWeapon == 2)
+                {
+                    damage = 40;
+                }
                 animationTime = 0;
-                    Bullet b = new Bullet(bulletTexture);
-                    b.bulletStartingPosition = player.Position;
-                    b.startRotation = weaponRotation;
-                    bullets.Add(b);
-                    SoundManager.Bullet01Sound.Play();
+                Bullet b = new Bullet(bulletTexture);
+                b.bulletStartingPosition = player.Position;
+                b.startRotation = weaponRotation;
+                bullets.Add(b);
+                SoundManager.Bullet01Sound.Play();
                 //if( currentWeapon == 2)
                 //{
                 //    Bullet b = new Bullet(lazerTexture);
@@ -231,7 +240,7 @@ namespace LethalWeapon
         {
             if (currentWeapon == 1)
             {               
-                sb.Draw(texture, position, null, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
+                sb.Draw(texture, uziPos, uziSource, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
             }
             else if (hasTwoWeapons == false)
             {
@@ -239,7 +248,7 @@ namespace LethalWeapon
             }
             if (currentWeapon == 2)
             {
-                sb.Draw(texture, new Vector2(position.X, position.Y), railSource, Color.White, weaponRotation, railOrigin, weaponScale, SpriteEffects.None, 0f);
+                sb.Draw(texture, railPos, railSource, Color.White, weaponRotation, railOrigin, weaponScale, SpriteEffects.None, 0f);
             }
             else if (hasTwoWeapons == false)
             {

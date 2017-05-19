@@ -96,8 +96,8 @@ namespace LethalWeapon
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
                     position.X += speed;
             }
+                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePadState.Triggers.Left > 0 && PlayerCurrentEnergi >= 20) //Kommentera bort sista vilkoret för tangentbord ska funka korrekt
 
-                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePadState.Triggers.Left == 1 && PlayerCurrentEnergi >= 20)
                     {
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
@@ -112,7 +112,9 @@ namespace LethalWeapon
                 hitTimer += gameTime.ElapsedGameTime.TotalSeconds;
             }
 
+
             if (dodgeTimer > 300 /*|| input.gamePadState.Triggers.Left <= 0*/)
+
             {
                 speed = 4.0f;
                 isDodging = false;
