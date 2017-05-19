@@ -43,6 +43,11 @@ namespace LethalWeapon
         protected float shotTimer;
         protected bool canShoot;
 
+        protected Vector2 moveAwayFromEnemyDestination;
+        protected bool movingAwayFromEnemy;
+        protected float moveAwayFromEnemyTimer;
+        protected float moveAwayFromEnemyInterval;
+
         public double EnemyCurrentHealth
         {
             get; set;
@@ -68,21 +73,34 @@ namespace LethalWeapon
             enemyTooCloseToPlayer = false;
             enemyIsNearPlayer = false;
             hasCorrectStartingPosition = true;
+
             isAlive = true;
             EnemyMaxHealth = 100;
             EnemyCurrentHealth = EnemyMaxHealth;
+
             bulletTexture = TextureManager.Bullet01Texture;
             canShoot = true;
             shotInterval = 1000;
             shotTimer = shotInterval;
+
+            movingAwayFromEnemy = false;
+            moveAwayFromEnemyInterval = 250;
+            moveAwayFromEnemyTimer = moveAwayFromEnemyInterval;
         }
 
         public void Update(Player player, GameTime gameTime)
         {
-            Movement();
+            if (!movingAwayFromEnemy)
+            {
+                Movement();
 
-            IsPlayerNear(player);
-            IsTooCloseToPlayer(player);
+                IsPlayerNear(player);
+                IsTooCloseToPlayer(player);
+            }
+            else
+            {
+                MoveAwayFromEnemy(gameTime);
+            }
 
             if (enemyIsNearPlayer && !enemyTooCloseToPlayer)
                 MoveTowardsPlayer(player); //Flyttar fienden närmare spelaren
@@ -162,6 +180,7 @@ namespace LethalWeapon
                 isMoving = true;
             }
 
+            //Kollar om fienden har gått max range från startpositionen. Om detta är sant vänder den håll
             if (position.X >= startingPosition.X + distanceLimit || position.X <= startingPosition.X - distanceLimit
                 || position.Y >= startingPosition.Y + distanceLimit || position.Y <= startingPosition.Y - distanceLimit)
                 speed *= -1;
@@ -176,7 +195,7 @@ namespace LethalWeapon
             }
         }
 
-        private void IsPlayerNear(Player player) 
+        private void IsPlayerNear(Player player)  //Om spelaren är inom x pixlar börjar fienden gå mot spelaren
         {
             if (Vector2.Distance(player.Position, position) <= aggroRange)
             {
@@ -196,8 +215,8 @@ namespace LethalWeapon
             position += Vector2.Normalize(destination);
         }
 
-        private void MakeNewStartingPosition()
-        {
+        private void MakeNewStartingPosition() //När spelaren går utanför fiendens "chase range" 
+        {                                      //får fienden en ny startposition
             startingPosition = position;
             hasCorrectStartingPosition = true;
         }
@@ -221,7 +240,7 @@ namespace LethalWeapon
                 enemyTooCloseToPlayer = false;
         }
 
-        protected void IsInShootingRange(Player player)
+        protected void IsInShootingRange(Player player) //Är spelaren inom skotthåll skjuts ett skott mot hen
         {
             if(Vector2.Distance(player.Position, position) <= attackRange)
             {
@@ -235,6 +254,24 @@ namespace LethalWeapon
             enemyBulletList.Add(tempBullet);
             canShoot = false;
             shotTimer = shotInterval;
+        }
+
+        public void EnemyTooClose(Vector2 destination)
+        {
+            moveAwayFromEnemyDestination = destination;
+            movingAwayFromEnemy = true;
+            moveAwayFromEnemyTimer = moveAwayFromEnemyInterval;
+        }
+
+        protected void MoveAwayFromEnemy(GameTime gameTime) //Flyttar fienden bort från den andra fienden under x millisekunder
+        {
+            if (moveAwayFromEnemyTimer > 0)
+            {
+                moveAwayFromEnemyTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                position += Vector2.Normalize(moveAwayFromEnemyDestination);
+            }
+            else
+                movingAwayFromEnemy = false;
         }
     }
 }
