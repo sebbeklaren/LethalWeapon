@@ -18,6 +18,7 @@ namespace LethalWeapon
         BossOneBullets bullet;
         BossLaser bossLaser;
         BossMinion minion;
+        List<BossMinion> minionList = new List<BossMinion>();
         List<BossLaser> laserList = new List<BossLaser>();
         List<Missile> missileList = new List<Missile>();
         List<BossOneBullets> bulletList = new List<BossOneBullets>();
@@ -25,7 +26,8 @@ namespace LethalWeapon
         double timeMissileRight, timeMissileLeft;
         int screenHeight, screenWidth, randPosX, randPosY;
         double elapsedBulletTime = 0;
-        Random calculateRandomPos;
+        Random calculateRandomPos, randomSelect;
+        int randSelect;
         double bossMaxHealth = 500;
         bool bossIsAlive = true;
         protected Texture2D healtBarTexture, borderTexture;
@@ -37,7 +39,7 @@ namespace LethalWeapon
         bool insideLaserRect;
         bool laserHasFired;
         double toCloseTimer = 0;
-
+        double minionTimer = 0;
         public BossOne(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
         {
@@ -58,21 +60,26 @@ namespace LethalWeapon
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(bossStartVelocityX, bossStartVelocityY);
             BossCurrentHealth = 500;
-            Vector2 minionStartPos = new Vector2(100, 650);
-            minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, new Vector2(0,0));
+          
 
         }
 
         public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
         {
-            //CreateMinion(player);
+            //if (minionList.Count <= 2)
+            //{
+                CreateMinion(player, gameTime);
+          //  }
             input.Update();
             int healthBarMultiplier = 200;
             int healthRectOffset = 200;
             int healthRectHeightOffset = 4;
             healthPosition = cameraPosition;
             health = (BossCurrentHealth / bossMaxHealth) * healthBarMultiplier;
-            minion.Update(gameTime);
+            foreach (BossMinion minions in minionList)
+            {
+                minions.Update(gameTime);
+            }
             if (bossIsAlive)
             {
                 if (checkForLaserRect.Contains(player.playerHitboxVertical))
@@ -225,7 +232,10 @@ namespace LethalWeapon
             {
                 laserList[0].Draw(sb);
             }
-            minion.Draw(sb);
+            foreach (BossMinion minions in minionList)
+            {
+                minions.Draw(sb);
+            }
             int healtBarHeightOffset = 4;
             int borderWidthOffset = 200;
             sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, 
@@ -403,10 +413,30 @@ namespace LethalWeapon
                 laserList.Add(bossLaser);
             }
         }
-        //public void CreateMinion(Player player)
-        //{
-        //    Vector2 minionStartPos = new Vector2(100, 400);
-        //    minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, player.position);
-        //}
+        private void RandomDirection()
+        {
+            randomSelect = new Random();
+            randSelect = randomSelect.Next(0, 100);
+        }
+        public void CreateMinion(Player player, GameTime gameTime)
+        {
+            minionTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            if (minionTimer >= 3)
+            {
+                minionTimer = 0;
+            }
+             if(minionTimer <=0)
+            {
+                for (int i = 1; i <= 1; i++)
+                {
+                    RandomDirection();
+                    Vector2 minionStartPos = new Vector2(100 * i, 400);
+                    minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, player.position, randSelect);
+                    minionList.Add(minion);
+                }
+            }
+            
+            
+        }
     }
 }
