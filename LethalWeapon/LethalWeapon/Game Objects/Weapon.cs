@@ -68,7 +68,7 @@ namespace LethalWeapon
             railOrigin = new Vector2(railgunTexture.Bounds.Center.X / 2, railgunTexture.Bounds.Center.Y / 10);
             //railOrigin = new Vector2(railgunOnGround.Bounds.Center.X / 2, railgunOnGround.Bounds.Center.Y);
             uziHitbox = new Rectangle((int)uziPos.X, (int)uziPos.Y, uziTexture.Width, uziTexture.Height);
-            railgunHitbox = new Rectangle((int)railPos.X, (int)railPos.Y, railgunTexture.Width, railgunTexture.Height);
+            railgunHitbox = new Rectangle((int)railPos.X, (int)railPos.Y, railgunOnGround.Width, railgunOnGround.Height);
             railSource = new Rectangle(0, 64, 64, 64);
             uziSource = new Rectangle(0, 0, 34, 34);
         }
@@ -178,15 +178,25 @@ namespace LethalWeapon
                 if(currentWeapon == 1)
                 {
                     damage = 10;
+                    bulletTexture = TextureManager.Bullet01Texture;
                 }
                 else if (currentWeapon == 2)
                 {
                     damage = 40;
+                    bulletTexture = TextureManager.Bullet02Texture;
                 }
                 animationTime = 0;
                 Bullet b = new Bullet(bulletTexture);
                 b.bulletStartingPosition = player.Position;
                 b.startRotation = weaponRotation;
+                if(currentWeapon == 1)
+                {
+                    b.currentBullet = 1;
+                }
+                else if(currentWeapon == 2)
+                {
+                    b.currentBullet = 2;
+                }
                 bullets.Add(b);
                 SoundManager.Bullet01Sound.Play();
                 //if( currentWeapon == 2)
