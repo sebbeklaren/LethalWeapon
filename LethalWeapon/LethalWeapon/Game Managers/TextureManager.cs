@@ -13,6 +13,7 @@ namespace LethalWeapon
 
     public static class TextureManager
     {
+        public static Texture2D PauseMenuTexture { get; private set; }
         public static Texture2D MainMenuTexture { get; private set; }        
         public static Texture2D PlayerTexture { get; private set; }
         public static Texture2D EnemyTexture { get; private set; }
@@ -46,6 +47,7 @@ namespace LethalWeapon
         public static Texture2D BossMinion { get; private set; }
         public static void LoadTextures(ContentManager content)
         {
+            PauseMenuTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/pause");
             MainMenuTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/MainMenuWall");
             PlayerTexture = content.Load<Texture2D>(@"Textures/Player_Textures/HoodyBoy");
             EnemyTexture = content.Load<Texture2D>(@"Textures/Enemy_Textures/Cyclop");
