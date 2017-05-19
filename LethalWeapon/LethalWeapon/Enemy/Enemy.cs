@@ -48,6 +48,11 @@ namespace LethalWeapon
         protected float moveAwayFromEnemyTimer;
         protected float moveAwayFromEnemyInterval;
 
+        protected Vector2 moveAwayFromWallDestination;
+        protected bool movingAwayFromWall;
+        protected float moveAwayFromWallTimer;
+        protected float moveAwayFromWallInterval;
+
         public double EnemyCurrentHealth
         {
             get; set;
@@ -86,20 +91,30 @@ namespace LethalWeapon
             movingAwayFromEnemy = false;
             moveAwayFromEnemyInterval = 250;
             moveAwayFromEnemyTimer = moveAwayFromEnemyInterval;
+
+            movingAwayFromWall = false;
+            moveAwayFromWallInterval = 500;
+            moveAwayFromWallTimer = moveAwayFromWallInterval;
         }
 
         public void Update(Player player, GameTime gameTime)
         {
-            if (!movingAwayFromEnemy)
+            if (!movingAwayFromEnemy && !movingAwayFromWall)
             {
                 Movement();
 
                 IsPlayerNear(player);
                 IsTooCloseToPlayer(player);
             }
-            else
+
+            if(movingAwayFromEnemy)
             {
                 MoveAwayFromEnemy(gameTime);
+            }
+
+            if(movingAwayFromWall)
+            {
+                MoveAwayFromWall(gameTime);
             }
 
             if (enemyIsNearPlayer && !enemyTooCloseToPlayer)
@@ -272,6 +287,24 @@ namespace LethalWeapon
             }
             else
                 movingAwayFromEnemy = false;
+        }
+
+        public void WallTooClose(Vector2 destination)
+        {
+            moveAwayFromWallDestination = destination;
+            movingAwayFromWall = true;
+            moveAwayFromWallTimer = moveAwayFromWallInterval;
+        }
+
+        protected void MoveAwayFromWall(GameTime gameTime)
+        {
+            if (moveAwayFromWallTimer > 0)
+            {
+                moveAwayFromWallTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                position += Vector2.Normalize(moveAwayFromWallDestination);
+            }
+            else
+                movingAwayFromWall = false;
         }
     }
 }

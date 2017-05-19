@@ -161,6 +161,7 @@ namespace LethalWeapon
             killAllEnemies.UpdateKillAll(gameTime);
 
             CheckCollisionBetweenEnemies();
+            CheckEnemyWallCollision();
         }
 
         public void UpdateOverWorld(GameTime gameTime)
@@ -202,6 +203,24 @@ namespace LethalWeapon
                     {
                         enemyList[i].EnemyTooClose(enemyList[i].Position - enemyList[j].Position);
                         enemyList[j].EnemyTooClose(enemyList[j].Position - enemyList[i].Position);
+                    }
+                }
+            }
+        }
+
+        public void CheckEnemyWallCollision()
+        {
+            Vector2 tempWallPosition;
+            Vector2 tempEnemyOrigin;
+            foreach(Enemy e in enemyList)
+            {
+                tempEnemyOrigin = new Vector2(e.Position.X + 16, e.Position.Y + 32);
+                foreach (Rectangle wall in level.hitBoxWall)
+                {
+                    tempWallPosition = new Vector2(wall.X + 16, wall.Y + 16);                   
+                    if(Vector2.Distance(tempEnemyOrigin, tempWallPosition) < 17)
+                    {
+                        e.WallTooClose(e.Position - tempWallPosition);
                     }
                 }
             }
