@@ -45,6 +45,9 @@ namespace LethalWeapon
         public static Texture2D BossLaserTexture { get; private set; }
         public static Texture2D BossMinionTeleport { get; private set; }
         public static Texture2D BossMinion { get; private set; }
+        public static Texture2D MinionLaser { get; private set; }
+
+
         public static void LoadTextures(ContentManager content)
         {
             PauseMenuTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/pause");
@@ -80,7 +83,7 @@ namespace LethalWeapon
             BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet01");
             BossMinionTeleport = content.Load<Texture2D>(@"Textures/Boss1_Textures/TeleportAnimation");
             BossMinion = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossMinion");
-
+            MinionLaser = content.Load<Texture2D>(@"Textures/Boss1_Textures/MinionLaser");
         }        
     }
 }

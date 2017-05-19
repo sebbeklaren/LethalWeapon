@@ -89,7 +89,7 @@ namespace LethalWeapon
             health = (BossCurrentHealth / bossMaxHealth) * healthBarMultiplier;
             foreach (BossMinion minions in minionList)
             {
-                minions.Update(gameTime);
+                minions.Update(gameTime, player);
             }
             if (bossIsAlive)
             {
@@ -101,10 +101,10 @@ namespace LethalWeapon
                 {
                     insideLaserRect = false;
                 }
-                LaserAway(gameTime, player);
+               // LaserAway(gameTime, player);
                 //MissileAway(gameTime, player);
-                //BulletAway(gameTime, player);
-                Movement();
+               // BulletAway(gameTime, player);
+               // Movement();
                 SoundManager.BossAmbientHover.Play();
             }
             else if(!bossIsAlive)
@@ -326,7 +326,7 @@ namespace LethalWeapon
                     }
                 }
             }
-            //
+            //Träff minions playerbullets
             for(int i = 0; i < minionList.Count; i++)
             {
                 for(int j = 0; j < weapon.bullets.Count; j++)
@@ -340,8 +340,7 @@ namespace LethalWeapon
                         }
                     }
                 }
-            }
-            
+            }            
             if (BossCurrentHealth <= 0)
             {
                 bossIsAlive = false;
@@ -427,7 +426,8 @@ namespace LethalWeapon
 
             for (int i = 0; i <= 10; i++)
             {
-                bullet = new BossOneBullets(bulletTexture, new Vector2(bulletPosition.X , bulletPosition.Y), bulletRect, player, (bulletSpreadX * i), (bulletSpreadY * i));
+                bullet = new BossOneBullets(bulletTexture, new Vector2(bulletPosition.X , bulletPosition.Y), 
+                         bulletRect, player, (bulletSpreadX * i), (bulletSpreadY * i), new Vector2(0, -200), 1,1, false, true);
                 bulletList.Add(bullet);
             }
         }

@@ -10,9 +10,11 @@ namespace LethalWeapon
     class BossMinion : GameObject
     {       
         int randSelect;
-        Vector2 minionDirection, aimVector, difference;
-        protected Rectangle hitBox, minionPosRect, drawtRect;
-        Texture2D animationTexture;
+        Vector2 minionDirection, aimVector, difference, bulletPosition;
+        protected Rectangle hitBox, minionPosRect, drawtRect, playerDistanceRect, bulletRect;
+        Texture2D animationTexture, bulletTexture;
+        BossOneBullets bullets;
+        List<BossOneBullets> bulletList = new List<BossOneBullets>();
         public Rectangle HitBox
         {
             get { return hitBox; }
@@ -32,6 +34,7 @@ namespace LethalWeapon
         double teleDelayTime = 70;
         double minionDelayTime = 200;
         bool teleportDone = false;
+        bool closeToPlayer = false;
         public BossMinion(Texture2D animationTexture, Texture2D texture, Vector2 position, Rectangle sourceRect, Vector2 playerPos, int randSelect) : base(texture, position, sourceRect)
         {
             this.position = position;
@@ -39,6 +42,8 @@ namespace LethalWeapon
             this.aimVector = playerPos;
             this.animationTexture = animationTexture;
             this.randSelect = randSelect;
+            bulletTexture = TextureManager.MinionLaser;
+            bulletRect = new Rectangle(0, 0, 15, 15);
             MinionCurrentHealth = minionMaxHealth;
            
             if (randSelect <= 25)
@@ -60,18 +65,44 @@ namespace LethalWeapon
             
         }
         
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Player player)
         {
+            int playerDestRectOffset = 64;
+            int textureOffset = 5;
             Animate(gameTime);
-            Movement();
-            hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width / 5, texture.Height);
-            minionPosRect = new Rectangle((int)position.X, (int)position.Y, texture.Width / 5, texture.Height);
+            if (!closeToPlayer)
+            {
+                Movement();
+            }
+            else if(closeToPlayer)
+            {
+                Fire(player);
+            }
+            hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width / textureOffset, texture.Height);
+            minionPosRect = new Rectangle((int)position.X, (int)position.Y, texture.Width / textureOffset, texture.Height);
+            playerDistanceRect = new Rectangle((int)position.X - playerDestRectOffset, (int)position.Y - playerDestRectOffset, texture.Width, texture.Height * textureOffset);
 
-
-           
+            if(player.playerHitboxVertical.Intersects(playerDistanceRect))
+            {
+                closeToPlayer = true;
+            }
+            else
+            {
+                closeToPlayer = false;
+            }
+           for(int i = 0; i < bulletList.Count; i++)
+            {
+                bulletList[i].Update(gameTime);
+                if(bulletList[i].position.X <= 0 || bulletList[i].position.X >= 1024 || bulletList[i].position.Y <= 0 || bulletList[i].position.Y >= 768 || Vector2.Distance(bulletList[i].position, position) >= 130 )
+                {
+                    bulletList.Remove(bulletList[i]);
+                }                
+            }
         }
+
         public override void Draw(SpriteBatch sb)
         {
+            //sb.Draw(TextureManager.HealtBarTexture, new Vector2(playerDistanceRect.X, playerDistanceRect.Y), playerDistanceRect, Color.White);
             if (!teleportDone)
             {
                 sb.Draw(animationTexture, minionPosRect, drawtRect, Color.White);
@@ -79,6 +110,10 @@ namespace LethalWeapon
             else
             {
                 sb.Draw(texture, minionPosRect, drawtRect, Color.White);
+            }
+            foreach(BossOneBullets bullet in bulletList)
+            {
+                bullet.Draw(sb);
             }
         }
 
@@ -110,9 +145,18 @@ namespace LethalWeapon
             }
         }
 
-        private void Fire()
-        {
-
+        private void Fire(Player player)
+        {            
+            for(int i = 1; i <= 1; i++)
+            {
+                if (bulletList.Count <= 0)
+                {
+                    bullets = new BossOneBullets(bulletTexture, new Vector2(position.X + 16, position.Y + 16),
+                                            new Rectangle(0, 0, 15, 15), player, 12, 32, Vector2.Zero, 5, i, true, false);
+                    bulletList.Add(bullets);
+                }
+            }
+            
         }
 
         private void Animate(GameTime gameTime)
