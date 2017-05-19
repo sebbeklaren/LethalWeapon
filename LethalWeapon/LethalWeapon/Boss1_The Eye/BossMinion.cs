@@ -33,21 +33,30 @@ namespace LethalWeapon
         double teleDelayTime = 70;
         double minionDelayTime = 200;
         bool teleportDone = false;
-        public BossMinion(Texture2D animationTexture, Texture2D texture, Vector2 position, Rectangle sourceRect, Vector2 playerPos) : base(texture, position, sourceRect)
+        public BossMinion(Texture2D animationTexture, Texture2D texture, Vector2 position, Rectangle sourceRect, Vector2 playerPos, int randSelect) : base(texture, position, sourceRect)
         {
             this.position = position;
             this.texture = texture;
             this.aimVector = playerPos;
             this.animationTexture = animationTexture;
+            this.randSelect = randSelect;
             MinionCurrentHealth = minionMaxHealth;
-            RandomDirection();
-            if (randSelect >= 11)
+           // RandomDirection();
+            if (randSelect <= 25)
             {
                 minionDirection = new Vector2(0, 0.5f);
             }
-            else if(randSelect <= 10)
+            else if(randSelect >=26 && randSelect <= 50)
+            {
+                minionDirection = new Vector2(0, -0.5f);
+            }
+            else if(randSelect >= 51 && randSelect <= 75)
             {
                 minionDirection = new Vector2(-0.5f, 0);
+            }
+            else if(randSelect >= 76 && randSelect <= 100)
+            {
+                minionDirection = new Vector2(0.5f, 0);
             }
             
         }
@@ -76,7 +85,7 @@ namespace LethalWeapon
 
         private void Movement()
         {
-            RandomDirection();
+           // RandomDirection();
             if (teleportDone)
             {                
                 if(position.Y >= 736)
@@ -102,11 +111,11 @@ namespace LethalWeapon
                 position += minionDirection;
             }
         }
-        private void RandomDirection()
-        {
-            randomSelect = new Random();
-            randSelect = randomSelect.Next(0, 20);
-        }
+        //private void RandomDirection()
+        //{
+        //    randomSelect = new Random();
+        //    randSelect = randomSelect.Next(0, 100);
+        //}
 
         private void Fire()
         {
