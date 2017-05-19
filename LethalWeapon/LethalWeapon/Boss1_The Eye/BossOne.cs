@@ -331,10 +331,13 @@ namespace LethalWeapon
             {
                 for(int j = 0; j < weapon.bullets.Count; j++)
                 {
-                    if(minionList[i].HitBox.Intersects(weapon.bullets[j].HitBox) && minionList.Count >= 1)
+                    if (i <= minionList.Count - 1)
                     {
-                        minionList.Remove(minionList[i]);
-                        weapon.bullets.Remove(weapon.bullets[j]);
+                        if (minionList[i].HitBox.Intersects(weapon.bullets[j].HitBox) && minionList.Count >= 1)
+                        {
+                            minionList.Remove(minionList[i]);
+                            weapon.bullets.Remove(weapon.bullets[j]);
+                        }
                     }
                 }
             }
