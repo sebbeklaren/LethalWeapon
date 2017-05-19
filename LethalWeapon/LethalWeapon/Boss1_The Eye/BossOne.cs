@@ -17,6 +17,7 @@ namespace LethalWeapon
         Missile missile;
         BossOneBullets bullet;
         BossLaser bossLaser;
+        BossMinion minion;
         List<BossLaser> laserList = new List<BossLaser>();
         List<Missile> missileList = new List<Missile>();
         List<BossOneBullets> bulletList = new List<BossOneBullets>();
@@ -57,18 +58,21 @@ namespace LethalWeapon
             this.screenWidth = screenWidth;
             bossVelocity = new Vector2(bossStartVelocityX, bossStartVelocityY);
             BossCurrentHealth = 500;
-          
+            Vector2 minionStartPos = new Vector2(100, 650);
+            minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, new Vector2(0,0));
 
         }
 
         public void Update(Player player, GameTime gameTime, Weapon weapon, Vector2 cameraPosition)
         {
+            //CreateMinion(player);
             input.Update();
             int healthBarMultiplier = 200;
             int healthRectOffset = 200;
             int healthRectHeightOffset = 4;
             healthPosition = cameraPosition;
             health = (BossCurrentHealth / bossMaxHealth) * healthBarMultiplier;
+            minion.Update(gameTime);
             if (bossIsAlive)
             {
                 if (checkForLaserRect.Contains(player.playerHitboxVertical))
@@ -79,10 +83,10 @@ namespace LethalWeapon
                 {
                     insideLaserRect = false;
                 }
-                LaserAway(gameTime, player);
-                MissileAway(gameTime, player);
-                BulletAway(gameTime, player);                
-                Movement();                
+               // LaserAway(gameTime, player);
+                //MissileAway(gameTime, player);
+                //BulletAway(gameTime, player);                
+               // Movement();                
                 SoundManager.BossAmbientHover.Play();
             }
             else if(!bossIsAlive)
@@ -221,6 +225,7 @@ namespace LethalWeapon
             {
                 laserList[0].Draw(sb);
             }
+            minion.Draw(sb);
             int healtBarHeightOffset = 4;
             int borderWidthOffset = 200;
             sb.Draw(healtBarTexture, new Rectangle(healthRect.X + helthrectOffsetX, healthRect.Y - helthrectOffset, 
@@ -398,5 +403,10 @@ namespace LethalWeapon
                 laserList.Add(bossLaser);
             }
         }
+        //public void CreateMinion(Player player)
+        //{
+        //    Vector2 minionStartPos = new Vector2(100, 400);
+        //    minion = new BossMinion(TextureManager.BossMinionTeleport, TextureManager.BossMinion, minionStartPos, sourceRect, player.position);
+        //}
     }
 }

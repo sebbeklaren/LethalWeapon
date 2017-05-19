@@ -73,6 +73,7 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Boss1_The Eye\BossMinion.cs" />
     <Compile Include="GUI\Bar.cs" />
     <Compile Include="Boss1_The Eye\BossLaser.cs" />
     <Compile Include="Boss1_The Eye\BossOne.cs" />

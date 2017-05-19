@@ -41,8 +41,9 @@ namespace LethalWeapon
         public static Texture2D DesertTile { get; private set; }
         public static Texture2D DesertBackgroundTexture { get; private set; }
 
-        public static Texture2D BossLaserTexture { get; private set; }       
-
+        public static Texture2D BossLaserTexture { get; private set; }
+        public static Texture2D BossMinionTeleport { get; private set; }
+        public static Texture2D BossMinion { get; private set; }
         public static void LoadTextures(ContentManager content)
         {
             MainMenuTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/MainMenuWall");
@@ -75,7 +76,9 @@ namespace LethalWeapon
 
             PlayerAimTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/crosshair");
             BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet01");
-            
+            BossMinionTeleport = content.Load<Texture2D>(@"Textures/Boss1_Textures/TeleportAnimation");
+            BossMinion = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossMinion");
+
         }        
     }
 }
