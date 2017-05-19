@@ -159,6 +159,8 @@ namespace LethalWeapon
             CheckForCollision();
             //Texten i början
             killAllEnemies.UpdateKillAll(gameTime);
+
+            CheckCollisionBetweenEnemies();
         }
 
         public void UpdateOverWorld(GameTime gameTime)
@@ -188,6 +190,21 @@ namespace LethalWeapon
         public void DrawOverWorld(SpriteBatch spriteBatch)
         {
             overWorld.DrawOverWorld(spriteBatch);
+        }
+
+        public void CheckCollisionBetweenEnemies()
+        {
+            for(int i = 0; i < enemyList.Count - 1; i++)
+            {
+                for(int j = i + 1; j < enemyList.Count; j++)
+                {
+                    if(Vector2.Distance(enemyList[i].Position, enemyList[j].Position) < 50)
+                    {
+                        enemyList[i].EnemyTooClose(enemyList[i].Position - enemyList[j].Position);
+                        enemyList[j].EnemyTooClose(enemyList[j].Position - enemyList[i].Position);
+                    }
+                }
+            }
         }
     }
 }
