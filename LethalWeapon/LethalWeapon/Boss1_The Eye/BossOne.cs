@@ -103,7 +103,7 @@ namespace LethalWeapon
                 }
                // LaserAway(gameTime, player);
                 //MissileAway(gameTime, player);
-               // BulletAway(gameTime, player);
+                BulletAway(gameTime, player);
                // Movement();
                 SoundManager.BossAmbientHover.Play();
             }
@@ -290,12 +290,8 @@ namespace LethalWeapon
             }
             //träff mellan bossbullets och spelare
             for (int i = 0; i < bulletList.Count; i++)
-            {
-                int playerHitOffsetX = 16;
-                int playerHitOffsetY = 24;
-                int distancePlayerBullets = 20;
-                if (Vector2.Distance(bulletList[i].position, new Vector2(player.position.X + playerHitOffsetX, player.position.Y + playerHitOffsetY)) < distancePlayerBullets 
-                    && bulletList.Count >= 1 && !player.isDodging)
+            {               
+                if(bulletList[i].hitBox.Intersects(player.playerHitboxVertical))
                 {
                     bulletList.Remove(bulletList[i]);
                     player.PlayerCurrentHealth -= 10;
@@ -326,7 +322,7 @@ namespace LethalWeapon
                     }
                 }
             }
-            //Träff minions playerbullets
+            //Träff minions playerbullets player och minionslaser och player och minions
             for(int i = 0; i < minionList.Count; i++)
             {
                 for(int j = 0; j < weapon.bullets.Count; j++)
@@ -337,7 +333,7 @@ namespace LethalWeapon
                         {
                             minionList.Remove(minionList[i]);
                             weapon.bullets.Remove(weapon.bullets[j]);
-                        }
+                        }                                        
                     }
                 }
             }            

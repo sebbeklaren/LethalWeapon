@@ -161,15 +161,17 @@ namespace LethalWeapon
                         frametimer = frameinterval;
                         frame++;
                         railSource.Y = (frame % 10) * 64;
+                        
                     }
                 }
             }
-
-
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= shotSpeed || input.gamePadState.Triggers.Right > 0 && canShot == true && shotTimer >= shotSpeed
                  || input.mousePosOld.LeftButton == ButtonState.Released && input.mousePosNew.LeftButton == ButtonState.Pressed && shotTimer >= shotSpeed)
-
             {
+                if(weaponPickedUp)
+                {
+                    SoundManager.Bullet01Sound.Play();
+                }
                 if (shotTimer >= shotSpeed)
                 {
                     canShot = true;
@@ -198,7 +200,7 @@ namespace LethalWeapon
                     b.currentBullet = 2;
                 }
                 bullets.Add(b);
-                SoundManager.Bullet01Sound.Play();
+                
                 //if( currentWeapon == 2)
                 //{
                 //    Bullet b = new Bullet(lazerTexture);

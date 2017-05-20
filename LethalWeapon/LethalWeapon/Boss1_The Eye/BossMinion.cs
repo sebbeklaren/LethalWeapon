@@ -14,7 +14,7 @@ namespace LethalWeapon
         protected Rectangle hitBox, minionPosRect, drawtRect, playerDistanceRect, bulletRect;
         Texture2D animationTexture, bulletTexture;
         BossOneBullets bullets;
-        List<BossOneBullets> bulletList = new List<BossOneBullets>();
+        public List<BossOneBullets> bulletList = new List<BossOneBullets>();
         public Rectangle HitBox
         {
             get { return hitBox; }
@@ -45,7 +45,7 @@ namespace LethalWeapon
             bulletTexture = TextureManager.MinionLaser;
             bulletRect = new Rectangle(0, 0, 15, 15);
             MinionCurrentHealth = minionMaxHealth;
-           
+            //Ska göra så att minions börjar röra sig random håll när de spawnar
             if (randSelect <= 25)
             {
                 minionDirection = new Vector2(0, 0.5f);
@@ -61,8 +61,7 @@ namespace LethalWeapon
             else if(randSelect >= 76 && randSelect <= 100)
             {
                 minionDirection = new Vector2(0.5f, 0);
-            }
-            
+            }            
         }
         
         public void Update(GameTime gameTime, Player player)
@@ -70,14 +69,16 @@ namespace LethalWeapon
             int playerDestRectOffset = 64;
             int textureOffset = 5;
             Animate(gameTime);
+            //Om pleyer kommer nära ska minions stanna och börja skjuta            
             if (!closeToPlayer)
             {
                 Movement();
             }
-            else if(closeToPlayer)
+            else if(closeToPlayer && teleportDone)
             {
                 Fire(player);
             }
+            
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width / textureOffset, texture.Height);
             minionPosRect = new Rectangle((int)position.X, (int)position.Y, texture.Width / textureOffset, texture.Height);
             playerDistanceRect = new Rectangle((int)position.X - playerDestRectOffset, (int)position.Y - playerDestRectOffset, texture.Width, texture.Height * textureOffset);
@@ -90,19 +91,13 @@ namespace LethalWeapon
             {
                 closeToPlayer = false;
             }
-           for(int i = 0; i < bulletList.Count; i++)
-            {
-                bulletList[i].Update(gameTime);
-                if(bulletList[i].position.X <= 0 || bulletList[i].position.X >= 1024 || bulletList[i].position.Y <= 0 || bulletList[i].position.Y >= 768 || Vector2.Distance(bulletList[i].position, position) >= 130 )
-                {
-                    bulletList.Remove(bulletList[i]);
-                }                
-            }
+            CheckCollisions(gameTime, player);
         }
 
         public override void Draw(SpriteBatch sb)
         {
             //sb.Draw(TextureManager.HealtBarTexture, new Vector2(playerDistanceRect.X, playerDistanceRect.Y), playerDistanceRect, Color.White);
+            //sb.Draw(TextureManager.HealtBarTexture, new Vector2((int)position.X, (int)position.Y), hitBox, Color.White);
             if (!teleportDone)
             {
                 sb.Draw(animationTexture, minionPosRect, drawtRect, Color.White);
@@ -158,7 +153,22 @@ namespace LethalWeapon
             }
             
         }
-
+        private void CheckCollisions(GameTime gameTime, Player player)
+        {
+            for (int i = 0; i < bulletList.Count; i++)
+            {
+                bulletList[i].Update(gameTime);
+                if (bulletList[i].position.X <= 0 || bulletList[i].position.X >= 1024 || bulletList[i].position.Y <= 0 ||
+                    bulletList[i].position.Y >= 768 || Vector2.Distance(bulletList[i].position, position) >= 130 || player.playerHitboxVertical.Intersects(bulletList[i].hitBox) && bulletList.Count >= 1)
+                {
+                    if (player.playerHitboxVertical.Intersects(bulletList[i].hitBox))
+                    {
+                        player.PlayerCurrentHealth -= 5;
+                    }
+                    bulletList.Remove(bulletList[i]);
+                }
+            }
+        }
         private void Animate(GameTime gameTime)
         {
             elapsedTimeTele += gameTime.ElapsedGameTime.TotalMilliseconds;
