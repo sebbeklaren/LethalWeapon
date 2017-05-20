@@ -15,7 +15,7 @@ namespace LethalWeapon
     {
         public static Texture2D PauseMenuTexture { get; private set; }
         public static Texture2D MainMenuTexture { get; private set; }        
-        public static Texture2D PlayerTexture { get; private set; }
+        public static Texture2D PlayerIdleSpriteSheet { get; private set; }
         public static Texture2D EnemyTexture { get; private set; }
         public static Texture2D Weapon01Texture { get; private set; }
         public static Texture2D Weapon02TextureAnimated { get; private set; }
@@ -52,7 +52,7 @@ namespace LethalWeapon
         {
             PauseMenuTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/pause");
             MainMenuTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/MainMenuWall");
-            PlayerTexture = content.Load<Texture2D>(@"Textures/Player_Textures/HoodyBoy");
+            PlayerIdleSpriteSheet = content.Load<Texture2D>(@"Textures/Player_Textures/HoodyBoyIdleSpriteSheet");
             EnemyTexture = content.Load<Texture2D>(@"Textures/Enemy_Textures/Cyclop");
             Tileset01Texture = content.Load<Texture2D>(@"Textures/Tilesets/Tileset01");
             DesertTile = content.Load<Texture2D>(@"Textures/Tilesets/DesertTile");

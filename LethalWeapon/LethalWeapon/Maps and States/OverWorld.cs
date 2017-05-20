@@ -20,7 +20,7 @@ namespace LethalWeapon
         {
             this.game1 = game;
             overWorldTex = TextureManager.OverWorldtexture;
-            overWorldPlayerTex = TextureManager.PlayerTexture;
+            overWorldPlayerTex = TextureManager.PlayerIdleSpriteSheet;
             playerPos = new Vector2(500, 500);
             player = new Player(overWorldPlayerTex, playerPos, playerRect, 500, 500);
             tempEnemy = new Enemy(overWorldPlayerTex, new Vector2(1, 1) , new Rectangle(1, 1, 1, 1));

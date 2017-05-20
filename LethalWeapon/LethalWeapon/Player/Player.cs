@@ -28,6 +28,8 @@ namespace LethalWeapon
         public Vector2 position;
         public Texture2D texture;
 
+        Rectangle playerSourceRect;
+        public int playerFaceDirectionInt { get; set; }
 
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
@@ -61,6 +63,7 @@ namespace LethalWeapon
             
             this.texture = texture;
             this.position = position;
+            this.playerSourceRect = sourceRect;
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
             PlayerMaxHealth = 100;      
@@ -70,16 +73,18 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = TextureManager.PlayerAimTexture;            
+            aimTexture = TextureManager.PlayerAimTexture;
+                   
         }
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
             last = current;
             current = Keyboard.GetState();
+            PlayerTextureDirection();
 
-            playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width + 8, texture.Height - 24);
-            playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width/4 + 8, texture.Height - 24);
+            playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width/4, texture.Height);
             checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
             energiRegen(gameTime);
             if (canMove)
@@ -187,9 +192,24 @@ namespace LethalWeapon
                 canRegen = false;
             }
         }
+
+        public void PlayerTextureDirection()
+        {
+            playerSourceRect = new Rectangle(texture.Width / 4 * playerFaceDirectionInt, 0, texture.Width / 4, texture.Height);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+                playerFaceDirectionInt = 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+                playerFaceDirectionInt = 3;
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+                playerFaceDirectionInt = 1;
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+                playerFaceDirectionInt = 0;
+        }
+
         public override void Draw(SpriteBatch sb)
-        {            
-            sb.Draw(texture, position, Color.White);
+        {
+            sb.Draw(texture, position, playerSourceRect, Color.White);
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(-5,-5), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
             {

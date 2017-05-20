@@ -86,14 +86,14 @@ namespace LethalWeapon
                 if (player.playerHitboxVertical.Right >= wall.Left - wallLeftHitOffset && player.playerHitboxVertical.Right <= wall.Left &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Left - player.texture.Width - wallLeftPosOffset;
+                    player.position.X = wall.Left - player.texture.Width/4 - wallLeftPosOffset;
                     
                     player.canMove = false;
                 }
                 else if (player.playerHitboxVertical.Left <= wall.Right && player.playerHitboxVertical.Left >= wall.Right - wallRightHitOffset &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Right + player.texture.Width  - wallRightPosOffset;
+                    player.position.X = wall.Right + player.texture.Width/4  - wallRightPosOffset;
                     player.canMove = false;
                 }
                 else
