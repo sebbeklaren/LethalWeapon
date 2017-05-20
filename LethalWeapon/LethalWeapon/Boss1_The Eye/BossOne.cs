@@ -172,7 +172,7 @@ namespace LethalWeapon
         private void LaserAway(GameTime gameTime, Player player)
         {            
             toCloseTimer -= gameTime.ElapsedGameTime.TotalSeconds;
-            //räkna ut när den ska skjuta öaser och när den inte ska göra det
+            //räkna ut när den ska skjuta laser och när den inte ska göra det
             if (insideLaserRect && !laserHasFired && toCloseTimer <= 0)
             {
                 if (laserList.Count < 1)
@@ -291,7 +291,7 @@ namespace LethalWeapon
             //träff mellan bossbullets och spelare
             for (int i = 0; i < bulletList.Count; i++)
             {               
-                if(bulletList[i].hitBox.Intersects(player.playerHitboxVertical))
+                if(bulletList[i].hitBox.Intersects(player.playerHitboxVertical) && !player.isDodging)
                 {
                     bulletList.Remove(bulletList[i]);
                     player.PlayerCurrentHealth -= 10;

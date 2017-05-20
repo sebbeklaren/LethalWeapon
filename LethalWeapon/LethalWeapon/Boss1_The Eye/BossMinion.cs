@@ -161,7 +161,7 @@ namespace LethalWeapon
                 if (bulletList[i].position.X <= 0 || bulletList[i].position.X >= 1024 || bulletList[i].position.Y <= 0 ||
                     bulletList[i].position.Y >= 768 || Vector2.Distance(bulletList[i].position, position) >= 130 || player.playerHitboxVertical.Intersects(bulletList[i].hitBox) && bulletList.Count >= 1)
                 {
-                    if (player.playerHitboxVertical.Intersects(bulletList[i].hitBox))
+                    if (player.playerHitboxVertical.Intersects(bulletList[i].hitBox) && !player.isDodging)
                     {
                         player.PlayerCurrentHealth -= 5;
                     }
