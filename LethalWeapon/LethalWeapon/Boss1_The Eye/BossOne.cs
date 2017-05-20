@@ -101,10 +101,10 @@ namespace LethalWeapon
                 {
                     insideLaserRect = false;
                 }
-               // LaserAway(gameTime, player);
-                //MissileAway(gameTime, player);
+                LaserAway(gameTime, player);
+                MissileAway(gameTime, player);
                 BulletAway(gameTime, player);
-               // Movement();
+                Movement();
                 SoundManager.BossAmbientHover.Play();
             }
             else if(!bossIsAlive)
