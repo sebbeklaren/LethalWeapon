@@ -47,6 +47,7 @@ namespace LethalWeapon
         bool canShot = true;
         bool playerHasWeapon = false;
         bool hasTwoWeapons = false;
+        public bool flipVertical;
         double shotTimer;
         public List<Bullet> bullets = new List<Bullet>();
         public List<Bullet> lazers = new List<Bullet>();
@@ -109,8 +110,8 @@ namespace LethalWeapon
         }
 
         public void Update(Player player, List<Enemy> enemyList, Bullet bullet, Gui gui, GameTime gameTime, LevelManager level)
-
         {
+            FlipWeapon(player);
             frametimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
             input.Update();
             checkWeapon(player);
@@ -234,13 +235,33 @@ namespace LethalWeapon
                 }
             }
         }
-
+        private void FlipWeapon(Player player)
+        {
+            int aimPosOffset = 100;
+            if (player.AimPosition.X < player.position.X - aimPosOffset)
+            {
+                flipVertical = true;
+            }
+                
+            if (player.AimPosition.X > position.X + aimPosOffset)
+            {
+                flipVertical = false;
+            }
+        }
 
         public override void Draw(SpriteBatch sb)
         {
+
             if (currentWeapon == 1)
-            {               
-                sb.Draw(texture, uziPos, uziSource, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
+            {
+                if (flipVertical)
+                {
+                    sb.Draw(texture, uziPos, uziSource, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.FlipVertically, 0f);
+                }
+                if(!flipVertical)
+                {
+                    sb.Draw(texture, uziPos, uziSource, Color.White, weaponRotation, weaponOrigin, weaponScale, SpriteEffects.None, 0f);
+                }
             }
             else if (hasTwoWeapons == false)
             {

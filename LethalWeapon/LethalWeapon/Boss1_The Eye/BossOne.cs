@@ -379,6 +379,7 @@ namespace LethalWeapon
             if (bossVelocity.X == noValidSpeed && bossVelocity.Y== noValidSpeed)
             {
                 Random(-2, 2);
+                bossVelocity = new Vector2(randPosX, randPosY);
                 position += bossVelocity;
             }
 
