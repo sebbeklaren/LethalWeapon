@@ -154,7 +154,7 @@ namespace LethalWeapon
             
         }
         private void CheckCollisions(GameTime gameTime, Player player)
-        {
+        {            
             for (int i = 0; i < bulletList.Count; i++)
             {
                 bulletList[i].Update(gameTime);

@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LethalWeapon
 {
     class Enemy : GameObject
     {
+        SoundEffect effect;
+        SoundEffectInstance effectInstacne;
         protected Rectangle hitBox;
         public Rectangle HitBox
         {
@@ -66,6 +69,8 @@ namespace LethalWeapon
         public Enemy(Texture2D texture, Vector2 position, Rectangle sourceRect)
             : base(texture, position, sourceRect)
         {
+            effect = SoundManager.RobotEnemy01;
+            effectInstacne = effect.CreateInstance();
             this.texture = texture;
             this.position = position;
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
@@ -218,7 +223,8 @@ namespace LethalWeapon
                 hasCorrectStartingPosition = false;
                 speed.X = 0;
                 speed.Y = 0;
-                SoundManager.RobotEnemy01.Play(); 
+                effectInstacne.Play();
+                
             }
             else
                 enemyIsNearPlayer = false;

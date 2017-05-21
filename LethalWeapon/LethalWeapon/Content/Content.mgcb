@@ -445,3 +445,9 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Boss1_Textures/MinionLaser.png
 
+#begin SoundEffects/Robot2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Robot2.wav
+

@@ -27,7 +27,7 @@ namespace LethalWeapon
             Bullet01Sound = content.Load<SoundEffect>(@"SoundEffects/Laser01");
             BossMissile = content.Load<SoundEffect>(@"SoundEffects/Missile");
             BossBullets = content.Load<SoundEffect>(@"SoundEffects/BossBulletSound");
-            RobotEnemy01 = content.Load<SoundEffect>(@"SoundEffects/Robot01");
+            RobotEnemy01 = content.Load<SoundEffect>(@"SoundEffects/Robot2");
             BossAmbientHum02 = content.Load<SoundEffect>(@"SoundEffects/BossAimbientHum02");
             BossAmbientHover = content.Load<SoundEffect>(@"SoundEffects/BossHoverHum");
 
