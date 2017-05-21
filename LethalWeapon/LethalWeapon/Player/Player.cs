@@ -213,7 +213,7 @@ namespace LethalWeapon
             sb.Draw(aimTexture, aimPosition, null, Color.White, 0, new Vector2(-5,-5), 1, SpriteEffects.None, 1f);
             if (playerIsHit == true)
             {
-                sb.Draw(texture, position, Color.Red);
+                sb.Draw(texture, position, playerSourceRect, Color.Red);
             }
         }    
     }

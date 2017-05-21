@@ -84,7 +84,6 @@ namespace LethalWeapon
                 prevWeapon = 2;
                 currentWeapon = 1;
                 shotSpeed = 300;
-                //uziPos = position;
                 texture = uziTexture;
                 playerHasWeapon = true;
                 uziHitbox = new Rectangle(0, 0, 0, 0);
@@ -95,7 +94,6 @@ namespace LethalWeapon
                 prevWeapon = 1;
                 currentWeapon = 2;
                 shotSpeed = 1200;
-                //railPos = position;
                 texture = railgunTexture;
                 playerHasWeapon = true;
                 railgunHitbox = new Rectangle(0, 0, 0, 0);
@@ -135,8 +133,6 @@ namespace LethalWeapon
                 input.vibrate = true;
                 int weaponOffsetX = 20;
                 int weaponOffsetY = 30;
-
-
                 position = new Vector2(player.Position.X + weaponOffsetX, player.Position.Y + weaponOffsetY);
                 dPos = player.AimPosition - position;
                 weaponRotation = (float)Math.Atan2(dPos.Y, dPos.X);
@@ -191,6 +187,7 @@ namespace LethalWeapon
                 Bullet b = new Bullet(bulletTexture);
                 b.bulletStartingPosition = player.Position;
                 b.startRotation = weaponRotation;
+                b.currentBullet = currentWeapon;
                 if(currentWeapon == 1)
                 {
                     b.currentBullet = 1;
@@ -200,15 +197,6 @@ namespace LethalWeapon
                     b.currentBullet = 2;
                 }
                 bullets.Add(b);
-                
-                //if( currentWeapon == 2)
-                //{
-                //    Bullet b = new Bullet(lazerTexture);
-                //    b.bulletStartingPosition = player.Position;
-                //    b.startRotation = weaponRotation;
-                //    bullets.Add(b);
-                //}
-
                 canShot = false;
             }
             else if(input.gamePadState.Triggers.Right <= 0)

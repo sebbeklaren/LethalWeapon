@@ -14,29 +14,45 @@ namespace LethalWeapon
     {
         public Texture2D texture;
         public Vector2 position;
-        public Rectangle lazerSource;
+        Vector2 aimPosition, origin, hitBoxPosition, difference;
+        public Rectangle bulletSource;
         public Rectangle hitBox;
         public Rectangle HitBox
         {
             get { return hitBox; }
         }
         public int speed;
+        public float bulletScale;
         public int currentBullet;
         public Vector2 bulletStartingPosition;
         public Vector2 bulletDestination;
+        public Vector2 bulletOrigin;
         public float bulletRotation;
         public float startRotation;
         public bool shotFired = false;
+        List<Rectangle> hitBoxList = new List<Rectangle>();
         public Bullet(Texture2D texture)
         {
             this.texture = texture;
             speed = 5;
             hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            lazerSource = new Rectangle(0, 0, 32, 32);
+            bulletSource = new Rectangle(0, 0, 10, 10);
         }
 
         public void Update(Player player)
         {
+            if (currentBullet == 1)
+            {
+                bulletOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y / 2);
+                bulletSource = new Rectangle(0, 0, 10, 10);
+                bulletScale = 1f;
+            }
+            if (currentBullet == 2)
+            {
+                bulletOrigin = new Vector2(texture.Bounds.Center.X, texture.Bounds.Center.Y);
+                bulletSource = new Rectangle(0, 0, 32, 32);
+                bulletScale = 2.5f;
+            }
             if (shotFired == false)
             {
                 position = bulletStartingPosition + new Vector2(16, 24);
@@ -56,14 +72,7 @@ namespace LethalWeapon
         }
         public void Draw(SpriteBatch sb)
         {
-            if (currentBullet == 1)
-            {
-                sb.Draw(texture, position, null, Color.White, bulletRotation, new Vector2(5, 5), 1, SpriteEffects.None, 0f);
-            }
-            else if (currentBullet == 2)
-            {
-                 sb.Draw(texture, position, lazerSource, Color.White, bulletRotation, new Vector2(5, 5), 1, SpriteEffects.None, 0f);
-            }
+                sb.Draw(texture, position, bulletSource, Color.White, bulletRotation, bulletOrigin, bulletScale, SpriteEffects.None, 0f);
         }
     }
 }

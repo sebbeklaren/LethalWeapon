@@ -60,7 +60,7 @@ namespace LethalWeapon
             OverWorldtexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/overworldmap");
             Weapon01Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Default_Weapon_Textures/Deagle2000");
             Bullet01Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Default_Weapon_Textures/Bullet");
-            Bullet02Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Lazeranimation");
+            Bullet02Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Lazer");
             Weapon02TextureAnimated = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railgunanimation");
             Weapon02Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railgun");
             Weapon02IconTexture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railicon");
