@@ -195,15 +195,16 @@ namespace LethalWeapon
 
         public void PlayerTextureDirection()
         {
+            int aimPosOffset = 100;
             playerSourceRect = new Rectangle(texture.Width / 4 * playerFaceDirectionInt, 0, texture.Width / 4, texture.Height);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.W) || aimPosition.Y < position.Y)
                 playerFaceDirectionInt = 2;
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.S) || aimPosition.Y > position.Y)
                 playerFaceDirectionInt = 3;
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.A) || aimPosition.X < position.X - aimPosOffset)
                 playerFaceDirectionInt = 1;
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.D) || aimPosition.X > position.X + aimPosOffset)
                 playerFaceDirectionInt = 0;
         }
 

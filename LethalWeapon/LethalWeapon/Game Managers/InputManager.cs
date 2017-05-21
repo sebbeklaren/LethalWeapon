@@ -15,7 +15,8 @@ namespace LethalWeapon
         public bool isConnected;
         public MouseState mousePosOld, mousePosNew;
         public GamePadState gamePadState, oldGamePadState;    
-        public bool vibrate, yIsPressed, startIsPressed;    
+        public bool vibrate, yIsPressed, startIsPressed;
+        public float rotation;  
 
         public InputManager()
         {
@@ -40,6 +41,8 @@ namespace LethalWeapon
 
                 aimDirection = gamePadState.ThumbSticks.Right;
                 aimDirection.Y *= -1;
+
+                rotation = -(float)Math.Atan2(gamePadState.ThumbSticks.Right.Y, gamePadState.ThumbSticks.Right.X);
                 
                 if (vibrate)
                 {
