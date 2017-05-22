@@ -65,6 +65,34 @@ namespace LethalWeapon
                 tempEnemyHealthBar = new Bar((int)tempEnemy.EnemyMaxHealth, 0);
                 enemyHealthBarList.Add(tempEnemyHealthBar);
             }
+
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 enemyPos = new Vector2(600 + (50 * i)/2, 550);
+                tempEnemy = new Enemy(TextureManager.EnemyTexture, enemyPos, sourceRect);
+                enemyList.Add(tempEnemy);
+                tempEnemyHealthBar = new Bar((int)tempEnemy.EnemyMaxHealth, 0);
+                enemyHealthBarList.Add(tempEnemyHealthBar);
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                Vector2 enemyPos = new Vector2(800 + (50 * i) / 2, 70);
+                tempEnemy = new Enemy(TextureManager.EnemyTexture, enemyPos, sourceRect);
+                enemyList.Add(tempEnemy);
+                tempEnemyHealthBar = new Bar((int)tempEnemy.EnemyMaxHealth, 0);
+                enemyHealthBarList.Add(tempEnemyHealthBar);
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 enemyPos = new Vector2(850 + (50 * i) / 2, 150);
+                tempEnemy = new Enemy(TextureManager.EnemyTexture, enemyPos, sourceRect);
+                enemyList.Add(tempEnemy);
+                tempEnemyHealthBar = new Bar((int)tempEnemy.EnemyMaxHealth, 0);
+                enemyHealthBarList.Add(tempEnemyHealthBar);
+            }
+
             weapon = new Weapon(TextureManager.Weapon01Texture, weaponPos, sourceRect);
             bullet = new Bullet(TextureManager.Bullet01Texture);
             bossOne = new BossOne(TextureManager.BossOneTexture, bossOnePos, sourceRect, screenWidth, screenHeight);           
