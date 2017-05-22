@@ -47,6 +47,11 @@ namespace LethalWeapon
         public static Texture2D BossMinion { get; private set; }
         public static Texture2D MinionLaser { get; private set; }
 
+        public static Texture2D PlayerWalkingRight { get; private set; }
+        public static Texture2D PlayerWalkingLeft { get; private set; }
+        public static Texture2D PlayerWalkingUp { get; private set; }
+        public static Texture2D PlayerWalkingDown { get; private set; }
+
         public static SpriteFont Font { get; private set; }
 
         public static void LoadTextures(ContentManager content)
@@ -79,6 +84,13 @@ namespace LethalWeapon
             KillAllEnemiesTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/KillAllEnemies");
             ExitMapTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/ExitMap");
             GameOverTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/Game Over");
+
+            PlayerWalkingDown = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyBackWalking");
+            PlayerWalkingUp = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyFrontWalking");
+            PlayerWalkingLeft = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyLeftWalking");
+            PlayerWalkingRight = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyRightWalking");
+
+
 
             PlayerAimTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/crosshair");
             BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet01");

@@ -30,6 +30,10 @@ namespace LethalWeapon
 
         Rectangle playerSourceRect;
         public int playerFaceDirectionInt { get; set; }
+        //double timePerFrame = 300; //Försök på att få det att funka
+        //double elapsedTime = 150;
+        //int frame = 0;
+
 
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
@@ -82,6 +86,8 @@ namespace LethalWeapon
             last = current;
             current = Keyboard.GetState();
             PlayerTextureDirection();
+          //  elapsedTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+         //   AnimateWalking(gameTime);
 
             playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width/4 + 8, texture.Height - 24);
             playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width/4, texture.Height);
@@ -207,6 +213,36 @@ namespace LethalWeapon
             if (Keyboard.GetState().IsKeyDown(Keys.D) || aimPosition.X > position.X + aimPosOffset)
                 playerFaceDirectionInt = 0;
         }
+
+        //public void AnimateWalking(GameTime gameTime) 
+        //{
+        //    if (elapsedTime <= 0)
+        //    {
+        //        if (Keyboard.GetState().IsKeyDown(Keys.W))
+        //        {
+        //            texture = TextureManager.PlayerWalkingUp;
+        //        }
+        //        else if(Keyboard.GetState().IsKeyDown(Keys.S))
+        //        {
+        //            texture = TextureManager.PlayerWalkingDown;
+        //        }
+        //        else if (Keyboard.GetState().IsKeyDown(Keys.A))
+        //        {
+        //            texture = TextureManager.PlayerWalkingLeft;
+        //        }
+        //        else if (Keyboard.GetState().IsKeyDown(Keys.D))
+        //        {
+        //            texture = TextureManager.PlayerWalkingRight;
+        //        }
+        //        else
+        //        {
+        //            texture = TextureManager.PlayerIdleSpriteSheet;
+        //        }
+        //        elapsedTime = timePerFrame;
+        //        frame++;
+        //        playerSourceRect.X = (frame % 4) * 32;
+        //    }
+        //}
 
         public override void Draw(SpriteBatch sb)
         {

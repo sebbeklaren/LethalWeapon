@@ -130,6 +130,18 @@
     <Content Include="Content\Textures\Player_Textures\HoodyBoyIdleSpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\Player_Textures\WalkingAnimation\HoodyBoyBackWalking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Player_Textures\WalkingAnimation\HoodyBoyFrontWalking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Player_Textures\WalkingAnimation\HoodyBoyLeftWalking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Player_Textures\WalkingAnimation\HoodyBoyRightWalking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\Temporary_Textures\desert_map.jpg" />
     <Content Include="Content\Textures\Boss1_Textures\BossBullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
