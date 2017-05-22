@@ -47,6 +47,7 @@ namespace LethalWeapon
         public static Texture2D BossMinion { get; private set; }
         public static Texture2D MinionLaser { get; private set; }
 
+        public static SpriteFont Font { get; private set; }
 
         public static void LoadTextures(ContentManager content)
         {
@@ -84,6 +85,7 @@ namespace LethalWeapon
             BossMinionTeleport = content.Load<Texture2D>(@"Textures/Boss1_Textures/TeleportAnimation");
             BossMinion = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossMinion");
             MinionLaser = content.Load<Texture2D>(@"Textures/Boss1_Textures/MinionLaser");
+            Font = content.Load<SpriteFont>(@"Fonts/font");
         }        
     }
 }

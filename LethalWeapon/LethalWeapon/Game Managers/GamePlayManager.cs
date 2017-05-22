@@ -12,6 +12,7 @@ namespace LethalWeapon
 {
     class GamePlayManager
     {
+        //private SpriteFont font;
         Player player;
         List<Enemy> enemyList = new List<Enemy>();
         Texture2D overWorldTex;
@@ -24,6 +25,7 @@ namespace LethalWeapon
         BossOne bossOne;        
         Rectangle sourceRect;
         LevelManager level;
+        InputManager input;
         string currentLevel;
         public Camera camera;
         Vector2 cameraOffset;
@@ -42,11 +44,13 @@ namespace LethalWeapon
         Vector2 playerPosition = new Vector2(250, 540);
         Vector2 weaponPos = new Vector2(100, 300);
         Vector2 bossOnePos = new Vector2(500, 300);
+        double elapsedGameTimeSeconds;       
+        double endTimeDisplay, endTimeSeconds;
         public GamePlayManager(GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice, Game1 game)
         {
             screenHeight = 32 * 24;
             screenWidth = 32 * 32;
-            
+            input = new InputManager();
             this.graphics = graphics;
             this.graphicsDevice = graphicsDevice;
             this.game = game;
@@ -82,12 +86,27 @@ namespace LethalWeapon
 
         public void Update(GameTime gameTime)
         {
+            input.Update();
             if (player.PlayerCurrentHealth <= 0)
-                isGameOver = true;                
+                isGameOver = true;
+            if (game.gameOn)
+            {
+                if (!bossOne.bossIsAlive)
+                {
+                    endTimeDisplay = elapsedGameTimeSeconds;
+                }
+                else
+                {
+                    elapsedGameTimeSeconds += gameTime.ElapsedGameTime.TotalSeconds;                    
+                    endTimeSeconds = Math.Round(elapsedGameTimeSeconds,2);
+                }
+               
+            }
         }
 
         public void DrawCityLevel(SpriteBatch spriteBatch)
-        {        
+        {
+            
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);            
             weapon.Draw(spriteBatch);
@@ -101,7 +120,8 @@ namespace LethalWeapon
             if (levelCleard)
             {
                 exitMap.ExitMapDraw(spriteBatch);
-            }            
+            }
+            spriteBatch.DrawString(TextureManager.Font, "Time:" + endTimeSeconds, new Vector2(gui.position.X - 200 , gui.position.Y - 150), Color.Red);
         }
 
         public void DrawRuinsLevel(SpriteBatch spriteBatch)
@@ -113,6 +133,7 @@ namespace LethalWeapon
             player.Draw(spriteBatch);
             weapon.Draw(spriteBatch);
             gui.Draw(spriteBatch);
+            spriteBatch.DrawString(TextureManager.Font, "Time:" + endTimeSeconds, new Vector2(gui.position.X - 200, gui.position.Y - 150), Color.Red);
         }
 
         public void UpdateRuinsLevel(GameTime gameTime)

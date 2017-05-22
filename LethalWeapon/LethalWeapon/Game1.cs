@@ -23,7 +23,7 @@ namespace LethalWeapon
         public bool boolOverWorld = false;
         public bool boolRuinslevel = false;
         public bool boolCityLevel = false;
-        bool gameOn;
+        public bool gameOn;
 
        public enum MusicState {  NotPlaying, Playing }
         public MusicState musicState;
@@ -210,8 +210,9 @@ namespace LethalWeapon
 
         public void DrawCurrentState(GameTime gameTime)
         {
-
+            
             spriteBatch.Begin();
+            
             if (currentGameState == GameState.MainMenu)
             {
                 mainMenu.DrawMainMenu(spriteBatch);

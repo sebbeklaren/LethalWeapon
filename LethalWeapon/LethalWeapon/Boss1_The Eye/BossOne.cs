@@ -30,7 +30,7 @@ namespace LethalWeapon
         Random calculateRandomPos, randomSelect;
         int randSelect;
         double bossMaxHealth = 500;
-        bool bossIsAlive = true;
+        public bool bossIsAlive = true;
         protected Texture2D healtBarTexture, borderTexture;
         protected Vector2 healthPosition;
         protected Rectangle healthRect;
@@ -111,7 +111,7 @@ namespace LethalWeapon
             {
                 bulletList.Clear();
                 missileList.Clear();
-                laserList.Clear();
+                laserList.Clear();                
                 SoundManager.BossAmbientHover.Dispose();              
             }
             int hitBoxOffset = 90;

@@ -10,7 +10,8 @@ namespace LethalWeapon
     class Gui
     {
         protected Texture2D healtBarTexture, energyBarTexture, borderTexture, activeWeaponBorderTex, activeWeaponTex;
-        protected Vector2 healthPosition, activeWeaponBorderPosition;        
+        protected Vector2 healthPosition, activeWeaponBorderPosition;
+        public Vector2 position;        
         protected Rectangle healthRect, energyRect, activeWeaponBorderRect;
         protected double health, energy;
         protected int healthBarOffset = 230;
@@ -37,6 +38,7 @@ namespace LethalWeapon
 
         public void Update(Vector2 cameraPosition, Player player, GameTime gameTime, Weapon weapon)
         {
+            
             if (weapon.currentWeapon == 1)
             {
                 activeWeaponTex = TextureManager.Weapon01Texture;
@@ -57,6 +59,7 @@ namespace LethalWeapon
             activeWeaponBorderRect = new Rectangle((int)activeWeaponBorderPosition.X - activeWeaponBorderOffsetX,
             (int)activeWeaponBorderPosition.Y - activeWeaponBorderOffsetY, activeWeaponBorderTex.Width,
                     activeWeaponBorderTex.Height);
+            position = new Vector2(healthPosition.X + 480, healthPosition.Y + 30 );
         }
 
         public virtual void Draw(SpriteBatch sb)

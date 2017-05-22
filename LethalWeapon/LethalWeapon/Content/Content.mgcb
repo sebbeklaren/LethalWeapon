@@ -451,3 +451,9 @@
 /processorParam:Quality=Best
 /build:SoundEffects/Robot2.wav
 
+#begin Fonts\font
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts\font
+
