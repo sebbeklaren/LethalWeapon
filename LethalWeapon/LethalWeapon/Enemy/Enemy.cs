@@ -77,7 +77,7 @@ namespace LethalWeapon
             startingPosition = position;
             isMoving = false;
             distanceLimit = 35;
-            aggroRange = 200;
+            aggroRange = 300;
             attackRange = 175;
             minDistanceToPlayer = 50;
             enemyTooCloseToPlayer = false;
@@ -85,7 +85,7 @@ namespace LethalWeapon
             hasCorrectStartingPosition = true;
 
             isAlive = true;
-            EnemyMaxHealth = 100;
+            EnemyMaxHealth = 50;
             EnemyCurrentHealth = EnemyMaxHealth;
 
             bulletTexture = TextureManager.Bullet01Texture;
