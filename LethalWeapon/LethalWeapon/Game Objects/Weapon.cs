@@ -78,7 +78,8 @@ namespace LethalWeapon
             }
             if (player.playerHitboxVertical.Intersects(uziHitbox) || currentWeapon == 1)
             {
-                prevWeapon = 2;
+                
+                prevWeapon = 2;                              
                 currentWeapon = 1;
                 shotSpeed = 300;
                 texture = uziTexture;
