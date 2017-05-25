@@ -37,9 +37,11 @@ namespace LethalWeapon
         public bool levelCleard = false;
         Game1 game;
         GameOver gameOver;
+        GameWon gameWon;
         HelpTextManager killAllEnemies, exitMap;
         Texture2D gameOverTex;
         public bool isGameOver = false;
+        public bool isGameWon = false;
         OverWorld overWorld;
         Vector2 playerPosition = new Vector2(250, 540);
         Vector2 weaponPos = new Vector2(100, 300);
@@ -107,6 +109,7 @@ namespace LethalWeapon
             graphics.PreferredBackBufferWidth = screenWidth;
             camera.Rotation = 0f;
             gameOver = new GameOver(gameOverTex);
+            gameWon = new GameWon(TextureManager.GameWonTexture);
             killAllEnemies = new HelpTextManager(player.position);
             exitMap = new HelpTextManager( player.position);
 
@@ -117,6 +120,10 @@ namespace LethalWeapon
             input.Update();
             if (player.PlayerCurrentHealth <= 0)
                 isGameOver = true;
+
+            if (!bossOne.bossIsAlive)
+                isGameWon = true;
+
             if (game.gameOn)
             {
                 if (!bossOne.bossIsAlive)
@@ -235,6 +242,11 @@ namespace LethalWeapon
         public void DrawGameOver(SpriteBatch spriteBatch)
         {
             gameOver.Draw(spriteBatch);
+        }
+
+        public void DrawGameWon(SpriteBatch spriteBatch)
+        {
+            gameWon.Draw(spriteBatch);
         }
 
         public void DrawOverWorld(SpriteBatch spriteBatch)

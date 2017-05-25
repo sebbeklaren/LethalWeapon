@@ -28,7 +28,7 @@ namespace LethalWeapon
        public enum MusicState {  NotPlaying, Playing }
         public MusicState musicState;
 
-       public enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver, Pause }
+       public enum GameState { MainMenu, CityLevel, RuinsLevel, OverWorld, GameOver, Pause, GameWon }
         public GameState currentGameState, lastGameState;
         
 
@@ -136,9 +136,15 @@ namespace LethalWeapon
             }
 
             gamePlayManager.Update(gameTime);
-
-            if (gamePlayManager.isGameOver)
-                currentGameState = GameState.GameOver;
+            if (!gamePlayManager.isGameWon)
+            {
+                if (gamePlayManager.isGameOver)
+                    currentGameState = GameState.GameOver;
+            }
+            if(gamePlayManager.isGameWon)
+            {
+                currentGameState = GameState.GameWon;
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -166,6 +172,11 @@ namespace LethalWeapon
                 case GameState.GameOver:
                     DrawCurrentState(gameTime);
                     break;
+
+                case GameState.GameWon:
+                    DrawCurrentState(gameTime);
+                    break;
+
                 case GameState.Pause:
                     DrawCurrentState(gameTime);
                     break;
@@ -220,6 +231,10 @@ namespace LethalWeapon
             else if(currentGameState == GameState.GameOver)
             {
                 gamePlayManager.DrawGameOver(spriteBatch);
+            }
+            else if(currentGameState == GameState.GameWon)
+            {
+                gamePlayManager.DrawGameWon(spriteBatch);
             }
             else if(currentGameState == GameState.OverWorld)
             {
