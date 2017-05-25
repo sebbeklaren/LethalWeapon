@@ -27,14 +27,11 @@ namespace LethalWeapon
         KeyboardState last;
         public Vector2 position;
         public Texture2D texture;
-
         Rectangle playerSourceRect;
         public int playerFaceDirectionInt { get; set; }
         //double timePerFrame = 300; //Försök på att få det att funka
         //double elapsedTime = 150;
         //int frame = 0;
-
-
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
@@ -42,7 +39,6 @@ namespace LethalWeapon
         public double PlayerCurrentEnergi { get; set; }
         public int PlayerLevel { get; set; }
         public int PlayerExperiencePoints { get; set; }
-
         protected float regenTimer;
         protected int regen = 10;
         protected bool canRegen = false;
@@ -88,7 +84,6 @@ namespace LethalWeapon
             PlayerTextureDirection();
           //  elapsedTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
          //   AnimateWalking(gameTime);
-
             playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width/4 + 8, texture.Height - 24);
             playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width/4, texture.Height);
             checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
@@ -97,7 +92,6 @@ namespace LethalWeapon
             {
                 input.Update();
                 position += input.position * speed;
-
                 if (Keyboard.GetState().IsKeyDown(Keys.W))
                     position.Y -= speed;
                 if (Keyboard.GetState().IsKeyDown(Keys.S))
@@ -115,41 +109,51 @@ namespace LethalWeapon
                         isDodging = true;
                         PlayerCurrentEnergi -= 20;
                     }
+            PlayerDodge(gameTime);
+            PlayerAim();
+        }
+
+        public void PlayerDodge(GameTime gametime)
+        {
             if (isDodging == true)
             {
-                dodgeTimer += gameTime.ElapsedGameTime.Milliseconds;
+                dodgeTimer += gametime.ElapsedGameTime.TotalMilliseconds;
                 speed = 7;
             }
             if (playerIsHit == true)
             {
-                hitTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                hitTimer += gametime.ElapsedGameTime.TotalSeconds;
             }
 
             if (dodgeTimer > 300/* || input.gamePadState.Triggers.Left <= 0*/)//Kommentera bort sista vilkoret för tangentbord ska funka korrekt
 
-            if (dodgeTimer > 300 /*|| input.gamePadState.Triggers.Left <= 0*/)
+                if (dodgeTimer > 300 /*|| input.gamePadState.Triggers.Left <= 0*/)
 
-            {
-                speed = 4.0f;
-                isDodging = false;
-                dodgeTimer = 0;
-            }
-            if(hitTimer >= 1)
+                {
+                    speed = 4.0f;
+                    isDodging = false;
+                    dodgeTimer = 0;
+                }
+            if (hitTimer >= 1)
             {
                 playerIsHit = false;
                 hitTimer = 0;
-            }      
+            }
+        }
+
+        public void PlayerAim()
+        {
             if (!input.isConnected)
             {
                 aimSpeed = 5.0f;
-                aimPosition = input.aimDirection;                
+                aimPosition = input.aimDirection;
             }
             else
             {
                 aimSpeed = 10f;
                 aimPosition += input.aimDirection * (aimSpeed + speed);
             }
-            double maxAimDistYBot= 170;
+            double maxAimDistYBot = 170;
             double maxAimDistYTop = 185;
             double maxAimDistXLeft = 235;
             double maxAimDistXRight = 250;
@@ -171,7 +175,6 @@ namespace LethalWeapon
                 aimPosition.Y = position.Y + (float)maxAimDistYBot;
             }
         }
-
         public void energiRegen(GameTime gameTime)
         {
             if (PlayerCurrentEnergi <= 100 && canRegen == false)

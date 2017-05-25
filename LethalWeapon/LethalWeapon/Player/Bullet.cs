@@ -14,7 +14,6 @@ namespace LethalWeapon
     {
         public Texture2D texture;
         public Vector2 position;
-        Vector2 aimPosition, origin, hitBoxPosition, difference;
         public Rectangle bulletSource;
         public Rectangle hitBox;
         public Rectangle HitBox
@@ -41,6 +40,14 @@ namespace LethalWeapon
 
         public void Update(Player player)
         {
+            SwitchBullet();
+            BulletMovment(player);      
+            hitBox.X = (int)position.X;
+            hitBox.Y = (int)position.Y;
+        }
+        
+        public void SwitchBullet() // Byter texture och värden för bullet beroende på vilket vapen som används
+        {
             if (currentBullet == 1)
             {
                 bulletOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y / 2);
@@ -53,6 +60,9 @@ namespace LethalWeapon
                 bulletSource = new Rectangle(0, 0, 32, 32);
                 bulletScale = 2.5f;
             }
+        }
+        public void BulletMovment(Player player)
+        {
             if (shotFired == false)
             {
                 position = bulletStartingPosition + new Vector2(16, 24);
@@ -67,8 +77,6 @@ namespace LethalWeapon
             {
                 position += Vector2.Normalize(bulletDestination) * speed;
             }
-            hitBox.X = (int)position.X;
-            hitBox.Y = (int)position.Y;
         }
         public void Draw(SpriteBatch sb)
         {

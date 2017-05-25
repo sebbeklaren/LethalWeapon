@@ -45,13 +45,10 @@ namespace LethalWeapon
         bool weaponPickedUp = false;
         bool shotRemoved = false;
         bool canShot = true;
-        bool playerHasWeapon = false;
         bool hasTwoWeapons = false;
         public bool flipVertical;
         double shotTimer;
         public List<Bullet> bullets = new List<Bullet>();
-        public List<Bullet> lazers = new List<Bullet>();
-        public List<Bullet> shouldBeDeleted = new List<Bullet>();
 
         public Weapon(Texture2D texture, Vector2 position, Rectangle sourceRect) : base (texture, position, sourceRect)
         {
@@ -67,14 +64,13 @@ namespace LethalWeapon
             uziTexture = TextureManager.Weapon01Texture;
             weaponOrigin = new Vector2(texture.Bounds.Center.X / 2, texture.Bounds.Center.Y);
             railOrigin = new Vector2(railgunTexture.Bounds.Center.X / 2, railgunTexture.Bounds.Center.Y / 10);
-            //railOrigin = new Vector2(railgunOnGround.Bounds.Center.X / 2, railgunOnGround.Bounds.Center.Y);
             uziHitbox = new Rectangle((int)uziPos.X, (int)uziPos.Y, uziTexture.Width, uziTexture.Height);
             railgunHitbox = new Rectangle((int)railPos.X, (int)railPos.Y, railgunOnGround.Width, railgunOnGround.Height);
             railSource = new Rectangle(0, 64, 64, 64);
             uziSource = new Rectangle(0, 0, 34, 34);
         }
 
-        public void checkWeapon(Player player) // Kollar vilken av vapnena som spelaren plockade upp
+        public void CheckWeapon(Player player) // Kollar vilken av vapnena som spelaren plockade upp
         {
             if ((player.playerHitboxVertical.Intersects(uziHitbox)) || (player.playerHitboxVertical.Intersects(railgunHitbox)))
             {
@@ -86,7 +82,6 @@ namespace LethalWeapon
                 currentWeapon = 1;
                 shotSpeed = 300;
                 texture = uziTexture;
-                playerHasWeapon = true;
                 uziHitbox = new Rectangle(0, 0, 0, 0);
 
             }
@@ -96,7 +91,6 @@ namespace LethalWeapon
                 currentWeapon = 2;
                 shotSpeed = 1200;
                 texture = railgunTexture;
-                playerHasWeapon = true;
                 railgunHitbox = new Rectangle(0, 0, 0, 0);
             }
             if (numberOfWeapons == 2)
@@ -117,16 +111,17 @@ namespace LethalWeapon
             FlipWeapon(player);
             frametimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
             input.Update();
-            checkWeapon(player);
+            CheckWeapon(player);
+            CreateBullet(player);
             last = current;
             current = Keyboard.GetState();
             animationTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             if (weaponPickedUp)
             {
                 shotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            weaponHitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            if (/*player.playerHitboxVertical.Intersects(weaponHitbox)*/ currentWeapon > 0)
+            if ( currentWeapon > 0)
             {
                 weaponOnGround = false;
                 weaponPickedUp = true;
@@ -165,48 +160,7 @@ namespace LethalWeapon
                     }
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= shotSpeed || input.gamePadState.Triggers.Right > 0 && canShot == true && shotTimer >= shotSpeed
-                 || input.mousePosOld.LeftButton == ButtonState.Released && input.mousePosNew.LeftButton == ButtonState.Pressed && shotTimer >= shotSpeed)
-            {
-                if(weaponPickedUp)
-                {
-                    SoundManager.Bullet01Sound.Play();
-                }
-                if (shotTimer >= shotSpeed)
-                {
-                    canShot = true;
-                    shotTimer = 0;
-                }
-                if(currentWeapon == 1)
-                {
-                    damage = 10;
-                    bulletTexture = TextureManager.Bullet01Texture;
-                }
-                else if (currentWeapon == 2)
-                {
-                    damage = 40;
-                    bulletTexture = TextureManager.Bullet02Texture;
-                }
-                animationTime = 0;
-                Bullet b = new Bullet(bulletTexture);
-                b.bulletStartingPosition = player.Position;
-                b.startRotation = weaponRotation;
-                b.currentBullet = currentWeapon;
-                if(currentWeapon == 1)
-                {
-                    b.currentBullet = 1;
-                }
-                else if(currentWeapon == 2)
-                {
-                    b.currentBullet = 2;
-                }
-                bullets.Add(b);
-                canShot = false;
-            }
-            else if(input.gamePadState.Triggers.Right <= 0)
-            {
-                canShot = true;
-            }
+          
             foreach (Bullet b in bullets.ToList())
             {
                 b.Update(player);
@@ -251,7 +205,56 @@ namespace LethalWeapon
                 flipVertical = false;
             }
         }
+        public void CreateBullet(Player player)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shotTimer >= shotSpeed || input.gamePadState.Triggers.Right > 0 && canShot == true && shotTimer >= shotSpeed
+               || input.mousePosOld.LeftButton == ButtonState.Released && input.mousePosNew.LeftButton == ButtonState.Pressed && shotTimer >= shotSpeed)
+            {
+                if (weaponPickedUp)
+                {
+                    SoundManager.Bullet01Sound.Play();
+                }
+                if (shotTimer >= shotSpeed)
+                {
+                    canShot = true;
+                    shotTimer = 0;
+                }
+                if (currentWeapon == 1)
+                {
+                    damage = 10;
+                    bulletTexture = TextureManager.Bullet01Texture;
+                }
+                else if (currentWeapon == 2)
+                {
+                    damage = 40;
+                    bulletTexture = TextureManager.Bullet02Texture;
+                }
+                animationTime = 0;
+                Bullet b = new Bullet(bulletTexture);
+                b.bulletStartingPosition = player.Position;
+                b.startRotation = weaponRotation;
+                b.currentBullet = currentWeapon;
+                if (currentWeapon == 1)
+                {
+                    b.currentBullet = 1;
+                }
+                else if (currentWeapon == 2)
+                {
+                    b.currentBullet = 2;
+                }
+                bullets.Add(b);
+                canShot = false;
+            }
+            else if (input.gamePadState.Triggers.Right <= 0)
+            {
+                canShot = true;
+            }
+        }
 
+        public void RemoveBullet()
+        {
+
+        }
         public override void Draw(SpriteBatch sb)
         {
 
