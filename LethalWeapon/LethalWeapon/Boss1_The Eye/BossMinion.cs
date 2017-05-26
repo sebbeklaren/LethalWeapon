@@ -69,7 +69,7 @@ namespace LethalWeapon
             int playerDestRectOffset = 64;
             int textureOffset = 5;
             Animate(gameTime);
-            //Om pleyer kommer nära ska minions stanna och börja skjuta            
+            //Om player kommer nära ska minions stanna och börja skjuta            
             if (!closeToPlayer)
             {
                 Movement();
@@ -150,8 +150,7 @@ namespace LethalWeapon
                                             new Rectangle(0, 0, 15, 15), player, 12, 32, Vector2.Zero, 5, i, true, false);
                     bulletList.Add(bullets);
                 }
-            }
-            
+            }            
         }
         private void CheckCollisions(GameTime gameTime, Player player)
         {            
