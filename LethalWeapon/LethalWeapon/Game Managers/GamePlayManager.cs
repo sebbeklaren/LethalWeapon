@@ -56,7 +56,7 @@ namespace LethalWeapon
             this.game = game;
             gameOverTex = TextureManager.GameOverTexture;
             craterText = TextureManager.DesertBackgroundTexture;
-            player = new Player(TextureManager.PlayerIdleSpriteSheet, playerPosition, sourceRect, screenWidth, screenHeight);
+            player = new Player(TextureManager.PlayerSpriteSheet, playerPosition, sourceRect, screenWidth, screenHeight);
             for (int i = 0; i < 3; i++)
             {
                 Vector2 enemyPos = new Vector2(400, 240 + 50 * i);
@@ -109,7 +109,6 @@ namespace LethalWeapon
             gameOver = new GameOver(gameOverTex);
             killAllEnemies = new HelpTextManager(player.position);
             exitMap = new HelpTextManager( player.position);
-
         }
 
         public void Update(GameTime gameTime)

@@ -51,6 +51,7 @@ namespace LethalWeapon
         public static Texture2D PlayerWalkingLeft { get; private set; }
         public static Texture2D PlayerWalkingUp { get; private set; }
         public static Texture2D PlayerWalkingDown { get; private set; }
+        public static Texture2D PlayerSpriteSheet { get; private set; }
 
         public static SpriteFont Font { get; private set; }
 
@@ -89,8 +90,7 @@ namespace LethalWeapon
             PlayerWalkingUp = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyFrontWalking");
             PlayerWalkingLeft = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyLeftWalking");
             PlayerWalkingRight = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyRightWalking");
-
-
+            PlayerSpriteSheet = content.Load<Texture2D>(@"Textures/Player_Textures/HBSpriteSheet");
 
             PlayerAimTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/crosshair");
             BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet01");
