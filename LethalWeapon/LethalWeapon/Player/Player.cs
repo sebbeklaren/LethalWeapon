@@ -189,22 +189,22 @@ namespace LethalWeapon
             {
                 playerAnimationStatusInt = 4; //Vilken horisontell rad i spritesheeten basically.
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.W) || aimPosition.Y < position.Y)
+            else if (Keyboard.GetState().IsKeyDown(Keys.W)) //|| aimPosition.Y < position.Y)
             {
                 playerAnimationStatusInt = 0;
                 playerFaceDirectionInt = 2; // om isWalking är true så ger denna vilket håll spelaren ska vända sig.
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S) || aimPosition.Y > position.Y)
+            else if (Keyboard.GetState().IsKeyDown(Keys.S)) //|| aimPosition.Y > position.Y)
             {
                 playerAnimationStatusInt = 1;
                 playerFaceDirectionInt = 3;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A) || aimPosition.X < position.X - aimPosOffset)
+            else if (Keyboard.GetState().IsKeyDown(Keys.A)) //|| aimPosition.X < position.X - aimPosOffset)
             {
                 playerAnimationStatusInt = 2;
                 playerFaceDirectionInt = 1;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D) || aimPosition.X > position.X + aimPosOffset)
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))// || aimPosition.X > position.X + aimPosOffset)
             {
                 playerAnimationStatusInt = 3;
                 playerFaceDirectionInt = 0;
@@ -225,7 +225,7 @@ namespace LethalWeapon
 
             if (elapsedTime >= timePerFrame)
             {
-                if (frame >= 4)
+                if (frame >= 3)
                 {
                     frame = 0;
                 }
