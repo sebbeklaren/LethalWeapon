@@ -18,6 +18,7 @@ namespace LethalWeapon
         public static Texture2D PlayerIdleSpriteSheet { get; private set; }
         public static Texture2D EnemyTexture { get; private set; }
         public static Texture2D Weapon01Texture { get; private set; }
+
         public static Texture2D Weapon02TextureAnimated { get; private set; }
         public static Texture2D Weapon02Texture { get; private set; }
         public static Texture2D Weapon02IconTexture { get; private set; }
@@ -68,32 +69,31 @@ namespace LethalWeapon
             Bullet01Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Default_Weapon_Textures/Bullet");
             Bullet02Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Lazer");
             Weapon02TextureAnimated = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railgunanimation");
+
             Weapon02Texture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railgun");
             Weapon02IconTexture = content.Load<Texture2D>(@"Textures/Weapon_Textures/Railgun_Textures/Railicon");
             BossOneTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossOne");
             BossBulletTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossBullet");
-
             BossMissileTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/MissileAnimation");
+
             DesertBackgroundTexture = content.Load<Texture2D>(@"Textures/Map_Additions/Desert/DesertBackground01");
             DesertTile = content.Load<Texture2D>(@"Textures/Tilesets/DesertTile");
             HealtBarTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/HealthBar");
             EnergyBarTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/EnergyBar");
-
             HealthBorderTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/barBorder");
+
             ActiveWeaponBorderTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/MetalBorder");
             KillAllEnemiesTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/KillAllEnemies");
             ExitMapTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/ExitMap");
             GameOverTexture = content.Load<Texture2D>(@"Textures/Temporary_Textures/Game Over");
-
             PlayerWalkingDown = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyBackWalking");
+
             PlayerWalkingUp = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyFrontWalking");
             PlayerWalkingLeft = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyLeftWalking");
             PlayerWalkingRight = content.Load<Texture2D>(@"Textures/Player_Textures/WalkingAnimation/HoodyBoyRightWalking");
-
-
-
             PlayerAimTexture = content.Load<Texture2D>(@"Textures/GUI_Textures/crosshair");
             BossLaserTexture = content.Load<Texture2D>(@"Textures/Boss1_Textures/LaserSpriteSheet01");
+
             BossMinionTeleport = content.Load<Texture2D>(@"Textures/Boss1_Textures/TeleportAnimation");
             BossMinion = content.Load<Texture2D>(@"Textures/Boss1_Textures/BossMinion");
             MinionLaser = content.Load<Texture2D>(@"Textures/Boss1_Textures/MinionLaser");
