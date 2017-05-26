@@ -84,9 +84,9 @@ namespace LethalWeapon
             current = Keyboard.GetState();
             KeyboardInput();
             PlayerTextureDirection();
-            playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width/4 + 8, texture.Height - 24);
-            playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width/4, texture.Height);
-            checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
+            playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , (texture.Width/4 + 8), (texture.Height/5) - 24);
+            playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, (texture.Width/4), (texture.Height/5));
+            checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, (texture.Width/4) + 32, (texture.Height/5) + 48);
             energiRegen(gameTime);
             PlayerDodge(gameTime);
             PlayerAim();
@@ -216,11 +216,11 @@ namespace LethalWeapon
             elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             if(isWalking)
             {
-                playerSourceRect = new Rectangle((texture.Width / 4) * frame, (texture.Height/ 5) * playerAnimationStatusInt, texture.Width / 5, texture.Height);
+                playerSourceRect = new Rectangle((texture.Width / 4) * frame, (texture.Height/ 5) * playerAnimationStatusInt, texture.Width / 4, texture.Height / 5);
             }
             else
             {
-                playerSourceRect = new Rectangle((texture.Width / 4) * playerFaceDirectionInt, (texture.Height / 5) * playerAnimationStatusInt, texture.Width / 4, texture.Height);
+                playerSourceRect = new Rectangle((texture.Width / 4) * playerFaceDirectionInt, (texture.Height / 5) * playerAnimationStatusInt, texture.Width / 4, texture.Height / 5);
             }
 
             if (elapsedTime >= timePerFrame)
