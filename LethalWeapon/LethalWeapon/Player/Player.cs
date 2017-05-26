@@ -217,36 +217,6 @@ namespace LethalWeapon
                 playerFaceDirectionInt = 0;
         }
 
-        //public void AnimateWalking(GameTime gameTime) 
-        //{
-        //    if (elapsedTime <= 0)
-        //    {
-        //        if (Keyboard.GetState().IsKeyDown(Keys.W))
-        //        {
-        //            texture = TextureManager.PlayerWalkingUp;
-        //        }
-        //        else if(Keyboard.GetState().IsKeyDown(Keys.S))
-        //        {
-        //            texture = TextureManager.PlayerWalkingDown;
-        //        }
-        //        else if (Keyboard.GetState().IsKeyDown(Keys.A))
-        //        {
-        //            texture = TextureManager.PlayerWalkingLeft;
-        //        }
-        //        else if (Keyboard.GetState().IsKeyDown(Keys.D))
-        //        {
-        //            texture = TextureManager.PlayerWalkingRight;
-        //        }
-        //        else
-        //        {
-        //            texture = TextureManager.PlayerIdleSpriteSheet;
-        //        }
-        //        elapsedTime = timePerFrame;
-        //        frame++;
-        //        playerSourceRect.X = (frame % 4) * 32;
-        //    }
-        //}
-
         public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, playerSourceRect, Color.White);
