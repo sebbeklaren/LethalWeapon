@@ -212,7 +212,7 @@ namespace LethalWeapon
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
-                currentGameState = GameState.Pause;
+                currentGameState = GameState.MainMenu;
                 boolOverWorld = false;
                 boolCityLevel = false;
                 gameOn = false;
