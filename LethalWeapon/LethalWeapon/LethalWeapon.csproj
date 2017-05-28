@@ -131,6 +131,9 @@
     <Content Include="Content\Textures\Player_Textures\HoodyBoyIdleSpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\Player_Textures\HBSpriteSheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\Player_Textures\WalkingAnimation\HoodyBoyBackWalking.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

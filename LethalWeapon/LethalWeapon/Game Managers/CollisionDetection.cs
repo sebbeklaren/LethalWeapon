@@ -59,13 +59,13 @@ namespace LethalWeapon
                 if (player.playerHitboxHorizontal.Bottom >= wall.Top - wallTopHitOffset && player.playerHitboxHorizontal.Bottom <= wall.Top &&
                     player.playerHitboxHorizontal.Right >= wall.Left && player.playerHitboxHorizontal.Left <= wall.Right)
                 {
-                    player.position.Y = wall.Top - player.texture.Height - wallTopPosOffset;
+                    player.position.Y = wall.Top - (player.texture.Height / 5) - wallTopPosOffset;
                     player.canMove = false;
                 }
                 else if (player.playerHitboxHorizontal.Top <= wall.Bottom && player.playerHitboxHorizontal.Top >= wall.Bottom - wallBottomHitOffset &&
                         player.playerHitboxHorizontal.Right >= wall.Left && player.playerHitboxHorizontal.Left <= wall.Right)
                 {
-                    player.position.Y = wall.Bottom + player.texture.Height - wallBottomPosOffset;
+                    player.position.Y = wall.Bottom + (player.texture.Height / 5) - wallBottomPosOffset;
                     player.canMove = false;
                 }
                 else
@@ -86,14 +86,14 @@ namespace LethalWeapon
                 if (player.playerHitboxVertical.Right >= wall.Left - wallLeftHitOffset && player.playerHitboxVertical.Right <= wall.Left &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Left - player.texture.Width/4 - wallLeftPosOffset;
+                    player.position.X = wall.Left - (player.texture.Width/4)- wallLeftPosOffset;
                     
                     player.canMove = false;
                 }
                 else if (player.playerHitboxVertical.Left <= wall.Right && player.playerHitboxVertical.Left >= wall.Right - wallRightHitOffset &&
                     player.playerHitboxVertical.Bottom >= wall.Top && player.playerHitboxVertical.Top <= wall.Bottom)
                 {
-                    player.position.X = wall.Right + player.texture.Width/4  - wallRightPosOffset;
+                    player.position.X = wall.Right + (player.texture.Width/4)  - wallRightPosOffset;
                     player.canMove = false;
                 }
                 else

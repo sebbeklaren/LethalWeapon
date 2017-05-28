@@ -28,10 +28,11 @@ namespace LethalWeapon
         public Vector2 position;
         public Texture2D texture;
         Rectangle playerSourceRect;
+        public int playerAnimationStatusInt { get; set; }
         public int playerFaceDirectionInt { get; set; }
-        //double timePerFrame = 300; //Försök på att få det att funka
-        //double elapsedTime = 150;
-        //int frame = 0;
+        double timePerFrame = 300; //Försök på att få det att funka
+        double elapsedTime = 150;
+        int frame = 0;
         //Stats for Player to read and display
         public double PlayerMaxHealth { get; set; }
         public double PlayerMaxEnergi { get; set; }
@@ -43,6 +44,7 @@ namespace LethalWeapon
         protected int regen = 10;
         protected bool canRegen = false;
         int screenWidth, screenHeight;
+        public bool isWalking = false;
        
         Vector2 aimPosition;
         Vector2 dodgeSpeed;
@@ -60,7 +62,6 @@ namespace LethalWeapon
         public Player(Texture2D texture, Vector2 position, Rectangle sourceRect, int screenWidth, int screenHeight): 
             base (texture, position, sourceRect)
         {
-            
             this.texture = texture;
             this.position = position;
             this.playerSourceRect = sourceRect;
@@ -73,44 +74,23 @@ namespace LethalWeapon
             PlayerLevel = 1;
             PlayerExperiencePoints = 0;
             dodgeSpeed = new Vector2(3, 3);
-            aimTexture = TextureManager.PlayerAimTexture;
-                   
+            aimTexture = TextureManager.PlayerAimTexture; 
         }
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
+          
             last = current;
             current = Keyboard.GetState();
+            KeyboardInput();
             PlayerTextureDirection();
-          //  elapsedTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-         //   AnimateWalking(gameTime);
-            playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , texture.Width/4 + 8, texture.Height - 24);
-            playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, texture.Width/4, texture.Height);
-            checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, texture.Width + 32, texture.Height + 48);
+            playerHitboxVertical = new Rectangle((int)position.X - 4, (int)position.Y + 12 , (texture.Width/4 + 8), (texture.Height/5) - 24);
+            playerHitboxHorizontal = new Rectangle((int)position.X, (int)position.Y, (texture.Width/4), (texture.Height/5));
+            checkRec = new Rectangle((int)position.X - 16, (int)position.Y - 24, (texture.Width/4) + 32, (texture.Height/5) + 48);
             energiRegen(gameTime);
-            if (canMove)
-            {
-                input.Update();
-                position += input.position * speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.W))
-                    position.Y -= speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.S))
-                    position.Y += speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.A))
-                    position.X -= speed;
-                if (Keyboard.GetState().IsKeyDown(Keys.D))
-                    position.X += speed;
-            }
-
-                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePadState.Triggers.Left > 0 && PlayerCurrentEnergi >= 20)
-                if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePadState.Triggers.Left > 0 && PlayerCurrentEnergi >= 20) //Kommentera bort sista vilkoret för tangentbord ska funka korrekt
-
-                    {
-                        isDodging = true;
-                        PlayerCurrentEnergi -= 20;
-                    }
             PlayerDodge(gameTime);
             PlayerAim();
+            AnimatePlayer(gameTime);
         }
 
         public void PlayerDodge(GameTime gametime)
@@ -202,20 +182,138 @@ namespace LethalWeapon
             }
         }
 
-        public void PlayerTextureDirection()
+        public void PlayerTextureDirection() //Nytt, kollar efter vilket håll spelaren vänder sig eftersom alla håll texturen vänder sig ligger bredvid varandra.
         {
             int aimPosOffset = 100;
-            playerSourceRect = new Rectangle(texture.Width / 4 * playerFaceDirectionInt, 0, texture.Width / 4, texture.Height);
-
-            if (Keyboard.GetState().IsKeyDown(Keys.W) || aimPosition.Y < position.Y)
-                playerFaceDirectionInt = 2;
-            if (Keyboard.GetState().IsKeyDown(Keys.S) || aimPosition.Y > position.Y)
+            if (!isWalking)
+            {
+                playerAnimationStatusInt = 4; //Vilken horisontell rad i spritesheeten basically.
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.W)) //|| aimPosition.Y < position.Y)
+            {
+                playerAnimationStatusInt = 0;
+                playerFaceDirectionInt = 2; // om isWalking är true så ger denna vilket håll spelaren ska vända sig.
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.S)) //|| aimPosition.Y > position.Y)
+            {
+                playerAnimationStatusInt = 1;
                 playerFaceDirectionInt = 3;
-            if (Keyboard.GetState().IsKeyDown(Keys.A) || aimPosition.X < position.X - aimPosOffset)
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.A)) //|| aimPosition.X < position.X - aimPosOffset)
+            {
+                playerAnimationStatusInt = 2;
                 playerFaceDirectionInt = 1;
-            if (Keyboard.GetState().IsKeyDown(Keys.D) || aimPosition.X > position.X + aimPosOffset)
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))// || aimPosition.X > position.X + aimPosOffset)
+            {
+                playerAnimationStatusInt = 3;
                 playerFaceDirectionInt = 0;
+            }
         }
+
+        public void AnimatePlayer(GameTime gameTime)
+        {
+            elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if(isWalking)
+            {
+                playerSourceRect = new Rectangle((texture.Width / 4) * frame, (texture.Height/ 5) * playerAnimationStatusInt, texture.Width / 4, texture.Height / 5);
+            }
+            else
+            {
+                playerSourceRect = new Rectangle((texture.Width / 4) * playerFaceDirectionInt, (texture.Height / 5) * playerAnimationStatusInt, texture.Width / 4, texture.Height / 5);
+            }
+
+            if (elapsedTime >= timePerFrame)
+            {
+                if (frame >= 3)
+                {
+                    frame = 0;
+                }
+                else
+                {
+                    frame++;
+                }
+                elapsedTime = 0;
+            }
+        }
+
+        #region GamlaAnimatioGrejer
+        //public void AnimateWalking(GameTime gameTime)
+        //{
+        //    if (isWalking)
+        //    {
+        //        elapsedTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+        //        if (playerFaceDirectionInt == 2)
+        //        {
+        //            texture = TextureManager.PlayerWalkingUp;
+        //        }
+        //        else if (playerFaceDirectionInt == 3)
+        //        {
+        //            texture = TextureManager.PlayerWalkingDown;
+        //        }
+        //        else if (playerFaceDirectionInt == 1)
+        //        {
+        //            texture = TextureManager.PlayerWalkingLeft;
+        //        }
+        //        else if (playerFaceDirectionInt == 0)
+        //        {
+        //            texture = TextureManager.PlayerWalkingRight;
+        //        }
+
+        //        if (elapsedTime <= timePerFrame)
+        //        {
+        //            if (frame >= 4)
+        //            {
+        //                frame = 0;
+        //            }
+        //            else
+        //            {
+        //                frame++;
+        //            }
+        //            elapsedTime = timePerFrame;
+        //        }
+        //        playerSourceRect = new Rectangle((texture.Width / 4) * frame, 0, texture.Width / 5, texture.Height);
+        //    }
+        //}
+        #endregion
+
+        public void KeyboardInput()
+        {
+            if (canMove)
+            {
+                input.Update();
+                position += input.position * speed;
+                if (Keyboard.GetState().IsKeyDown(Keys.W))
+                {
+                    position.Y -= speed;
+                    isWalking = true;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.S))
+                {
+                    position.Y += speed;
+                    isWalking = true;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.A))
+                {
+                    position.X -= speed;
+                    isWalking = true;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.D))
+                {
+                    position.X += speed;
+                    isWalking = true;
+                }
+                else { isWalking = false; }
+            }
+
+              if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePadState.Triggers.Left > 0 && PlayerCurrentEnergi >= 20)
+            if (current.IsKeyDown(Keys.LeftControl) && last.IsKeyUp(Keys.LeftControl) || input.gamePadState.Triggers.Left > 0 && PlayerCurrentEnergi >= 20) //Kommentera bort sista vilkoret för tangentbord ska funka korrekt
+            {
+                isDodging = true;
+                PlayerCurrentEnergi -= 20;
+            }
+        }
+
 
         public override void Draw(SpriteBatch sb)
         {
