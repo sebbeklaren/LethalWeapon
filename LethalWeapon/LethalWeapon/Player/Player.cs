@@ -30,7 +30,7 @@ namespace LethalWeapon
         Rectangle playerSourceRect;
         public int playerAnimationStatusInt { get; set; }
         public int playerFaceDirectionInt { get; set; }
-        double timePerFrame = 300; //Försök på att få det att funka
+        double timePerFrame = 150; //Försök på att få det att funka
         double elapsedTime = 150;
         int frame = 0;
         //Stats for Player to read and display
